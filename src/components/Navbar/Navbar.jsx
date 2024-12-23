@@ -15,7 +15,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative flex justify-between items-center p-6 border-b border-gray-300 dark:border-gray-700">
+    <nav className="relative flex justify-between items-center p-6 border-b border-zinc-300 dark:border-zinc-800">
       <div className="text-2xl">
         <TypingAnimation className="font-cera text-md">
           Azkbrqlna_
@@ -47,7 +47,7 @@ export default function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="absolute top-16 right-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 md:hidden z-50">
+        <div className="absolute top-16 right-6 bg-white dark:bg-zinc-800 shadow-lg rounded-lg p-4 md:hidden z-50">
           <div className="flex flex-col items-center space-y-4">
             <NavItem href="/" onClick={toggleMobileMenu}>
               About
