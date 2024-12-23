@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter} ${ceraRoundPro}`}>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen ">
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
