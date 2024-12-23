@@ -1,13 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 export default function Footer() {
-  const [year, setYear] = useState(new Date().getFullYear());
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  const [year] = useState(new Date().getFullYear());
 
   return (
     <footer className="flex items-center justify-center flex-col py-5 mt-auto">

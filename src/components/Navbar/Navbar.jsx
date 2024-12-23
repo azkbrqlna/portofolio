@@ -5,9 +5,9 @@ import { Button } from "../ui/button";
 import TypingAnimation from "../ui/typing-animation";
 import NavItem from "./NavItem";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { HiMenuAlt3 } from "react-icons/hi";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative flex justify-between items-center p-6">
+    <nav className="relative flex justify-between items-center p-6 border-b border-gray-300 dark:border-gray-700">
       <div className="text-2xl">
         <TypingAnimation className="font-cera text-md">
           Azkbrqlna_
@@ -26,7 +26,7 @@ const Navbar = () => {
           <NavItem href="/">About</NavItem>
           <NavItem href="/experience">Experience</NavItem>
           <NavItem href="/skills">Skills</NavItem>
-          <NavItem href="/projects">Project</NavItem>
+          <NavItem href="/projects">Projects</NavItem>
         </div>
 
         <Link
@@ -42,7 +42,7 @@ const Navbar = () => {
           className="md:hidden flex items-center space-x-2"
           onClick={toggleMobileMenu}
         >
-          <Menu className="w-6 h-6 text-black dark:text-white" />
+          <HiMenuAlt3 size={30} />
         </button>
       </div>
 
@@ -74,6 +74,4 @@ const Navbar = () => {
       )}
     </nav>
   );
-};
-
-export default Navbar;
+}
