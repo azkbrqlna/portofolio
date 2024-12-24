@@ -19,7 +19,7 @@ export default function HomePage() {
           "absolute inset-0 h-full w-full skew-y-12"
         )}
       />
-      <div className="flex flex-col mt-10 md:flex-row justify-center">
+      <div className="pt-24 flex flex-col mt-10 md:flex-row justify-center">
         <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left px-8">
           <div className="flex-1 max-w-lg">
             <div className="text-4xl font-bold font-cera ">
