@@ -1,14 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { BsSun, BsMoon } from "react-icons/bs";
+
 export default function Footer() {
   const [year] = useState(new Date().getFullYear());
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Update dark mode state in localStorage
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
 
   return (
-    <footer className="flex items-center justify-center flex-col py-5 mt-auto">
+    <footer className="flex items-center justify-between flex-row py-5 px-6 mt-auto  border-zinc-300 dark:border-zinc-800">
       <p className="text-center font-cera font-bold text-sm">
-        &copy; {year} Designed and Built by Azkbrqlna
+        &copy; {year} All Rights Reserved | Azka Bariqlana
       </p>
+      <button
+        className="text-xl p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 transition"
+        onClick={toggleTheme}
+        aria-label="Toggle Theme"
+      >
+        {isDarkMode ? <BsSun className="text-yellow-500" /> : <BsMoon />}
+      </button>
     </footer>
   );
 }

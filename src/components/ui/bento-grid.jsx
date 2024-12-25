@@ -28,7 +28,7 @@ const BentoCard = ({
   name,
   className,
   background,
-  Icon,
+  Icons = [], // Icons is now an array
   description,
   href,
   cta,
@@ -45,13 +45,30 @@ const BentoCard = ({
     )}
   >
     <div>{background}</div>
-    <div className="pointer-events-none z-10 flex flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
-      {/* Conditionally render the Icon */}
-      {Icon && (
-        <Icon className="h-12 w-12 origin-left transform-gpu text-white transition-all duration-300 ease-in-out group-hover:scale-75" />
+
+    <div
+      className="absolute inset-0 z-10 bg-gradient-to-t 
+  from-white/60 to-transparent 
+  dark:from-black dark:to-transparent 
+  "
+    ></div>
+
+    <div className="z-20 flex flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
+      {/* Render multiple icons */}
+      {Icons.length > 0 && (
+        <div className="flex gap-2">
+          {Icons.map((Icon, idx) => (
+            <Icon
+              key={idx}
+              className="h-12 w-12 origin-left transform-gpu text-black dark:text-white transition-all duration-300 ease-in-out group-hover:scale-75"
+            />
+          ))}
+        </div>
       )}
-      <h3 className="text-xl font-semibold text-white">{name}</h3>
-      <p className="max-w-lg text-neutral-400">
+      <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+        {name}
+      </h3>
+      <p className="max-w-lg text-neutral-800 dark:text-neutral-300">
         {truncateDescription(description)}
       </p>
     </div>
@@ -59,14 +76,14 @@ const BentoCard = ({
     {/* Button Section */}
     <div
       className={cn(
-        "absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+        "absolute bottom-0 z-30 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
       )}
     >
       <Link href={href} passHref target="_blank" rel="noopener noreferrer">
         <Button
           variant="default"
           size="sm"
-          className="w-full font-cera text-white hover:bg-white hover:text-black focus:outline-none" // Ensure focus and hover styles are applied
+          className="w-full font-cera  hover:bg-white hover:text-black"
         >
           {cta}
           <ArrowRightIcon className="ml-2 h-4 w-4" />

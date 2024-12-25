@@ -1,55 +1,59 @@
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { FadeText } from "@/components/ui/fade-text";
 import GradualSpacing from "@/components/ui/gradual-spacing";
+import Image from "next/image";
+import { RiNextjsFill, RiNodejsFill, RiTailwindCssFill } from "react-icons/ri";
+import { SiSocketdotio } from "react-icons/si";
 
 const cardClass = {
-  bg: "absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110",
+  bg: "absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110 group-hover:rotate-2",
 };
 
 const projects = [
   {
-    name: "Project 1",
-    description: "Description for project 1",
-    href: "#",
+    Icons: [RiNextjsFill, RiTailwindCssFill],
+    name: "My Portfolio",
+    description: "A simple portfolio website",
+    href: "",
     cta: "View Project",
     background: (
-      <img src="/images/copy.jpg" alt="Project 1" className={cardClass.bg} />
+      <Image
+        src="/images/porto.png"
+        layout="fill"
+        alt="Project 1"
+        className={cardClass.bg}
+      />
     ),
   },
   {
-    name: "Project 2",
-    description: "Description for project 2",
+    Icons: [SiSocketdotio, RiNodejsFill],
+    name: "Template Bot",
+    description:
+      "template for building a WhatsApp bot using Whiskey Socket Baileys with Node.js",
     href: "#",
     cta: "View Project",
     background: (
-      <img src="/images/copy.jpg" alt="Project 2" className={cardClass.bg} />
-    ),
-  },
-  {
-    name: "Project 3",
-    description: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae
-          exercitationem iste sint id omnis ipsa. Aut maxime officiis temporibus
-          consectetur ab suscipit, dicta perspiciatis nulla possimus. Cumque
-          suscipit error velit.`,
-    href: "https://www.google.com",
-    cta: "View Project",
-    background: (
-      <img src="/images/copy.jpg" alt="Project 3" className={cardClass.bg} />
+      <Image
+        src="/images/Whatsapp-Bot.jpg"
+        layout="fill"
+        alt="Project 1"
+        className={cardClass.bg}
+      />
     ),
   },
 ];
 
 export default function ProjectsPage() {
   return (
-    <div className="pt-24  container mx-auto px-4 py-5">
+    <div className="pt-24 container mx-auto py-20 ">
       <header className="text-center mb-8">
         <GradualSpacing
           text="My Projects"
-          className="text-3xl font-bold text-zinc-900"
+          className="text-3xl font-bold text-zinc-900 dark:text-zinc-100"
         />
         <FadeText
           text={
-            <p className="mt-2 text-lg text-zinc-700">
+            <p className="mt-2 text-lg text-zinc-700 dark:text-zinc-300">
               A collection of some projects I made
             </p>
           }
@@ -67,17 +71,19 @@ export default function ProjectsPage() {
 
       <FadeText
         text={
-          <BentoGrid className="flex flex-wrap gap-6 justify-center m-5 items-stretch">
+          <BentoGrid className="flex flex-wrap gap-6 justify-center items-stretch">
             {projects.map((project, idx) => (
               <BentoCard
                 key={idx}
                 {...project}
-                className="relative w-full max-w-xs h-64 overflow-hidden rounded-lg shadow-lg group"
+                className="relative w-full max-w-sm  h-80 overflow-hidden rounded-lg shadow-lg group "
               >
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
-                <a href={project.href}>{project.cta}</a>
-                {project.background}
+                <div>
+                  <h3>{project.name}</h3>
+                  <p>{project.description}</p>
+                  <a href={project.href}>{project.cta}</a>
+                  {project.background}
+                </div>
               </BentoCard>
             ))}
           </BentoGrid>
@@ -87,7 +93,7 @@ export default function ProjectsPage() {
           show: {
             transition: {
               delay: 1,
-              duration: 0.8,
+              duration: 1,
             },
           },
         }}

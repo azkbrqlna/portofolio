@@ -5,6 +5,7 @@ import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { FadeText } from "@/components/ui/fade-text";
 import DockItems from "@/components/Dock/Dock";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -67,11 +68,14 @@ export default function HomePage() {
           <div className="flex-1 flex justify-center">
             <FadeText
               text={
-                <img
-                  src="/images/copy.jpg"
-                  alt="Azka Bariqlana"
-                  className="w-48 h-48 rounded-full shadow-lg object-cover"
-                />
+                <div className="w-48 h-48 rounded-full overflow-hidden  ">
+                  <Image
+                    src="/images/copy.jpg"
+                    alt="Azka Bariqlana"
+                    width={192}
+                    height={192}
+                  />
+                </div>
               }
               framerProps={{
                 show: {
@@ -89,7 +93,7 @@ export default function HomePage() {
 
       <FadeText
         text={
-          <div className="flex flex-col items-center mt-10  ">
+          <div className="flex flex-col items-center mt-8  ">
             <h2 className="text-md font-semibold">Connect with me:</h2>
             <div className="flex space-x-1 text-xl">
               <DockItems href="https://www.linkedin.com/in/azka-bariqlana-06a3482a1/">
