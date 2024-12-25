@@ -15,12 +15,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white dark:bg-neutral-950 z-50 flex justify-between items-center p-6 border-b border-zinc-300 dark:border-zinc-800">
-      <div className="text-2xl">
-        <TypingAnimation className="font-cera text-md">
-          Portofolio
-        </TypingAnimation>
-      </div>
+    <nav className="fixed top-0 left-0 w-full font-cera bg-white dark:bg-neutral-950 z-50 flex justify-between items-center p-4 border-b border-zinc-300 dark:border-zinc-800">
+      <TypingAnimation className="text-xl">Portofolio</TypingAnimation>
+
       <div className="flex items-center space-x-8">
         <div className="hidden md:flex justify-end items-center space-x-6">
           <NavItem href="/">About</NavItem>
@@ -41,7 +38,7 @@ export default function Navbar() {
           onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
         >
-          {isMobileMenuOpen ? <HiX size={30} /> : <HiMenuAlt3 size={30} />}
+          {isMobileMenuOpen ? <HiX size={25} /> : <HiMenuAlt3 size={25} />}
         </button>
       </div>
 

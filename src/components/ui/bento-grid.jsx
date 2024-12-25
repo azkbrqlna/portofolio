@@ -83,7 +83,7 @@ const BentoCard = ({
         <Button
           variant="default"
           size="sm"
-          className="w-full font-cera  hover:bg-white hover:text-black"
+          className="w-full font-cera  hover:bg-black hover:text-white"
         >
           {cta}
           <ArrowRightIcon className="ml-2 h-4 w-4" />

@@ -29,7 +29,7 @@ const projects = [
     Icons: [SiSocketdotio, RiNodejsFill],
     name: "Template Bot",
     description:
-      "template for building a WhatsApp bot using Whiskey Socket Baileys with Node.js",
+      "Template for building a WhatsApp bot using Whiskey Socket Baileys with Node.js",
     href: "https://github.com/azkbrqlna/Template-Bot",
     cta: "View Project",
     background: (
@@ -52,7 +52,7 @@ const projects = [
       <Image
         src="/images/wms.png"
         layout="fill"
-        alt="WMS"
+        alt="wms"
         className={cardClass.bg}
       />
     ),
