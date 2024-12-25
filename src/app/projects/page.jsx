@@ -3,7 +3,7 @@ import { FadeText } from "@/components/ui/fade-text";
 import GradualSpacing from "@/components/ui/gradual-spacing";
 import Image from "next/image";
 import { RiNextjsFill, RiNodejsFill, RiTailwindCssFill } from "react-icons/ri";
-import { SiSocketdotio } from "react-icons/si";
+import { SiInertia, SiLaravel, SiReact, SiSocketdotio } from "react-icons/si";
 
 const cardClass = {
   bg: "absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110 group-hover:rotate-2",
@@ -20,7 +20,7 @@ const projects = [
       <Image
         src="/images/porto.png"
         layout="fill"
-        alt="Project 1"
+        alt="porto"
         className={cardClass.bg}
       />
     ),
@@ -36,7 +36,23 @@ const projects = [
       <Image
         src="/images/Whatsapp-Bot.jpg"
         layout="fill"
-        alt="Project 1"
+        alt="whatsapp-bot"
+        className={cardClass.bg}
+      />
+    ),
+  },
+  {
+    Icons: [SiLaravel, SiInertia, SiReact],
+    name: "Warehouse Management System",
+    description:
+      "Final project for graduation requirements at SMK Negeri 7 Semarang. I served as a backend developer.",
+    href: "#",
+    cta: "View Project",
+    background: (
+      <Image
+        src="/images/wms.png"
+        layout="fill"
+        alt="WMS"
         className={cardClass.bg}
       />
     ),

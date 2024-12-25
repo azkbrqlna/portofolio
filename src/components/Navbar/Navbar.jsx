@@ -24,8 +24,6 @@ export default function Navbar() {
       <div className="flex items-center space-x-8">
         <div className="hidden md:flex justify-end items-center space-x-6">
           <NavItem href="/">About</NavItem>
-          <NavItem href="/experience">Experience</NavItem>
-          <NavItem href="/skills">Skills</NavItem>
           <NavItem href="/projects">Projects</NavItem>
         </div>
 
