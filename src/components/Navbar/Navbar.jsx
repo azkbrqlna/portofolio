@@ -54,7 +54,7 @@ export default function Navbar() {
             About
           </NavItem>
           <NavItem href="/projects" onClick={toggleMobileMenu}>
-            Project
+            Projects
           </NavItem>
           <Link
             href="https://drive.google.com/file/d/1i-uA3AYSPpRyU3U5W1ETKHz2h90Zthy6/view?usp=sharing"
@@ -62,7 +62,9 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button className="w-full">Resume</Button>
+            <Button className="w-full" onClick={toggleMobileMenu}>
+              Resume
+            </Button>
           </Link>
         </div>
       </div>
