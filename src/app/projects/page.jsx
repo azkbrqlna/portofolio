@@ -14,7 +14,7 @@ const projects = [
     Icons: [RiNextjsFill, RiTailwindCssFill],
     name: "My Portfolio",
     description: "A simple portfolio website",
-    href: "",
+    href: "https://github.com/azkbrqlna/portofolio",
     cta: "View Project",
     background: (
       <Image
@@ -30,7 +30,7 @@ const projects = [
     name: "Template Bot",
     description:
       "template for building a WhatsApp bot using Whiskey Socket Baileys with Node.js",
-    href: "#",
+    href: "https://github.com/azkbrqlna/Template-Bot",
     cta: "View Project",
     background: (
       <Image
@@ -46,7 +46,7 @@ const projects = [
     name: "Warehouse Management System",
     description:
       "Final project for graduation requirements at SMK Negeri 7 Semarang. I served as a backend developer.",
-    href: "#",
+    href: "https://github.com/azkbrqlna/WarehouseManagement",
     cta: "View Project",
     background: (
       <Image

@@ -56,12 +56,6 @@ export default function Navbar() {
           <NavItem href="/" onClick={toggleMobileMenu}>
             About
           </NavItem>
-          <NavItem href="/experience" onClick={toggleMobileMenu}>
-            Experience
-          </NavItem>
-          <NavItem href="/skills" onClick={toggleMobileMenu}>
-            Skills
-          </NavItem>
           <NavItem href="/projects" onClick={toggleMobileMenu}>
             Project
           </NavItem>
