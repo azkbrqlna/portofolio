@@ -2,6 +2,7 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { FadeText } from "@/components/ui/fade-text";
 import GradualSpacing from "@/components/ui/gradual-spacing";
 import Image from "next/image";
+import Link from "next/link";
 import { RiNextjsFill, RiNodejsFill, RiTailwindCssFill } from "react-icons/ri";
 import { SiInertia, SiLaravel, SiReact, SiSocketdotio } from "react-icons/si";
 
@@ -13,7 +14,7 @@ const projects = [
   {
     Icons: [RiNextjsFill, RiTailwindCssFill],
     name: "My Portfolio",
-    description: "A simple portfolio website",
+    description: "A simple portfolio website.",
     href: "https://github.com/azkbrqlna/portofolio",
     cta: "View Project",
     background: (
@@ -29,7 +30,7 @@ const projects = [
     Icons: [SiSocketdotio, RiNodejsFill],
     name: "Template Bot",
     description:
-      "Template for building a WhatsApp bot using Whiskey Socket Baileys with Node.js",
+      "Template for building a WhatsApp bot using Whiskey Socket Baileys with NodeJS.",
     href: "https://github.com/azkbrqlna/Template-Bot",
     cta: "View Project",
     background: (
@@ -97,7 +98,7 @@ export default function ProjectsPage() {
                 <div>
                   <h3>{project.name}</h3>
                   <p>{project.description}</p>
-                  <a href={project.href}>{project.cta}</a>
+                  <Link href={project.href}>{project.cta}</Link>
                   {project.background}
                 </div>
               </BentoCard>
