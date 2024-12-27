@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BsSun, BsMoon } from "react-icons/bs";
+import { RiMoonClearLine, RiSunLine } from "react-icons/ri";
 
 export default function Footer() {
   const [year] = useState(new Date().getFullYear());
@@ -30,7 +30,11 @@ export default function Footer() {
         onClick={toggleTheme}
         aria-label="Toggle Theme"
       >
-        {isDarkMode ? <BsSun className="text-yellow-500" /> : <BsMoon />}
+        {isDarkMode ? (
+          <RiSunLine className="text-yellow-500" />
+        ) : (
+          <RiMoonClearLine />
+        )}
       </button>
     </footer>
   );
