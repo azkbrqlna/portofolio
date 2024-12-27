@@ -1,3 +1,4 @@
+import Header from "@/components/Header/Header";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { FadeText } from "@/components/ui/fade-text";
 import GradualSpacing from "@/components/ui/gradual-spacing";
@@ -63,28 +64,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <div className="pt-24 container mx-auto py-20 ">
-      <header className="text-center mb-8">
-        <GradualSpacing
-          text="My Projects"
-          className="text-3xl font-bold text-zinc-900 dark:text-zinc-100"
-        />
-        <FadeText
-          text={
-            <p className="mt-2 text-lg text-zinc-700 dark:text-zinc-300">
-              A collection of some projects I made
-            </p>
-          }
-          direction="down"
-          framerProps={{
-            show: {
-              transition: {
-                delay: 0.5,
-                duration: 0.8,
-              },
-            },
-          }}
-        />
-      </header>
+      <Header title="Projects" subtitle="A collection of my projects" />
 
       <FadeText
         text={
