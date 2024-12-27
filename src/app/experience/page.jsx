@@ -8,8 +8,8 @@ export default function ExperiencePage() {
       <Header title="Experience" subtitle="A journey of learning and growth" />
       <section className="mt-10 space-y-12">
         {experiences.map((exp, idx) => (
-          <BlurFade key={idx} delay={0.5} direction="up" inView>
-            <div className="bg-zinc-100 dark:bg-neutral-900 p-6 rounded-lg border-2 border-zinc-900 dark:border-zinc-200 shadow-dark dark:shadow-light">
+          <BlurFade key={idx} delay={0.4} direction="up" inView>
+            <div className=" p-6 rounded-lg border-2 border-zinc-900 dark:border-zinc-200 shadow-dark dark:shadow-light">
               <h3 className="text-xl font-semibold dark:text-white">
                 {exp.title}
               </h3>

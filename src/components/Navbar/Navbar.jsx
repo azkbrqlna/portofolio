@@ -22,6 +22,7 @@ export default function Navbar() {
         <div className="hidden md:flex justify-end items-center space-x-6">
           <NavItem href="/">About</NavItem>
           <NavItem href="/projects">Projects</NavItem>
+          <NavItem href="/experience">Experience</NavItem>
         </div>
 
         <Link
@@ -55,6 +56,9 @@ export default function Navbar() {
           </NavItem>
           <NavItem href="/projects" onClick={toggleMobileMenu}>
             Projects
+          </NavItem>
+          <NavItem href="/experience" onClick={toggleMobileMenu}>
+            Experience
           </NavItem>
           <Link
             href="https://drive.google.com/file/d/1i-uA3AYSPpRyU3U5W1ETKHz2h90Zthy6/view?usp=sharing"
