@@ -61,7 +61,7 @@ export default function Navbar() {
             Experience
           </NavItem>
           <Link
-            href="https://drive.google.com/file/d/1i-uA3AYSPpRyU3U5W1ETKHz2h90Zthy6/view?usp=sharing"
+            href="https://drive.google.com/file/d/1L4LwS6IP6CN_kAMrjFI6VqZ3397YXNI4/view?usp=sharing"
             passHref
             target="_blank"
             rel="noopener noreferrer"
