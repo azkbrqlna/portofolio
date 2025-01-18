@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full font-cera bg-white dark:bg-neutral-950 z-50 flex justify-between items-center p-4 border-b border-zinc-300 dark:border-zinc-800">
-      <TypingAnimation className="text-xl">Portofolio</TypingAnimation>
+      <TypingAnimation className="text-xl">Portfolio</TypingAnimation>
 
       <div className="flex items-center space-x-8">
         <div className="hidden md:flex justify-end items-center space-x-6">
@@ -26,7 +26,7 @@ export default function Navbar() {
         </div>
 
         <Link
-          href="https://drive.google.com/file/d/1i-uA3AYSPpRyU3U5W1ETKHz2h90Zthy6/view?usp=sharing"
+          href="https://drive.google.com/file/d/1L4LwS6IP6CN_kAMrjFI6VqZ3397YXNI4/view?usp=sharing"
           passHref
           target="_blank"
           rel="noopener noreferrer"
@@ -61,7 +61,7 @@ export default function Navbar() {
             Experience
           </NavItem>
           <Link
-            href="https://drive.google.com/file/d/1i-uA3AYSPpRyU3U5W1ETKHz2h90Zthy6/view?usp=sharing"
+            href="https://drive.google.com/file/d/1L4LwS6IP6CN_kAMrjFI6VqZ3397YXNI4/view?usp=sharing"
             passHref
             target="_blank"
             rel="noopener noreferrer"

@@ -7,7 +7,7 @@ import { FadeText } from "@/components/ui/fade-text";
 import DockItems from "@/components/Dock/Dock";
 import Image from "next/image";
 
-export default function HomePage() {
+export default function AboutPage() {
   return (
     <div className="relative overflow-hidden ">
       <AnimatedGridPattern
