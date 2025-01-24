@@ -1,7 +1,6 @@
 import Header from "@/components/Header/Header";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { FadeText } from "@/components/ui/fade-text";
-import GradualSpacing from "@/components/ui/gradual-spacing";
 import Image from "next/image";
 import Link from "next/link";
 import { RiNextjsFill, RiNodejsFill, RiTailwindCssFill } from "react-icons/ri";
