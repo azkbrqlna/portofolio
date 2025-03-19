@@ -60,7 +60,7 @@ const BentoCard = ({
           {Icons.map((Icon, idx) => (
             <Icon
               key={idx}
-              className="h-12 w-12 origin-left transform-gpu text-black dark:text-white transition-all duration-300 ease-in-out group-hover:scale-75"
+              className="h-9 w-9 origin-left transform-gpu text-black dark:text-white transition-all duration-300 ease-in-out group-hover:scale-75"
             />
           ))}
         </div>
