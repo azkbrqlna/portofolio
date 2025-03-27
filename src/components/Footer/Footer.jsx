@@ -21,12 +21,12 @@ export default function Footer() {
   };
 
   return (
-    <footer className="flex items-center justify-between flex-row py-5 px-6 mt-auto  border-zinc-300 dark:border-zinc-800">
+    <footer className="flex items-center justify-between flex-row py-5 px-6 mt-auto  border-neutral-300 dark:border-neutral-800">
       <p className="text-center font-cera font-bold text-sm">
         &copy; {year} All Rights Reserved | Azka Bariqlana
       </p>
       <button
-        className="text-xl p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 transition"
+        className="text-xl p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition"
         onClick={toggleTheme}
         aria-label="Toggle Theme"
       >

@@ -2,7 +2,7 @@ import Header from "@/components/Header/Header";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { FadeText } from "@/components/ui/fade-text";
 import Image from "next/image";
-import Link from "next/link";
+import { FaNodeJs } from "react-icons/fa";
 import { RiNextjsFill, RiNodejsFill, RiTailwindCssFill } from "react-icons/ri";
 import { SiInertia, SiLaravel, SiReact, SiSocketdotio } from "react-icons/si";
 
@@ -12,11 +12,14 @@ const cardClass = {
 
 const projects = [
   {
-    Icons: [RiNextjsFill, RiTailwindCssFill],
+    Icons: [
+      { Icon: RiNextjsFill, name: "Next.js" },
+      { Icon: RiTailwindCssFill, name: "Tailwind CSS" },
+    ],
     name: "My Portfolio",
     description: "A simple portfolio website.",
     href: "https://github.com/azkbrqlna/portofolio",
-    cta: "View Project",
+    cta: "Learn More",
     background: (
       <Image
         src="/images/porto.png"
@@ -27,12 +30,15 @@ const projects = [
     ),
   },
   {
-    Icons: [SiSocketdotio, RiNodejsFill],
+    Icons: [
+      { Icon: FaNodeJs, name: "Node.js" },
+      { Icon: SiSocketdotio, name: "Whiskey socket" },
+    ],
     name: "Template Bot",
     description:
       "Template for building a WhatsApp bot using Whiskey Socket Baileys with NodeJS.",
     href: "https://github.com/azkbrqlna/Template-Bot",
-    cta: "View Project",
+    cta: "Learn More",
     background: (
       <Image
         src="/images/Whatsapp-Bot.jpg"
@@ -43,12 +49,16 @@ const projects = [
     ),
   },
   {
-    Icons: [SiLaravel, SiInertia, SiReact],
+    Icons: [
+      { Icon: SiLaravel, name: "Laravel" },
+      { Icon: SiInertia, name: "Inertia.js" },
+      { Icon: SiReact, name: "React" },
+    ],
     name: "Warehouse Management System",
     description:
       "Final project for graduation requirements at SMK Negeri 7 Semarang. I served as a backend developer.",
     href: "https://github.com/azkbrqlna/WarehouseManagement",
-    cta: "View Project",
+    cta: "Learn More",
     background: (
       <Image
         src="/images/wms.png"
@@ -72,15 +82,8 @@ export default function ProjectsPage() {
               <BentoCard
                 key={idx}
                 {...project}
-                className="relative w-full max-w-sm  h-80 overflow-hidden rounded-lg shadow-lg group "
-              >
-                <div>
-                  <h3>{project.name}</h3>
-                  <p>{project.description}</p>
-                  <Link href={project.href}>{project.cta}</Link>
-                  {project.background}
-                </div>
-              </BentoCard>
+                className="relative w-full max-w-sm h-80 overflow-hidden rounded-lg shadow-lg group"
+              />
             ))}
           </BentoGrid>
         }

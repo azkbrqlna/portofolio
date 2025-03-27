@@ -15,7 +15,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full font-cera bg-white dark:bg-neutral-950 z-50 flex justify-between items-center p-4 border-b border-zinc-300 dark:border-zinc-800">
+    <nav className="fixed top-0 left-0 w-full font-cera bg-white dark:bg-neutral-950 z-50 flex justify-between items-center p-4 border-b border-neutral-300 dark:border-neutral-800">
       <TypingAnimation className="text-xl">Portfolio</TypingAnimation>
 
       <div className="flex items-center space-x-8">
@@ -44,7 +44,7 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`absolute top-16 right-6 bg-white dark:bg-zinc-800 shadow-lg rounded-lg p-4 md:hidden z-50 border border-zinc-300 dark:border-zinc-800 transform transition-all duration-300 ease-in-out ${
+        className={`absolute top-16 right-6 bg-white dark:bg-neutral-900 shadow-lg rounded-lg p-4 md:hidden z-50 border border-neutral-300 dark:border-neutral-900 transform transition-all duration-300 ease-in-out ${
           isMobileMenuOpen
             ? "opacity-100 scale-100 translate-y-0"
             : "opacity-0 scale-95 -translate-y-4 pointer-events-none"

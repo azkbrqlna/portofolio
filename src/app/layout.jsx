@@ -1,4 +1,3 @@
-// import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar/Navbar";
 
 import { inter, ceraRoundPro } from "@/utils/fonts";

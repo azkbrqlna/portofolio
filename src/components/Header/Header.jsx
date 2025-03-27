@@ -6,11 +6,11 @@ export default function Header({ title, subtitle }) {
     <header className="text-center mb-8">
       <GradualSpacing
         text={title}
-        className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 uppercase"
+        className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 uppercase"
       />
       <FadeText
         text={
-          <p className="mt-2 text-md text-zinc-700 dark:text-zinc-300">
+          <p className="mt-2 text-md text-neutral-700 dark:text-neutral-300">
             {subtitle}
           </p>
         }
