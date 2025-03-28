@@ -22,7 +22,32 @@ export default function AboutPage() {
       />
       <div className="pt-24 flex flex-col mt-10 md:flex-row justify-center">
         <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left px-8">
-          <div className="flex-1 max-w-lg">
+          <div className="flex-1 flex justify-center order-1 md:order-2">
+            <FadeText
+              text={
+                <div className="w-48 h-48 rounded-full overflow-hidden">
+                  <Image
+                    src="/images/copy.jpg"
+                    alt="Azka Bariqlana"
+                    width={192}
+                    height={192}
+                    className="object-cover"
+                  />
+                </div>
+              }
+              framerProps={{
+                show: {
+                  transition: {
+                    delay: 1,
+                    duration: 0.8,
+                  },
+                },
+              }}
+              direction="left"
+            />
+          </div>
+
+          <div className="flex-1 max-w-lg order-2 md:order-1">
             <div className="text-4xl font-bold font-cera ">
               <FadeText
                 text={
@@ -64,36 +89,12 @@ export default function AboutPage() {
               }}
             />
           </div>
-
-          <div className="flex-1 flex justify-center">
-            <FadeText
-              text={
-                <div className="w-48 h-48 rounded-full overflow-hidden  ">
-                  <Image
-                    src="/images/copy.jpg"
-                    alt="Azka Bariqlana"
-                    width={192}
-                    height={192}
-                  />
-                </div>
-              }
-              framerProps={{
-                show: {
-                  transition: {
-                    delay: 1,
-                    duration: 0.8,
-                  },
-                },
-              }}
-              direction="left"
-            />
-          </div>
         </div>
       </div>
 
       <FadeText
         text={
-          <div className="flex flex-col items-center mt-8  ">
+          <div className="flex flex-col items-center mt-8">
             <h2 className="text-md font-semibold">Connect with me:</h2>
             <div className="flex space-x-1 text-xl">
               <DockItems href="https://www.linkedin.com/in/azka-bariqlana-06a3482a1/">
