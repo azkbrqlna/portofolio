@@ -1,6 +1,8 @@
 import Header from "@/components/Header/Header";
 import experiences from "@/app/data/experiences.json";
 import BlurFade from "@/components/ui/blur-fade";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ExperiencePage() {
   return (
@@ -21,6 +23,20 @@ export default function ExperiencePage() {
                   <li key={idx}>{item}</li>
                 ))}
               </ul>
+
+              {exp.certificate && (
+                <div className="mt-4 flex justify-end">
+                  <Button>
+                    <Link
+                      href={exp.certificate}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Certificate
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </BlurFade>
         ))}

@@ -9,30 +9,19 @@
       "Maintain and repair network devices to ensure continuous operation",
       "Identify and analyze network problems to provide effective solutions",
       "Provide technical support and assistance to customers or users"
-    ]
+    ],
+    "certificate": "https://drive.google.com/file/d/1Df2XrBZTMNvwTieFdw4x5rYQ9PHq8H-U/view?usp=drive_link"
   },
   {
-    "title": "Coming Soon",
-    "company": "Coming Soon",
-    "period": "2024 to present",
+    "title": "Frontend Developer Intern",
+    "company": "PT. Gracia Visi Pratama",
+    "period": "February 2025 to March 2025",
     "description": [
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic architecto nemo rerum velit. Tenetur voluptatem optio quas laboriosam voluptas rerum minima, possimus molestias, totam omnis fugiat. At fugiat nesciunt quaerat?"
-    ]
-  },
-  {
-    "title": "Coming Soon",
-    "company": "Coming Soon",
-    "period": "2024 to present",
-    "description": [
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic architecto nemo rerum velit. Tenetur voluptatem optio quas laboriosam voluptas rerum minima, possimus molestias, totam omnis fugiat. At fugiat nesciunt quaerat?"
-    ]
-  },
-  {
-    "title": "Coming Soon",
-    "company": "Coming Soon",
-    "period": "2024 to present",
-    "description": [
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic architecto nemo rerum velit. Tenetur voluptatem optio quas laboriosam voluptas rerum minima, possimus molestias, totam omnis fugiat. At fugiat nesciunt quaerat?"
-    ]
+      "Developed and maintained responsive user interfaces using Angular framework.",
+      "Implemented dynamic and reusable UI components with Bootstrap for consistency and responsiveness.",
+      "Collaborated with backend developers to integrate RESTful APIs and ensure seamless data rendering.",
+      "Utilized version control tools like Git/Github for efficient code management."
+    ],
+    "certificate": "https://drive.google.com/file/d/19lIzYklcNjWurf58hzd1ngMX1A1OO98y/view?usp=drive_link"
   }
 ]
