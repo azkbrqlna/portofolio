@@ -3,6 +3,7 @@ import experiences from "@/app/data/experiences.json";
 import BlurFade from "@/components/ui/blur-fade";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 export default function ExperiencePage() {
   return (
@@ -34,6 +35,7 @@ export default function ExperiencePage() {
                     >
                       Certificate
                     </Link>
+                    <ArrowRightIcon className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
               )}

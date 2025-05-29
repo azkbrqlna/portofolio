@@ -1,13 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { FadeText } from "@/components/ui/fade-text";
-import DockItems from "@/components/Dock/Dock";
 import Image from "next/image";
+import introTexts from "./data/greetings.json";
+import Link from "next/link";
 
 export default function AboutPage() {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentTextIndex(Math.floor(Math.random() * introTexts.length));
+  }, []);
+
+  const currentText = introTexts[currentTextIndex];
+
   return (
     <div className="relative overflow-hidden ">
       <AnimatedGridPattern
@@ -23,14 +33,14 @@ export default function AboutPage() {
       <div className="pt-24 flex flex-col mt-10 md:flex-row justify-center">
         <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left px-8">
           <div className="flex-1 max-w-lg">
-            <div className="text-4xl font-bold font-cera ">
+            <div className="text-3xl font-bold font-cera ">
               <FadeText
                 text={
                   <>
-                    Hey there! I'm{" "}
-                    <span className="italic text-yellow-400">
+                    {currentText.greeting}
+                    <div className="italic text-yellow-400 mb-2">
                       Azka Bariqlana
-                    </span>
+                    </div>
                   </>
                 }
                 direction="up"
@@ -45,14 +55,7 @@ export default function AboutPage() {
             </div>
 
             <FadeText
-              text={
-                <p className="text-lg mb-6">
-                  I'm a web developer focused on building modern,
-                  high-performance websites. My goal is to blend creativity with
-                  technical skills to create user-friendly and visually
-                  appealing web applications.
-                </p>
-              }
+              text={<p className="text-lg mb-6">{currentText.description}</p>}
               direction="right"
               framerProps={{
                 show: {
@@ -93,20 +96,45 @@ export default function AboutPage() {
 
       <FadeText
         text={
-          <div className="flex flex-col items-center mt-8  ">
-            <h2 className="text-md font-semibold">Connect with me:</h2>
-            <div className="flex space-x-1 text-xl">
-              <DockItems href="https://www.linkedin.com/in/azka-bariqlana-06a3482a1/">
-                <FaLinkedin />
-              </DockItems>
-              <DockItems href="https://github.com/azkbrqlna">
-                <FaGithub />
-              </DockItems>
-              <DockItems href="https://www.instagram.com/azkbrqlnaaa_/">
-                <FaInstagram />
-              </DockItems>
+          <>
+            <div className="flex flex-col items-center mt-8 mb-8 ">
+              <h2 className="text-md font-semibold">Connect with me :</h2>
+              <div className="flex justify-center items-center gap-6 mt-8 space-x-1">
+                {/* LinkedIn */}
+                <Link
+                  href="https://www.linkedin.com/in/azka-bariqlana-06a3482a1/"
+                  className="w-16 h-16 flex items-center justify-center bg-white dark:bg-neutral-950 border-2 border-black dark:border-white shadow-dark dark:shadow-light
+               transform rotate-2 hover:rotate-0 hover:scale-110 transition-all duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin className="text-2xl text-black dark:text-white hover:scale-125 transition-transform duration-200" />
+                </Link>
+
+                {/* GitHub */}
+                <Link
+                  href="https://github.com/azkbrqlna"
+                  className="w-16 h-16 flex items-center justify-center bg-white dark:bg-neutral-950 border-2 border-black dark:border-white shadow-dark dark:shadow-light
+               transform -rotate-2 hover:rotate-0 hover:scale-110 transition-all duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub className="text-2xl text-black dark:text-white hover:scale-125 transition-transform duration-200" />
+                </Link>
+
+                {/* Instagram */}
+                <Link
+                  href="https://www.instagram.com/azkbrqlnaaa_/"
+                  className="w-16 h-16 flex items-center justify-center bg-white dark:bg-neutral-950 border-2 border-black dark:border-white shadow-dark dark:shadow-light
+               transform rotate-1 hover:rotate-0 hover:scale-110 transition-all duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaInstagram className="text-2xl text-black dark:text-white hover:scale-125 transition-transform duration-200" />
+                </Link>
+              </div>
             </div>
-          </div>
+          </>
         }
         direction="down"
         framerProps={{
