@@ -1,13 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { FadeText } from "@/components/ui/fade-text";
-import DockItems from "@/components/Dock/Dock";
 import Image from "next/image";
+import introTexts from "./data/greetings.json";
+import Link from "next/link";
 
 export default function AboutPage() {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentTextIndex(Math.floor(Math.random() * introTexts.length));
+  }, []);
+
+  const currentText = introTexts[currentTextIndex];
+
   return (
     <div className="relative overflow-hidden ">
       <AnimatedGridPattern
@@ -52,10 +62,10 @@ export default function AboutPage() {
               <FadeText
                 text={
                   <>
-                    Hey there! I'm{" "}
-                    <span className="italic text-yellow-400">
+                    {currentText.greeting}
+                    <div className="italic text-yellow-400 mb-2">
                       Azka Bariqlana
-                    </span>
+                    </div>
                   </>
                 }
                 direction="up"
@@ -70,14 +80,7 @@ export default function AboutPage() {
             </div>
 
             <FadeText
-              text={
-                <p className="text-lg mb-6">
-                  I'm a web developer focused on building modern,
-                  high-performance websites. My goal is to blend creativity with
-                  technical skills to create user-friendly and visually
-                  appealing web applications.
-                </p>
-              }
+              text={<p className="text-lg mb-6">{currentText.description}</p>}
               direction="right"
               framerProps={{
                 show: {
@@ -107,7 +110,7 @@ export default function AboutPage() {
                 <FaInstagram />
               </DockItems>
             </div>
-          </div>
+          </>
         }
         direction="down"
         framerProps={{
