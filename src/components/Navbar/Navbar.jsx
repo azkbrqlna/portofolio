@@ -19,12 +19,14 @@ export default function Navbar() {
       <TypingAnimation className="text-xl">Portfolio</TypingAnimation>
 
       <div className="flex items-center space-x-8">
+        {/* Desktop Menu */}
         <div className="hidden md:flex justify-end items-center space-x-6">
-          <NavItem href="/">About</NavItem>
-          <NavItem href="/projects">Projects</NavItem>
-          <NavItem href="/experience">Experience</NavItem>
+          <NavItem href="#about">About</NavItem>
+          <NavItem href="#projects">Projects</NavItem>
+          <NavItem href="#experience">Experience</NavItem>
         </div>
 
+        {/* Resume Button */}
         <Link
           href="https://drive.google.com/file/d/1L4LwS6IP6CN_kAMrjFI6VqZ3397YXNI4/view?usp=sharing"
           passHref
@@ -34,6 +36,7 @@ export default function Navbar() {
           <Button className="hidden md:block">Resume</Button>
         </Link>
 
+        {/* Mobile Toggle */}
         <button
           className="md:hidden flex items-center space-x-2"
           onClick={toggleMobileMenu}
@@ -43,6 +46,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile Menu */}
       <div
         className={`absolute top-16 right-6 bg-white dark:bg-neutral-900 shadow-lg rounded-lg p-4 md:hidden z-50 border border-neutral-300 dark:border-neutral-900 transform transition-all duration-300 ease-in-out ${
           isMobileMenuOpen
@@ -51,13 +55,13 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col items-center space-y-4">
-          <NavItem href="/" onClick={toggleMobileMenu}>
+          <NavItem href="#about" onClick={toggleMobileMenu}>
             About
           </NavItem>
-          <NavItem href="/projects" onClick={toggleMobileMenu}>
+          <NavItem href="#projects" onClick={toggleMobileMenu}>
             Projects
           </NavItem>
-          <NavItem href="/experience" onClick={toggleMobileMenu}>
+          <NavItem href="#experience" onClick={toggleMobileMenu}>
             Experience
           </NavItem>
           <Link

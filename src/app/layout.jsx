@@ -18,7 +18,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${inter} ${ceraRoundPro}`}>
         <SplashCursor />
         <div className="flex flex-col min-h-screen ">
