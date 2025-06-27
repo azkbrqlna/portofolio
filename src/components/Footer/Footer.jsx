@@ -5,7 +5,7 @@ import { RiMoonClearLine, RiSunLine } from "react-icons/ri";
 
 export default function Footer() {
   const [year] = useState(new Date().getFullYear());
-  const [isDarkMode, setIsDarkMode] = useState(true); // ✅ default ke true
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
