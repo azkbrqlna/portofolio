@@ -17,37 +17,43 @@ import ScrollReveal from "scrollreveal";
 
 export default function PortfolioPage() {
   useEffect(() => {
-    ScrollReveal().reveal(".reveal-bottom", {
-      origin: "bottom",
-      distance: "20px",
-      duration: 1000,
-      easing: "ease-in-out",
-      reset: true,
-    });
+    if (typeof window !== "undefined") {
+      import("scrollreveal").then((ScrollReveal) => {
+        const sr = ScrollReveal.default();
 
-    ScrollReveal().reveal(".reveal-left", {
-      origin: "left",
-      distance: "20px",
-      duration: 1000,
-      easing: "ease-in-out",
-      reset: true,
-    });
+        sr.reveal(".reveal-bottom", {
+          origin: "bottom",
+          distance: "20px",
+          duration: 1000,
+          easing: "ease-in-out",
+          reset: true,
+        });
 
-    ScrollReveal().reveal(".reveal-right", {
-      origin: "right",
-      distance: "20px",
-      duration: 1000,
-      easing: "ease-in-out",
-      reset: true,
-    });
+        sr.reveal(".reveal-left", {
+          origin: "left",
+          distance: "20px",
+          duration: 1000,
+          easing: "ease-in-out",
+          reset: true,
+        });
 
-    ScrollReveal().reveal(".reveal-top", {
-      origin: "top",
-      distance: "20px",
-      duration: 1000,
-      easing: "ease-in-out",
-      reset: true,
-    });
+        sr.reveal(".reveal-right", {
+          origin: "right",
+          distance: "20px",
+          duration: 1000,
+          easing: "ease-in-out",
+          reset: true,
+        });
+
+        sr.reveal(".reveal-top", {
+          origin: "top",
+          distance: "20px",
+          duration: 1000,
+          easing: "ease-in-out",
+          reset: true,
+        });
+      });
+    }
   }, []);
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
