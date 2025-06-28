@@ -13,7 +13,6 @@ import { BentoCard } from "@/components/ui/bento-grid";
 import Link from "next/link";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import ScrollReveal from "scrollreveal";
 
 export default function PortfolioPage() {
   useEffect(() => {
@@ -28,6 +27,7 @@ export default function PortfolioPage() {
           easing: "ease-in-out",
           reset: true,
         });
+
         sr.reveal(".reveal-left", {
           origin: "left",
           distance: "20px",
@@ -35,6 +35,7 @@ export default function PortfolioPage() {
           easing: "ease-in-out",
           reset: true,
         });
+
         sr.reveal(".reveal-right", {
           origin: "right",
           distance: "20px",
@@ -42,6 +43,7 @@ export default function PortfolioPage() {
           easing: "ease-in-out",
           reset: true,
         });
+
         sr.reveal(".reveal-top", {
           origin: "top",
           distance: "20px",
