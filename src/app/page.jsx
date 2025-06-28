@@ -28,7 +28,6 @@ export default function PortfolioPage() {
           easing: "ease-in-out",
           reset: true,
         });
-
         sr.reveal(".reveal-left", {
           origin: "left",
           distance: "20px",
@@ -36,7 +35,6 @@ export default function PortfolioPage() {
           easing: "ease-in-out",
           reset: true,
         });
-
         sr.reveal(".reveal-right", {
           origin: "right",
           distance: "20px",
@@ -44,7 +42,6 @@ export default function PortfolioPage() {
           easing: "ease-in-out",
           reset: true,
         });
-
         sr.reveal(".reveal-top", {
           origin: "top",
           distance: "20px",
