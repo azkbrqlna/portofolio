@@ -1,13 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import introTexts from "@/app/data/greetings.json";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
 
 export default function AboutSection() {
-  const [currentTextIndex] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % introTexts.length);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const currentText = introTexts[currentTextIndex];
 
   return (
@@ -25,11 +34,17 @@ export default function AboutSection() {
       <div className="pt-24 flex flex-col mt-10 md:flex-row justify-center">
         <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left px-8">
           <div className="flex-1 max-w-lg">
-            <div className="text-3xl font-bold font-cera reveal-right">
+            <div
+              key={currentTextIndex}
+              className="animate-right text-3xl font-bold font-cera reveal-right"
+            >
               {currentText.greeting}
               <div className="italic text-yellow-400 mb-2">Azka Bariqlana</div>
             </div>
-            <p className="text-lg mb-6 reveal-left">
+            <p
+              key={`desc-${currentTextIndex}`}
+              className="animate-left text-lg mb-6 reveal-left"
+            >
               {currentText.description}
             </p>
           </div>
@@ -40,6 +55,7 @@ export default function AboutSection() {
                 alt="Azka Bariqlana"
                 width={192}
                 height={192}
+                loading="lazy"
               />
             </div>
           </div>

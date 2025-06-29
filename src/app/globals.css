@@ -98,3 +98,33 @@ h6 {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes animate-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes animate-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-left {
+  animation: animate-left 1s ease-out;
+}
+
+.animate-right {
+  animation: animate-right 1s ease-out;
+}
