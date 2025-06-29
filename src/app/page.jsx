@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FaGithub, FaInstagram, FaLinkedin, FaNodeJs } from "react-icons/fa";
-import { RiNextjsFill, RiNodejsFill, RiTailwindCssFill } from "react-icons/ri";
+import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
 import { SiInertia, SiLaravel, SiReact, SiSocketdotio } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
