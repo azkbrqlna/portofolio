@@ -53,24 +53,20 @@ export default function AboutSection() {
             {
               href: "https://www.linkedin.com/in/azka-bariqlana-06a3482a1/",
               icon: FaLinkedin,
-              hover: "hover:text-blue-600",
             },
             {
               href: "https://github.com/azkbrqlna",
               icon: FaGithub,
-              hover: "hover:text-gray-800 dark:hover:text-gray-300",
             },
             {
               href: "https://www.instagram.com/azkbrqlnaaa_/",
               icon: FaInstagram,
-              hover: "hover:text-pink-500",
             },
             {
-              href: "mailto:azkbrqlna@gmail.com", 
+              href: "mailto:azkbrqlna@gmail.com",
               icon: SiGmail,
-              hover: "hover:text-red-500",
             },
-          ].map(({ href, icon: Icon, hover }, i) => (
+          ].map(({ href, icon: Icon }, i) => (
             <Link
               key={i}
               href={href}
@@ -78,9 +74,7 @@ export default function AboutSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Icon
-                className={`text-2xl text-black dark:text-white transition-colors duration-300 ${hover}`}
-              />
+              <Icon className={`text-2xl text-black dark:text-white`} />
             </Link>
           ))}
         </div>
