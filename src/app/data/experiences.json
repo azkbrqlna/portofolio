@@ -10,6 +10,7 @@
       "Identify and analyze network problems to provide effective solutions",
       "Provide technical support and assistance to customers or users"
     ],
+    "skills": ["Networking", "Troubleshooting", "MikroTik", "Fiber Optic"],
     "certificate": "https://drive.google.com/file/d/1Df2XrBZTMNvwTieFdw4x5rYQ9PHq8H-U/view?usp=drive_link"
   },
   {
@@ -22,6 +23,7 @@
       "Collaborated with backend developers to integrate RESTful APIs and ensure seamless data rendering.",
       "Utilized version control tools like Git/Github for efficient code management."
     ],
+    "skills": ["Angular", "Bootstrap", "Git/GitHub"],
     "certificate": "https://drive.google.com/file/d/19lIzYklcNjWurf58hzd1ngMX1A1OO98y/view?usp=drive_link"
   }
 ]

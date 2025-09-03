@@ -4,7 +4,8 @@ import Image from "next/image";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 
 export default function AboutSection() {
   return (
@@ -27,10 +28,8 @@ export default function AboutSection() {
               <div className="italic text-yellow-400 mb-2">Azka Bariqlana</div>
             </div>
             <p className="text-lg mb-6 reveal-left">
-              A full-stack developer dedicated to building modern,
-              high-performance websites. I aim to integrate creativity with
-              technical expertise to deliver user-friendly and visually
-              compelling web applications.
+              I am currently interested in web development and also have a
+              curiosity about cybersecurity
             </p>
           </div>
           <div className="flex-1 flex justify-center">
@@ -46,40 +45,42 @@ export default function AboutSection() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center mt-8 mb-8 reveal-right">
+      {/* Social Media */}
+      <div className="flex flex-col items-center mt-24 mb-8 reveal-right">
         <h2 className="text-md font-semibold">Connect with me :</h2>
-        <div className="flex justify-center items-center gap-6 mt-8 space-x-1">
+        <div className="flex justify-center items-center gap-8 mt-8">
           {[
             {
               href: "https://www.linkedin.com/in/azka-bariqlana-06a3482a1/",
-              icon: (
-                <FaLinkedin className="text-2xl text-black dark:text-white" />
-              ),
-              rotate: "rotate-2",
+              icon: FaLinkedin,
+              hover: "hover:text-blue-600",
             },
             {
               href: "https://github.com/azkbrqlna",
-              icon: (
-                <FaGithub className="text-2xl text-black dark:text-white" />
-              ),
-              rotate: "-rotate-2",
+              icon: FaGithub,
+              hover: "hover:text-gray-800 dark:hover:text-gray-300",
             },
             {
               href: "https://www.instagram.com/azkbrqlnaaa_/",
-              icon: (
-                <FaInstagram className="text-2xl text-black dark:text-white" />
-              ),
-              rotate: "rotate-1",
+              icon: FaInstagram,
+              hover: "hover:text-pink-500",
             },
-          ].map((link, i) => (
+            {
+              href: "mailto:azkbrqlna@gmail.com", 
+              icon: SiGmail,
+              hover: "hover:text-red-500",
+            },
+          ].map(({ href, icon: Icon, hover }, i) => (
             <Link
               key={i}
-              href={link.href}
-              className={`w-16 h-16 flex items-center justify-center bg-white dark:bg-neutral-950 border-2 border-black dark:border-white shadow-dark dark:shadow-light transform ${link.rotate} hover:rotate-0 hover:scale-110 transition-all duration-300`}
+              href={href}
+              className={`transition-all duration-300 transform hover:scale-125`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {link.icon}
+              <Icon
+                className={`text-2xl text-black dark:text-white transition-colors duration-300 ${hover}`}
+              />
             </Link>
           ))}
         </div>
