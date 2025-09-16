@@ -1,0 +1,22 @@
+[
+  {
+    "icons": [
+      { "name": "Next.js", "icon": "RiNextjsFill" },
+      { "name": "Tailwind CSS", "icon": "RiTailwindCssFill" }
+    ],
+    "name": "My Portfolio",
+    "description": "A simple portfolio website.",
+    "href": "https://github.com/azkbrqlna/portofolio",
+    "cta": "Learn More"
+  },
+  {
+    "icons": [
+      { "name": "Node.js", "icon": "FaNodeJs" },
+      { "name": "Whiskey socket", "icon": "SiSocketdotio" }
+    ],
+    "name": "Template Bot",
+    "description": "Template for building a WhatsApp bot using Whiskey Socket Baileys with NodeJS.",
+    "href": "https://github.com/azkbrqlna/Template-Bot",
+    "cta": "Learn More"
+  }
+]

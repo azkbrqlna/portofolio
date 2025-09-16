@@ -4,7 +4,7 @@ import Image from "next/image";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 
 export default function AboutSection() {
