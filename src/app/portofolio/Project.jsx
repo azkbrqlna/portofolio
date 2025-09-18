@@ -3,14 +3,20 @@ import SectionHeader from "@/components/fragments/header";
 import Section from "@/components/fragments/section";
 import projectsData from "@/app/data/projects.json" assert { type: "json" };
 import { FaNodeJs } from "react-icons/fa";
-import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
-import { SiSocketdotio } from "react-icons/si";
+import {
+  RiFirebaseFill,
+  RiNextjsFill,
+  RiTailwindCssFill,
+} from "react-icons/ri";
+import { SiShadcnui, SiSocketdotio } from "react-icons/si";
 
 const iconMap = {
   FaNodeJs,
   RiNextjsFill,
   RiTailwindCssFill,
   SiSocketdotio,
+  RiFirebaseFill,
+  SiShadcnui,
 };
 
 export default function Projects() {
