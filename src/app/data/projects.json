@@ -29,5 +29,12 @@
     "description": "A aplication to manage your cashflow. try with username: admin and password: admin",
     "href": "https://cashflowin.netlify.app/",
     "cta": "Launch App"
+  },
+  {
+    "icons": [{ "name": "Flutter", "icon": "FaFlutter" }],
+    "name": "BrongDetector",
+    "description": "BrongDetector is a mobile application that accurately measures motorcycle sound levels in real-time using the smartphone's microphone.",
+    "href": "https://github.com/azkbrqlna/BrongDetector.git",
+    "cta": "Learn More"
   }
 ]
