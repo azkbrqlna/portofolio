@@ -28,7 +28,7 @@ export default function Navbar() {
 
         {/* Resume Button */}
         <Link
-          href="https://drive.google.com/file/d/1L4LwS6IP6CN_kAMrjFI6VqZ3397YXNI4/view?usp=sharing"
+          href="https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf"
           passHref
           target="_blank"
           rel="noopener noreferrer"
