@@ -28,7 +28,7 @@ export default function Navbar() {
 
         {/* Resume Button */}
         <Link
-          href="https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf"
+          href="https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf?updatedAt=1765242803797"
           passHref
           target="_blank"
           rel="noopener noreferrer"
