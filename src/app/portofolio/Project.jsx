@@ -2,13 +2,14 @@ import { ProjectCard } from "@/components/card-project/card-project";
 import SectionHeader from "@/components/fragments/header";
 import Section from "@/components/fragments/section";
 import projectsData from "@/app/data/projects.json" assert { type: "json" };
-import { FaNodeJs } from "react-icons/fa";
+import { FaNodeJs, FaFluter } from "react-icons/fa";
 import {
   RiFirebaseFill,
   RiNextjsFill,
   RiTailwindCssFill,
+  RiFlutterFill,
 } from "react-icons/ri";
-import { SiShadcnui, SiSocketdotio } from "react-icons/si";
+import { SiShadcnui, SiSocketdotio, SiDart } from "react-icons/si";
 
 const iconMap = {
   FaNodeJs,
@@ -17,6 +18,7 @@ const iconMap = {
   SiSocketdotio,
   RiFirebaseFill,
   SiShadcnui,
+  RiFlutterFill,
 };
 
 export default function Projects() {

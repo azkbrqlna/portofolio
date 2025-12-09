@@ -31,7 +31,7 @@
     "cta": "Launch App"
   },
   {
-    "icons": [{ "name": "Flutter", "icon": "FaFlutter" }],
+    "icons": [{ "name": "Flutter", "icon": "RiFlutterFill" }],
     "name": "BrongDetector",
     "description": "BrongDetector is a mobile application that accurately measures motorcycle sound levels in real-time using the smartphone's microphone.",
     "href": "https://github.com/azkbrqlna/BrongDetector.git",
