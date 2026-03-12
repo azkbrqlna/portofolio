@@ -1,14 +1,19 @@
 import experiences from "@/app/data/experiences.json" assert { type: "json" };
 import SectionHeader from "@/components/fragments/header";
 import Section from "@/components/fragments/section";
-import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function ExperienceSection() {
   return (
     <Section id="experience">
-      <SectionHeader title="Experience"/>
+      <SectionHeader title="Experience" />
 
       <div className="space-y-12">
         {experiences.map((exp, idx) => (
@@ -49,18 +54,33 @@ export default function ExperienceSection() {
               </div>
             )}
 
-            {/* Certificate */}
+            {/* Certificate Modal */}
             {exp.certificate && (
               <div className="mt-3">
-                <Link
-                  href={exp.certificate}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-sm font-semibold underline"
-                >
-                  Certificate
-                  <FaExternalLinkAlt className="ml-1 w-3 h-3" />
-                </Link>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="inline-flex items-center text-sm font-semibold underline text-zinc-900 dark:text-zinc-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                      Certificate
+                      <FaExternalLinkAlt className="ml-1 w-3 h-3" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-3xl border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950">
+                    <DialogHeader>
+                      <DialogTitle className="text-left font-cera text-xl">
+                        Certificate - {exp.company}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="flex items-center justify-center mt-4 w-full h-full">
+                      {/* Menggunakan tag img standar agar tidak terpengaruh konfigurasi next/image domains */}
+                      <img
+                        src={exp.certificate}
+                        alt={`Certificate for ${exp.title} at ${exp.company}`}
+                        className="w-full h-auto max-h-[75vh] object-contain rounded-md"
+                        loading="lazy"
+                      />
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             )}
           </div>
