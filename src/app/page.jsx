@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import AboutSection from "./portofolio/About";
-import SocialLinks from "./portofolio/SocialLinks";
 import ProjectSection from "./portofolio/Project";
 import ExperienceSection from "./portofolio/Experience";
 
@@ -40,7 +39,6 @@ export default function PortfolioPage() {
   return (
     <>
       <AboutSection />
-      <SocialLinks />
       <ProjectSection />
       <ExperienceSection />
     </>
