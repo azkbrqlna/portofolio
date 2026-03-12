@@ -9,20 +9,18 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    // Memilih semua elemen yang memiliki ID (seperti id="about", id="projects")
     const sections = document.querySelectorAll("section[id], div[id]");
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Jika section tersebut masuk ke area tengah layar, jadikan aktif
           if (entry.isIntersecting) {
             setActiveSection(`#${entry.target.id}`);
           }
         });
       },
       {
-        rootMargin: "-40% 0px -40% 0px", // Memicu perubahan saat section berada di tengah layar
+        rootMargin: "-40% 0px -40% 0px",
       },
     );
 
@@ -32,9 +30,9 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed left-0 top-0 h-screen z-50 flex items-center p-4 pointer-events-none">
-      <div className="group pointer-events-auto flex flex-col gap-4 p-3 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-neutral-300 dark:border-neutral-800 rounded-2xl shadow-lg transition-all duration-300 w-[60px] hover:w-[160px] overflow-hidden">
-        {/* Berikan activeColor yang berbeda untuk masing-masing item */}
+    <nav className="fixed bottom-4 left-0 w-full md:bottom-auto md:top-0 md:h-screen z-50 flex justify-center md:justify-start md:items-center p-4 pointer-events-none">
+      {/* Tambahkan md:items-start dan p-2 di layar md agar tidak lari ke tengah */}
+      <div className="group pointer-events-auto flex flex-row md:flex-col items-center md:items-start gap-6 md:gap-2 px-6 py-3 md:p-2 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-neutral-300 dark:border-neutral-800 rounded-full md:rounded-2xl shadow-lg transition-all duration-300 w-auto md:w-[60px] md:hover:w-[160px] overflow-hidden">
         <NavItem
           href="#about"
           icon={<HiUser size={20} />}
@@ -57,19 +55,20 @@ export default function Navbar() {
           activeColor="text-purple-500 dark:text-purple-400"
         />
 
-        <div className="h-px bg-neutral-300 dark:bg-neutral-800 my-1 w-full"></div>
+        <div className="w-px h-6 md:w-full md:h-px bg-neutral-300 dark:bg-neutral-800 my-0 md:my-1"></div>
 
+        {/* Tambahkan w-auto md:w-full overflow-hidden di sini */}
         <Link
           href="https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf"
           passHref
           target="_blank"
           rel="noopener noreferrer"
-          className="font-cera flex items-center gap-4 p-2 rounded-xl transition-all duration-300 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:text-neutral-300 hover:text-rose-500 dark:hover:text-rose-400 group/resume"
+          className="font-cera flex items-center gap-4 p-2 rounded-full md:rounded-xl transition-all duration-300 w-auto md:w-full overflow-hidden text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:text-neutral-300 hover:text-rose-500 dark:hover:text-rose-400 group/resume"
         >
-          <div className="flex-shrink-0 transition-colors duration-300">
+          <div className="flex-shrink-0 transition-colors duration-300 flex items-center justify-center w-[20px]">
             <HiDocumentText size={20} />
           </div>
-          <span className="whitespace-nowrap text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="hidden md:block whitespace-nowrap text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Resume
           </span>
         </Link>

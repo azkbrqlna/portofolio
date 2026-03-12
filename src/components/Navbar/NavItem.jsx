@@ -14,15 +14,17 @@ export default function NavItem({
     <Link
       href={href}
       onClick={onClick}
-      className={`font-cera flex items-center gap-4 p-2 rounded-xl transition-all duration-300 ${
+      // Tambahkan w-auto md:w-full dan overflow-hidden di baris ini
+      className={`font-cera flex items-center gap-4 p-2 rounded-full md:rounded-xl transition-all duration-300 w-auto md:w-full overflow-hidden ${
         isActive
-          ? `font-bold bg-neutral-100 dark:bg-neutral-900 ${activeColor}` // Jika aktif, gunakan warna custom
+          ? `font-bold bg-neutral-100 dark:bg-neutral-900 ${activeColor}`
           : "font-normal text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
       }`}
     >
-      {/* Ikon akan mewarisi warna dari parent class di atas */}
-      <div className="flex-shrink-0 transition-colors duration-300">{icon}</div>
-      <span className="whitespace-nowrap text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="flex-shrink-0 transition-colors duration-300 flex items-center justify-center w-[20px]">
+        {icon}
+      </div>
+      <span className="hidden md:block whitespace-nowrap text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         {text}
       </span>
     </Link>
