@@ -30,7 +30,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed bottom-4 left-0 w-full md:bottom-auto md:top-0 md:h-screen z-50 flex justify-center md:justify-start md:items-center p-4 pointer-events-none">
+    <nav className="fixed top-4 left-0 w-full md:top-0 md:h-screen z-50 flex justify-center md:justify-start md:items-center p-4 pointer-events-none">
       {/* Tambahkan md:items-start dan p-2 di layar md agar tidak lari ke tengah */}
       <div className="group pointer-events-auto flex flex-row md:flex-col items-center md:items-start gap-6 md:gap-2 px-6 py-3 md:p-2 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-neutral-300 dark:border-neutral-800 rounded-full md:rounded-2xl shadow-lg transition-all duration-300 w-auto md:w-[60px] md:hover:w-[160px] overflow-hidden">
         <NavItem
