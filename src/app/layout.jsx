@@ -1,16 +1,9 @@
-import Navbar from "@/components/Navbar/Navbar";
-
-import { inter, ceraRoundPro } from "@/utils/fonts";
 import "./globals.css";
-import Footer from "@/components/Footer/Footer";
-import SplashCursor from "@/components/ui/Animations/SplashCursor/SplashCursor";
+import Preloader from "@/components/cyber/Preloader";
 
 export const metadata = {
-  title: {
-    template: "%s | Azkbrqlna",
-    default: "Azkbrqlna",
-  },
-  description: "Portfolio of Azka Bariqlana",
+  title: "AZKA BARIQLANA",
+  description: "Cybersecurity Researcher & Full-Stack Developer Portfolio",
   icons: {
     icon: "/favicon.ico",
   },
@@ -18,14 +11,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter} ${ceraRoundPro}`}>
-        <SplashCursor />
-        <div className="flex flex-col min-h-screen ">
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+    <html lang="en" className="dark scroll-smooth">
+      <body className="bg-[#151515] text-[#E0E0E0] font-sans antialiased selection:bg-[#333] selection:text-white overflow-x-hidden">
+        <Preloader />
+        <main className="min-h-screen relative w-full flex justify-center">
+          {children}
+        </main>
       </body>
     </html>
   );
