@@ -9,36 +9,39 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setIsSending(true);
+    setErrorMsg("");
+
     try {
-      const response = await fetch("https://formsubmit.co/ajax/1034855942d3b434b5d08eed280388f", {
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("message", formData.message);
+      data.append("_subject", `New Portfolio Transmission from ${formData.name}`);
+      data.append("_captcha", "false");
+
+      const response = await fetch("https://formsubmit.co/ajax/azkbrqlna@gmail.com", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `New Portfolio Message from ${formData.name}`,
-          _captcha: "false",
-        }),
+        body: data,
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (response.ok || result.success === "true" || result.success === true) {
         setSubmitted(true);
       } else {
-        // Fallback direct mailto dispatch
+        // Direct mailto fallback if network block
         window.location.href = `mailto:azkbrqlna@gmail.com?subject=Portfolio Transmission from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
         setSubmitted(true);
       }
     } catch (err) {
+      console.error("Transmission dispatch error:", err);
       window.location.href = `mailto:azkbrqlna@gmail.com?subject=Portfolio Transmission from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
       setSubmitted(true);
     } finally {
@@ -141,12 +144,12 @@ export default function ContactPage() {
                 </div>
                 <span className="text-[10px] text-[#50fa7b] flex items-center gap-1.5 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#50fa7b] animate-ping" />
-                  GMAIL ENDPOINT // 200 OK
+                  GMAIL DISPATCH // ACTIVE
                 </span>
               </div>
 
               {submitted ? (
-                <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-4">
+                <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-3">
                   <CheckCircle2 className="w-12 h-12 text-[#ffd700] mx-auto" />
                   <div className="text-[#ffd700] font-bold text-lg tracking-wider uppercase">
                     TRANSMISSION DISPATCHED TO GMAIL // SUCCESS
@@ -154,17 +157,15 @@ export default function ContactPage() {
                   <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-[500px] mx-auto">
                     Thank you, <span className="text-[#ffd700] font-bold">{formData.name}</span>. Your message has been encrypted and delivered directly to <span className="text-[#ffd700] font-bold">azkbrqlna@gmail.com</span>.
                   </p>
-                  <div className="pt-3">
-                    <button
-                      onClick={() => {
-                        setSubmitted(false);
-                        setFormData({ name: "", email: "", message: "" });
-                      }}
-                      className="px-6 py-2.5 bg-white/10 hover:bg-[#ffd700] hover:text-[#111116] border border-[#ffd700]/40 text-[#ffd700] font-bold text-xs rounded-lg transition-all font-mono tracking-wider cursor-pointer"
-                    >
-                      <span>TRANSMIT ANOTHER MESSAGE</span>
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: "", email: "", message: "" });
+                    }}
+                    className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-mono font-bold"
+                  >
+                    SEND ANOTHER MESSAGE
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
