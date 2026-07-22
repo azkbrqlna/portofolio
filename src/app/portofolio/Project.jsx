@@ -58,19 +58,19 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-16 min-h-screen font-sans select-none">
+    <section id="projects" className="pt-28 pb-16 min-h-screen font-sans select-none">
       <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Main 2-Column Archive Layout (Widescreen Match) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
+
+        {/* Main 2-Column Archive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
           {/* Left Sidebar: Title & Category Filters */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-3 space-y-6">
             <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tighter uppercase font-serif">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter uppercase font-serif leading-none">
                 PROJECTS
               </h1>
-              <div className="text-sm font-mono text-white/50 mt-1">
+              <div className="text-sm font-mono text-white/50 mt-2">
                 ({filteredProjects.length}) [作品]
               </div>
             </div>
@@ -84,11 +84,10 @@ export default function Projects() {
                     setActiveCategory(cat);
                     setExpandedIndex(0);
                   }}
-                  className={`text-left transition-all py-1.5 px-3 rounded-md ${
-                    activeCategory === cat
-                      ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
-                      : "text-white/60 hover:text-white"
-                  }`}
+                  className={`text-left transition-all py-1.5 px-3 rounded-md ${activeCategory === cat
+                    ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
+                    : "text-white/60 hover:text-white"
+                    }`}
                 >
                   {cat}
                 </button>
@@ -97,8 +96,8 @@ export default function Projects() {
           </div>
 
           {/* Right Column: Interactive Accordion Table */}
-          <div className="lg:col-span-10 space-y-2">
-            
+          <div className="lg:col-span-9 space-y-2">
+
             {/* Table Header Row */}
             <div className="grid grid-cols-12 px-6 py-3 text-xs font-mono text-white/40 border-b border-white/20 uppercase tracking-wider">
               <div className="col-span-6 sm:col-span-7">PROJECT</div>
@@ -118,9 +117,8 @@ export default function Projects() {
                     {/* Interactive List Item Row */}
                     <button
                       onClick={() => toggleExpand(idx)}
-                      className={`w-full grid grid-cols-12 items-center px-6 py-5 text-left transition-all hover:bg-white/5 ${
-                        isExpanded ? "bg-white/5 text-[#ffd700]" : "text-white"
-                      }`}
+                      className={`w-full grid grid-cols-12 items-center px-6 py-5 text-left transition-all hover:bg-white/5 ${isExpanded ? "bg-white/5 text-[#ffd700]" : "text-white"
+                        }`}
                     >
                       {/* Project Name + Icon */}
                       <div className="col-span-6 sm:col-span-7 flex items-center gap-3 font-bold text-base sm:text-lg md:text-xl">
@@ -137,9 +135,8 @@ export default function Projects() {
                       <div className="col-span-3 sm:col-span-2 flex items-center justify-end gap-3 text-xs sm:text-sm text-white/60">
                         <span>{info.year}</span>
                         <ChevronDown
-                          className={`w-4 h-4 text-[#ffd700] transition-transform duration-300 ${
-                            isExpanded ? "rotate-180" : ""
-                          }`}
+                          className={`w-4 h-4 text-[#ffd700] transition-transform duration-300 ${isExpanded ? "rotate-180" : ""
+                            }`}
                         />
                       </div>
                     </button>
@@ -155,7 +152,7 @@ export default function Projects() {
                           className="overflow-hidden bg-[#161622]/90 border-t border-b border-[#ffd700]/30"
                         >
                           <div className="p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                            
+
                             {/* Left Info Column inside Drawer */}
                             <div className="lg:col-span-7 space-y-4">
                               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ffd700]/10 border border-[#ffd700]/30 text-[#ffd700] text-xs font-mono">
