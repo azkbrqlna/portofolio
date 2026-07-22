@@ -59,10 +59,10 @@ export default function Projects() {
 
   return (
     <section id="projects" className="pt-28 pb-16 min-h-screen font-sans select-none">
-      <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Main 2-Column Archive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Main 2-Column Archive Layout (Compact Reference Match) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
           {/* Left Sidebar: Title & Category Filters */}
           <div className="lg:col-span-3 space-y-6">
@@ -231,12 +231,13 @@ export default function Projects() {
 
         </div>
 
-      {/* Bottom Right Vertical Scroll Watermark */}
-      <div className="hidden lg:flex fixed right-6 bottom-12 z-30 flex-col items-center gap-2 font-mono text-xs text-white/50 tracking-widest pointer-events-none select-none">
-        <span className="writing-mode-vertical">SCROLL [スクロール]</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
-      </div>
+        {/* Bottom Right Vertical Scroll Watermark */}
+        <div className="hidden lg:flex fixed right-6 bottom-12 z-30 flex-col items-center gap-2 font-mono text-xs text-white/50 tracking-widest pointer-events-none select-none">
+          <span className="writing-mode-vertical">SCROLL [スクロール]</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
+        </div>
 
+      </div>
     </section>
   );
 }
