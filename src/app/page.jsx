@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import SwordSlashLoader from "@/components/ui/SwordSlashLoader";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
 import InteractiveCmd from "@/components/ui/InteractiveCmd";
 
@@ -25,9 +24,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Katana Sword Slash Opening Loader */}
-      <SwordSlashLoader forceTrigger={slashTrigger} />
-
       {/* Cyber Matrix Canvas */}
       <CyberMatrixBackground />
 
