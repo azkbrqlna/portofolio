@@ -60,18 +60,6 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Japanese Marquee Banner for Projects */}
-        <div className="w-full overflow-hidden border-y border-[#ffd700]/40 py-2.5 my-8 bg-black/40 backdrop-blur-sm select-none">
-          <div className="animate-marquee items-center gap-12 font-mono text-xs md:text-sm font-bold tracking-widest">
-            {[...japaneseMarquee, ...japaneseMarquee, ...japaneseMarquee].map((text, idx) => (
-              <div key={idx} className="flex items-center gap-8 text-[#ffd700] drop-shadow-[0_0_10px_#ffd700]">
-                <span>{text}</span>
-                <span className="text-white/30 text-xs">◆</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
           {projectsData.map((p, i) => (

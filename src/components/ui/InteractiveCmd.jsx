@@ -20,7 +20,6 @@ export default function InteractiveCmd({ onTriggerSlash }) {
     { text: "Microsoft Windows [Version 10.0.22631]", type: "muted" },
     { text: "(c) Microsoft Corporation. All rights reserved.\n", type: "muted" },
     { text: welcomeAscii + "\n", type: "accent" },
-    { text: "AZKBRQLNA // FULLSTACK & CYBERSECURITY SYS_OP", type: "info" },
     { text: "Type 'help' to list interactive commands.\n", type: "muted" },
   ]);
 
@@ -106,7 +105,7 @@ export default function InteractiveCmd({ onTriggerSlash }) {
       <div className="bg-[#181822] px-3 py-1.5 border-b border-white/10 flex items-center justify-between select-none">
         <div className="flex items-center gap-2 text-white/70 text-[11px]">
           <Terminal className="w-3.5 h-3.5 text-[#ffd700]" />
-          <span>Command Prompt - azka@sys_op</span>
+          <span>Command Prompt</span>
         </div>
         <div className="flex items-center gap-1.5 text-[10px] text-white/50">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5555]/80 inline-block" />
@@ -120,19 +119,18 @@ export default function InteractiveCmd({ onTriggerSlash }) {
         {history.map((item, idx) => (
           <div
             key={idx}
-            className={`whitespace-pre-wrap ${
-              item.type === "prompt"
-                ? "text-[#ffd700] font-bold"
-                : item.type === "accent"
+            className={`whitespace-pre-wrap ${item.type === "prompt"
+              ? "text-[#ffd700] font-bold"
+              : item.type === "accent"
                 ? "text-[#ffd700]"
                 : item.type === "info"
-                ? "text-white/90"
-                : item.type === "muted"
-                ? "text-white/40 text-[10px]"
-                : item.type === "error"
-                ? "text-[#ff5555]"
-                : "text-[#50fa7b]"
-            }`}
+                  ? "text-white/90"
+                  : item.type === "muted"
+                    ? "text-white/40 text-[10px]"
+                    : item.type === "error"
+                      ? "text-[#ff5555]"
+                      : "text-[#50fa7b]"
+              }`}
           >
             {item.text}
           </div>
