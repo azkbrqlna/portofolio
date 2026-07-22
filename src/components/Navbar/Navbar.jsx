@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -20,53 +20,59 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-4 right-4 sm:top-6 sm:right-6 lg:right-10 z-50 font-mono text-xs select-none">
-      {/* Desktop Top-Right Navigation Menu */}
-      <div className="hidden md:flex items-center gap-6 bg-[#111116]/90 backdrop-blur-md border border-white/20 px-6 py-3 rounded-full shadow-2xl">
-        <nav className="flex items-center gap-6 tracking-wider">
+      {/* Desktop Navigation (No Background Circle, Text-Only with Left-to-Right Animated Underline) */}
+      <div className="hidden md:flex items-center gap-8">
+        <nav className="flex items-center gap-8 tracking-widest font-bold">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`transition-all hover:text-[#ffd700] py-1 ${
-                  isActive ? "text-[#ffd700] font-bold" : "text-white/80"
+                className={`relative py-1 transition-colors group ${
+                  isActive ? "text-[#ffd700]" : "text-white/80 hover:text-white"
                 }`}
               >
                 <span>{item.label}</span>
+                {/* Left-to-Right Expanding Animated Underline */}
+                <span
+                  className={`absolute bottom-0 left-0 h-[2px] bg-[#ffd700] transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
               </Link>
             );
           })}
-        </nav>
 
-        {/* CV Link Button */}
+          {/* CV Link with Animated Underline */}
+          <Link
+            href={cvLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative py-1 transition-colors group text-[#ffd700] flex items-center gap-1 font-bold"
+            title="View CV / Resume"
+          >
+            <span>CV</span>
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <span className="absolute bottom-0 left-0 w-0 group-hover:w-full h-[2px] bg-[#ffd700] transition-all duration-300" />
+          </Link>
+        </nav>
+      </div>
+
+      {/* Mobile Navigation Toggle */}
+      <div className="md:hidden flex items-center gap-4 bg-[#111116]/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
         <Link
           href={cvLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-4 py-1.5 bg-[#ffd700]/10 hover:bg-[#ffd700] hover:text-[#111116] border border-[#ffd700]/40 text-[#ffd700] rounded-full text-[11px] font-bold transition-all shadow-sm active:scale-95 tracking-wider"
-          title="View CV / Resume"
+          className="text-[#ffd700] font-bold text-xs flex items-center gap-1"
         >
-          <FileText className="w-3.5 h-3.5" />
           <span>CV</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </Link>
-      </div>
-
-      {/* Mobile Toggle Button */}
-      <div className="md:hidden flex items-center gap-2">
-        <Link
-          href={cvLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-2 bg-[#ffd700]/10 border border-[#ffd700]/40 text-[#ffd700] rounded-full font-bold text-xs flex items-center gap-1"
-        >
-          <span>CV</span>
-          <ArrowUpRight className="w-3 h-3" />
-        </Link>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2.5 bg-[#111116]/90 border border-white/20 text-white rounded-full backdrop-blur-md shadow-lg"
+          className="text-white hover:text-[#ffd700] transition-colors"
         >
           {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -74,7 +80,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden absolute top-14 right-0 bg-[#111116]/95 border border-white/20 p-4 rounded-2xl shadow-2xl flex flex-col gap-3 min-w-[180px] backdrop-blur-xl">
+        <div className="md:hidden absolute top-14 right-0 bg-[#111116]/95 border border-white/20 p-5 rounded-xl shadow-2xl flex flex-col gap-4 min-w-[180px] backdrop-blur-xl">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -82,11 +88,16 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between p-2.5 rounded-lg transition-colors ${
-                  isActive ? "bg-[#ffd700] text-[#111116] font-bold" : "text-white hover:bg-white/10"
+                className={`relative py-1 font-mono text-xs transition-colors group w-fit ${
+                  isActive ? "text-[#ffd700] font-bold" : "text-white/80 hover:text-white"
                 }`}
               >
                 <span>{item.label}</span>
+                <span
+                  className={`absolute bottom-0 left-0 h-[2px] bg-[#ffd700] transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
               </Link>
             );
           })}
