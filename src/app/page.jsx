@@ -99,7 +99,7 @@ export default function HomePage() {
 
             {/* Right Tall Vertical Image Card */}
             <div className="lg:col-span-3 flex flex-col">
-              <div className="relative w-full h-[240px] sm:h-[300px] lg:h-[330px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
+              <div className="relative w-full h-[200px] sm:h-[240px] lg:h-[270px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
                 {/* Image */}
                 <Image
                   src="/images/cyberpunk_tall.png"
