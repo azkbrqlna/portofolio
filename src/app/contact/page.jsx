@@ -88,7 +88,7 @@ export default function ContactPage() {
     {
       label: "LINKEDIN",
       value: "Azka Bariqlana",
-      href: "https://www.linkedin.com/in/azka-bariqlana-06a3482a1/",
+      href: "https://www.linkedin.com/in/azkbrqlna",
       icon: Linkedin,
       accent: "text-[#8be9fd]",
     },
@@ -101,8 +101,8 @@ export default function ContactPage() {
     },
     {
       label: "INSTAGRAM",
-      value: "@azkbrqlna",
-      href: "https://instagram.com/azkbrqlna",
+      value: "@azkbrqlnaaa_",
+      href: "https://instagram.com/azkbrqlnaaa_",
       icon: Instagram,
       accent: "text-[#ff79c6]",
     },
@@ -113,10 +113,10 @@ export default function ContactPage() {
       <CyberMatrixBackground />
 
       <div className="relative z-10 max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Main 2-Column Layout (Matching Home, Projects & Experience) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
+
           {/* Left Sidebar: Title & Direct Channels */}
           <div className="lg:col-span-3 space-y-6">
             <div>
@@ -167,13 +167,10 @@ export default function ContactPage() {
                 <div className="flex items-center gap-2 text-white">
                   <ShieldCheck className="w-5 h-5 text-[#ffd700]" />
                   <h2 className="font-bold text-sm sm:text-base tracking-wider uppercase font-sans">
-                    ENCRYPTED MESSAGE PROTOCOL
+                    SEND YOUR MESSAGE
                   </h2>
                 </div>
-                <span className="text-[10px] text-[#50fa7b] flex items-center gap-1.5 font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#50fa7b] animate-ping" />
-                  ANTI-SPAM GUARD // ACTIVE
-                </span>
+
               </div>
 
               {/* Error Alert Display */}
