@@ -3,20 +3,45 @@
 import React, { useState } from "react";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
 import GlitchText from "@/components/ui/GlitchText";
-import { Mail, Linkedin, Github, Instagram, Send, ShieldCheck, ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
+import { Mail, Linkedin, Github, Instagram, Send, ShieldCheck, ArrowUpRight, CheckCircle2, Loader2, AlertTriangle } from "lucide-react";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "", honeypot: "" });
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [lastSentTime, setLastSentTime] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    setErrorMsg("");
+
+    // 1. Anti-Spam Check: Invisible Honeypot Trap (Bots will fill this field, humans won't)
+    if (formData.honeypot) {
+      console.warn("Spam bot detected via honeypot trap.");
+      setSubmitted(true);
+      return;
+    }
+
+    // 2. Anti-Spam Check: Minimum text length to prevent dummy spam
+    if (formData.name.trim().length < 2) {
+      setErrorMsg("VALIDATION ERROR // Name must be at least 2 characters.");
+      return;
+    }
+    if (formData.message.trim().length < 10) {
+      setErrorMsg("VALIDATION ERROR // Message content must be at least 10 characters.");
+      return;
+    }
+
+    // 3. Anti-Spam Rate Limit Cooldown (60 seconds per dispatch)
+    const now = Date.now();
+    if (now - lastSentTime < 60000) {
+      const remainingSeconds = Math.ceil((60000 - (now - lastSentTime)) / 1000);
+      setErrorMsg(`RATE LIMIT EXCEEDED // Please wait ${remainingSeconds}s before dispatching another message.`);
+      return;
+    }
 
     setIsSending(true);
-    setErrorMsg("");
 
     try {
       const data = new FormData();
@@ -35,15 +60,18 @@ export default function ContactPage() {
 
       if (response.ok || result.success === "true" || result.success === true) {
         setSubmitted(true);
+        setLastSentTime(Date.now());
       } else {
-        // Direct mailto fallback if network block
+        // Direct mailto fallback
         window.location.href = `mailto:azkbrqlna@gmail.com?subject=Portfolio Transmission from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
         setSubmitted(true);
+        setLastSentTime(Date.now());
       }
     } catch (err) {
       console.error("Transmission dispatch error:", err);
       window.location.href = `mailto:azkbrqlna@gmail.com?subject=Portfolio Transmission from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
       setSubmitted(true);
+      setLastSentTime(Date.now());
     } finally {
       setIsSending(false);
     }
@@ -144,9 +172,17 @@ export default function ContactPage() {
                 </div>
                 <span className="text-[10px] text-[#50fa7b] flex items-center gap-1.5 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#50fa7b] animate-ping" />
-                  GMAIL DISPATCH // ACTIVE
+                  ANTI-SPAM GUARD // ACTIVE
                 </span>
               </div>
+
+              {/* Error Alert Display */}
+              {errorMsg && (
+                <div className="p-4 bg-[#ff5555]/10 border border-[#ff5555]/40 rounded-lg text-[#ff5555] text-xs font-mono flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 shrink-0" />
+                  <span>{errorMsg}</span>
+                </div>
+              )}
 
               {submitted ? (
                 <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-3">
@@ -160,7 +196,7 @@ export default function ContactPage() {
                   <button
                     onClick={() => {
                       setSubmitted(false);
-                      setFormData({ name: "", email: "", message: "" });
+                      setFormData({ name: "", email: "", message: "", honeypot: "" });
                     }}
                     className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-mono font-bold"
                   >
@@ -169,6 +205,18 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
+
+                  {/* 🛑 Invisible Honeypot Trap Input for Spam Bots */}
+                  <input
+                    type="text"
+                    name="website_url_honeypot"
+                    value={formData.honeypot}
+                    onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                    className="hidden opacity-0 pointer-events-none absolute -z-50"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <label className="block text-white/70 mb-1.5 font-bold uppercase tracking-wider text-[11px]">
@@ -201,7 +249,7 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-white/70 mb-1.5 font-bold uppercase tracking-wider text-[11px]">
-                      03 // TRANSMISSION CONTENT
+                      03 // TRANSMISSION CONTENT (MIN 10 CHARS)
                     </label>
                     <textarea
                       rows={6}
