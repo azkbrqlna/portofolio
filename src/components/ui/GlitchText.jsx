@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 const CYBER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*アズカバリクラナ";
 
-export default function GlitchText({ text, className = "", delay = 0, hoverGlitch = true }) {
+export default function GlitchText({ text, className = "", delay = 0 }) {
   const [displayText, setDisplayText] = useState("");
   const [isGlitching, setIsGlitching] = useState(true);
 
@@ -42,38 +42,8 @@ export default function GlitchText({ text, className = "", delay = 0, hoverGlitc
     };
   }, [text, delay]);
 
-  const triggerGlitchBurst = () => {
-    if (!hoverGlitch || isGlitching) return;
-    setIsGlitching(true);
-    let iteration = 0;
-    const interval = setInterval(() => {
-      setDisplayText(
-        text
-          .split("")
-          .map((char, index) => {
-            if (char === " ") return " ";
-            if (index < iteration) {
-              return text[index];
-            }
-            return CYBER_CHARS[Math.floor(Math.random() * CYBER_CHARS.length)];
-          })
-          .join("")
-      );
-
-      if (iteration >= text.length) {
-        clearInterval(interval);
-        setIsGlitching(false);
-      }
-
-      iteration += 1 / 2;
-    }, 35);
-  };
-
   return (
-    <div
-      onMouseEnter={triggerGlitchBurst}
-      className={`relative inline-block select-none group cursor-pointer ${className}`}
-    >
+    <div className={`relative inline-block select-none ${className}`}>
       {/* Glitch Overlay Red Shift */}
       {isGlitching && (
         <span
