@@ -8,10 +8,20 @@ export default function InteractiveCmd({ onTriggerSlash }) {
   const router = useRouter();
   const bottomRef = useRef(null);
 
+  const welcomeAscii = `
+ __        _______ _     ____ ___  __  __ _____ 
+ \\ \\      / / ____| |   / ___/ _ \\|  \\/  | ____|
+  \\ \\ /\\ / /|  _| | |  | |  | | | | |\\/| |  _|  
+   \\ V  V / | |___| |__| |__| |_| | |  | | |___ 
+    \\_/\\_/  |_____|_____\\____\\___/|_|  |_|_____|
+`.trim();
+
   const [history, setHistory] = useState([
     { text: "Microsoft Windows [Version 10.0.22631]", type: "muted" },
     { text: "(c) Microsoft Corporation. All rights reserved.\n", type: "muted" },
-    { text: "Type 'help' to list interactive commands.\n", type: "accent" },
+    { text: welcomeAscii + "\n", type: "accent" },
+    { text: "AZKBRQLNA // FULLSTACK & CYBERSECURITY SYS_OP", type: "info" },
+    { text: "Type 'help' to list interactive commands.\n", type: "muted" },
   ]);
 
   const [inputVal, setInputVal] = useState("");
