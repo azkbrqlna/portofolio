@@ -1,31 +1,26 @@
-import Navbar from "@/components/Navbar/Navbar";
+"use client";
 
+import React, { useState } from "react";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 import { inter, ceraRoundPro } from "@/utils/fonts";
 import "./globals.css";
-import Footer from "@/components/Footer/Footer";
-import SplashCursor from "@/components/ui/Animations/SplashCursor/SplashCursor";
-
-export const metadata = {
-  title: {
-    template: "%s | Azkbrqlna",
-    default: "Azkbrqlna",
-  },
-  description: "Portfolio of Azka Bariqlana",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
 
 export default function RootLayout({ children }) {
+  const [slashTrigger, setSlashTrigger] = useState(0);
+
+  const handleTriggerSlash = () => {
+    setSlashTrigger((prev) => prev + 1);
+  };
+
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter} ${ceraRoundPro}`}>
-        <SplashCursor />
-        <div className="flex flex-col min-h-screen ">
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+    <html lang="en" className="dark scroll-smooth">
+      <body className={`${inter} ${ceraRoundPro} bg-[#0d0d15] text-[#f8f8f2] min-h-screen flex flex-col font-sans antialiased selection:bg-[#ff79c6] selection:text-[#1e1e2e]`}>
+        <Navbar onTriggerSlash={handleTriggerSlash} />
+        <main className="flex-1">
+          {React.cloneElement(children, { forceSlashTrigger: slashTrigger })}
+        </main>
+        <Footer />
       </body>
     </html>
   );

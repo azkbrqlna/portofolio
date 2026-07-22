@@ -1,16 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import NavItem from "./NavItem";
 import Link from "next/link";
-import { HiUser, HiBriefcase, HiFolder, HiDocumentText } from "react-icons/hi";
+import { User, FolderGit2, Briefcase, FileText, Zap, Shield, Sparkles } from "lucide-react";
 
-export default function Navbar() {
-  const [activeSection, setActiveSection] = useState("");
+export default function Navbar({ onTriggerSlash }) {
+  const [activeSection, setActiveSection] = useState("#about");
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section[id], div[id]");
-
+    const sections = document.querySelectorAll("section[id]");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -19,60 +17,75 @@ export default function Navbar() {
           }
         });
       },
-      {
-        rootMargin: "-40% 0px -40% 0px",
-      },
+      { rootMargin: "-40% 0px -40% 0px" }
     );
 
     sections.forEach((section) => observer.observe(section));
-
     return () => sections.forEach((section) => observer.unobserve(section));
   }, []);
 
+  const navItems = [
+    { href: "#about", icon: User, label: "ABOUT", color: "#8be9fd" },
+    { href: "#skills", icon: Sparkles, label: "SKILLS", color: "#bd93f9" },
+    { href: "#projects", icon: FolderGit2, label: "PROJECTS", color: "#ff79c6" },
+    { href: "#experience", icon: Briefcase, label: "EXPERIENCE", color: "#50fa7b" },
+  ];
+
   return (
-    <nav className="fixed top-4 left-0 w-full md:top-0 md:h-screen z-50 flex justify-center md:justify-start md:items-center p-4 pointer-events-none">
-      {/* Tambahkan md:items-start dan p-2 di layar md agar tidak lari ke tengah */}
-      <div className="group pointer-events-auto flex flex-row md:flex-col items-center md:items-start gap-6 md:gap-2 px-6 py-3 md:p-2 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-neutral-300 dark:border-neutral-800 rounded-full md:rounded-2xl shadow-lg transition-all duration-300 w-auto md:w-[60px] md:hover:w-[160px] overflow-hidden">
-        <NavItem
-          href="#about"
-          icon={<HiUser size={20} />}
-          text="About"
-          isActive={activeSection === "#about"}
-          activeColor="text-blue-500 dark:text-blue-400"
-        />
-        <NavItem
-          href="#projects"
-          icon={<HiFolder size={20} />}
-          text="Projects"
-          isActive={activeSection === "#projects"}
-          activeColor="text-emerald-500 dark:text-emerald-400"
-        />
-        <NavItem
-          href="#experience"
-          icon={<HiBriefcase size={20} />}
-          text="Experience"
-          isActive={activeSection === "#experience"}
-          activeColor="text-purple-500 dark:text-purple-400"
-        />
-
-        <div className="w-px h-6 md:w-full md:h-px bg-neutral-300 dark:bg-neutral-800 my-0 md:my-1"></div>
-
-        {/* Tambahkan w-auto md:w-full overflow-hidden di sini */}
-        <Link
-          href="https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf"
-          passHref
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-cera flex items-center gap-4 p-2 rounded-full md:rounded-xl transition-all duration-300 w-auto md:w-full overflow-hidden text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:text-neutral-300 hover:text-rose-500 dark:hover:text-rose-400 group/resume"
-        >
-          <div className="flex-shrink-0 transition-colors duration-300 flex items-center justify-center w-[20px]">
-            <HiDocumentText size={20} />
-          </div>
-          <span className="hidden md:block whitespace-nowrap text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Resume
-          </span>
+    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+      <div className="pointer-events-auto flex items-center justify-between gap-4 px-5 py-2.5 bg-[#161622]/90 backdrop-blur-xl border border-[#bd93f9]/30 rounded-2xl shadow-[0_0_25px_rgba(189,147,249,0.2)] max-w-4xl w-full">
+        
+        {/* Brand / Logo */}
+        <Link href="#about" className="flex items-center gap-2 font-mono text-sm font-bold text-[#f8f8f2] hover:text-[#bd93f9] transition-colors">
+          <Shield className="w-5 h-5 text-[#ff5555]" />
+          <span className="hidden sm:inline">AZK.DEV</span>
         </Link>
+
+        {/* Navigation Items */}
+        <nav className="flex items-center gap-1 sm:gap-2 font-mono text-xs">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeSection === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all ${
+                  isActive
+                    ? "bg-[#1e1e2e] text-[#f8f8f2] border border-[#bd93f9] shadow-[0_0_12px_rgba(189,147,249,0.4)]"
+                    : "text-[#6272a4] hover:text-[#f8f8f2] hover:bg-[#1e1e2e]/50"
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" style={{ color: isActive ? item.color : undefined }} />
+                <span className="hidden md:inline">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Actions: Sword Slash Trigger & Resume */}
+        <div className="flex items-center gap-2 font-mono text-xs">
+          <button
+            onClick={() => onTriggerSlash && onTriggerSlash()}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#ff5555]/20 hover:bg-[#ff5555] text-[#ff5555] hover:text-[#1e1e2e] border border-[#ff5555]/40 text-xs font-bold transition-all shadow-sm"
+            title="Trigger Katana Sword Slash Animation"
+          >
+            <Zap className="w-3.5 h-3.5 fill-current" />
+            <span className="hidden sm:inline">SLASH</span>
+          </button>
+
+          <Link
+            href="https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#1e1e2e] hover:bg-[#bd93f9] text-[#bd93f9] hover:text-[#1e1e2e] border border-[#bd93f9]/40 font-bold transition-all shadow-sm"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">CV</span>
+          </Link>
+        </div>
+
       </div>
-    </nav>
+    </header>
   );
 }

@@ -8,123 +8,70 @@
   box-sizing: border-box;
 }
 
-p,
-li {
-  font-family: var(--font-inter);
-  font-weight: normal;
-  line-height: normal;
-  font-size: 16px;
+body {
+  background-color: #0d0d15;
+  color: #f8f8f2;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 700;
-  font-family: var(--font-cera);
+/* Custom Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-  }
+::-webkit-scrollbar-track {
+  background: #0d0d15;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+::-webkit-scrollbar-thumb {
+  background: #1e1e2e;
+  border: 1px solid rgba(189, 147, 249, 0.4);
+  border-radius: 4px;
 }
 
-@keyframes animate-left {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: #bd93f9;
 }
 
-@keyframes animate-right {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+/* Dracula Cyberpunk Utilities */
+.cyber-[#bd93f9] {
+  color: #bd93f9;
 }
 
-.animate-left {
-  animation: animate-left 1s ease-out;
+.cyber-[#ff79c6] {
+  color: #ff79c6;
 }
 
-.animate-right {
-  animation: animate-right 1s ease-out;
+.cyber-[#8be9fd] {
+  color: #8be9fd;
+}
+
+.cyber-[#50fa7b] {
+  color: #50fa7b;
+}
+
+.cyber-[#ff5555] {
+  color: #ff5555;
+}
+
+.cyber-glow-purple {
+  box-shadow: 0 0 25px rgba(189, 147, 249, 0.35);
+}
+
+.cyber-glow-pink {
+  box-shadow: 0 0 25px rgba(255, 121, 198, 0.35);
+}
+
+.cyber-glow-red {
+  box-shadow: 0 0 25px rgba(255, 85, 85, 0.35);
+}
+
+.cyber-glow-cyan {
+  box-shadow: 0 0 25px rgba(139, 233, 253, 0.35);
+}
+
+/* Radial Vignette */
+.bg-radial-vignette {
+  background: radial-gradient(circle at center, transparent 30%, #0d0d15 90%);
 }

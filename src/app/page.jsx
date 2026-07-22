@@ -1,46 +1,35 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useState } from "react";
+import SwordSlashLoader from "@/components/ui/SwordSlashLoader";
+import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
 import AboutSection from "./portofolio/About";
+import CyberSkills from "@/components/fragments/CyberSkills";
 import ProjectSection from "./portofolio/Project";
 import ExperienceSection from "./portofolio/Experience";
 
 export default function PortfolioPage() {
-  useEffect(() => {
-    import("scrollreveal").then((ScrollReveal) => {
-      const sr = ScrollReveal.default();
-      sr.reveal(".reveal-bottom", {
-        origin: "bottom",
-        distance: "20px",
-        duration: 1000,
-        reset: true,
-      });
-      sr.reveal(".reveal-left", {
-        origin: "left",
-        distance: "20px",
-        duration: 1000,
-        reset: true,
-      });
-      sr.reveal(".reveal-right", {
-        origin: "right",
-        distance: "20px",
-        duration: 1000,
-        reset: true,
-      });
-      sr.reveal(".reveal-top", {
-        origin: "top",
-        distance: "20px",
-        duration: 1000,
-        reset: true,
-      });
-    });
-  }, []);
+  const [slashTrigger, setSlashTrigger] = useState(0);
+
+  const handleTriggerSlash = () => {
+    setSlashTrigger((prev) => prev + 1);
+  };
 
   return (
     <>
-      <AboutSection />
-      <ProjectSection />
-      <ExperienceSection />
+      {/* Katana Sword Slash Opening Loader */}
+      <SwordSlashLoader forceTrigger={slashTrigger} />
+
+      {/* Cyber Matrix Animated Canvas */}
+      <CyberMatrixBackground />
+
+      {/* Main Portfolio Sections */}
+      <div className="relative z-10 space-y-12">
+        <AboutSection onTriggerSlash={handleTriggerSlash} />
+        <CyberSkills />
+        <ProjectSection />
+        <ExperienceSection />
+      </div>
     </>
   );
 }

@@ -1,52 +1,41 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { RiMoonClearLine, RiSunLine } from "react-icons/ri";
+import React from "react";
+import { Shield, Terminal, ArrowUp } from "lucide-react";
 
 export default function Footer() {
-  const [year] = useState(new Date().getFullYear());
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const year = new Date().getFullYear();
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
-    } else {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setIsDarkMode(prefersDark);
-      document.documentElement.classList.toggle("dark", prefersDark);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="flex items-center justify-between flex-row py-5 px-6 mt-auto border-neutral-300 dark:border-neutral-800">
-      <p className="text-center font-cera font-bold text-sm">
-        &copy; {year} All Rights Reserved | Azka Bariqlana
-      </p>
-      <button
-        onClick={toggleTheme}
-        className="text-xl p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition"
-        aria-label="Toggle Theme"
-      >
-        {isDarkMode ? (
-          <RiSunLine className="text-yellow-500" />
-        ) : (
-          <RiMoonClearLine />
-        )}
-      </button>
+    <footer className="w-full bg-[#0d0d15] border-t border-[#bd93f9]/20 py-8 px-6 mt-20 relative z-10 font-mono text-xs text-[#6272a4]">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        {/* Left Status Info */}
+        <div className="flex items-center gap-2 text-[#f8f8f2]">
+          <Shield className="w-4 h-4 text-[#ff5555]" />
+          <span className="font-bold tracking-wider">AZKA BARIQLANA</span>
+          <span className="text-[#bd93f9]">// CYBERPUNK DRACULA CORE</span>
+        </div>
+
+        {/* Center Copyright */}
+        <div className="text-center">
+          &copy; {year} ALL RIGHTS RESERVED. ARCHITECTED WITH NEXT.JS 15 & TAILWIND CSS.
+        </div>
+
+        {/* Right Back to Top */}
+        <button
+          onClick={scrollToTop}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#1e1e2e] hover:bg-[#bd93f9] text-[#bd93f9] hover:text-[#1e1e2e] border border-[#bd93f9]/30 transition-all"
+        >
+          <span>BACK TO TOP</span>
+          <ArrowUp className="w-3.5 h-3.5" />
+        </button>
+
+      </div>
     </footer>
   );
 }
