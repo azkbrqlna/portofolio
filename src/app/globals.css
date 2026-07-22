@@ -130,3 +130,66 @@
 .bg-radial-vignette {
   background: radial-gradient(circle at center, transparent 30%, #111116 90%);
 }
+
+/* Cyberpunk Glitch Text Animations */
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 30% 0);
+    transform: translate(-2px, -2px);
+  }
+  20% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(2px, 1px);
+  }
+  40% {
+    clip-path: inset(40% 0 50% 0);
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(2px, -1px);
+  }
+  80% {
+    clip-path: inset(10% 0 70% 0);
+    transform: translate(-2px, 1px);
+  }
+  100% {
+    clip-path: inset(30% 0 20% 0);
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(50% 0 20% 0);
+    transform: translate(2px, 2px);
+  }
+  20% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-2px, -1px);
+  }
+  40% {
+    clip-path: inset(70% 0 10% 0);
+    transform: translate(1px, -2px);
+  }
+  60% {
+    clip-path: inset(30% 0 40% 0);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(2px, -1px);
+  }
+  100% {
+    clip-path: inset(20% 0 50% 0);
+    transform: translate(0);
+  }
+}
+
+.animate-glitch-anim-1 {
+  animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
+}
+
+.animate-glitch-anim-2 {
+  animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
+}

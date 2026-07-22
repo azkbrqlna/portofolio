@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
 import InteractiveCmd from "@/components/ui/InteractiveCmd";
+import GlitchText from "@/components/ui/GlitchText";
 
 export default function HomePage() {
   const [slashTrigger, setSlashTrigger] = useState(0);
@@ -36,7 +37,7 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-2">
             <div className="flex items-baseline gap-3 flex-wrap">
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                AZKBRQLNA
+                <GlitchText text="AZKBRQLNA" delay={200} />
               </h1>
               <span className="text-base sm:text-lg lg:text-xl font-mono text-white/70 font-semibold tracking-widest">
                 [アズカ・バリクラナ]

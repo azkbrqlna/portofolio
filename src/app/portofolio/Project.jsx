@@ -14,6 +14,7 @@ import {
 } from "react-icons/ri";
 import { SiShadcnui, SiSocketdotio } from "react-icons/si";
 import { ChevronDown, ArrowUpRight, Terminal } from "lucide-react";
+import GlitchText from "@/components/ui/GlitchText";
 
 const iconMap = {
   FaNodeJs,
@@ -58,7 +59,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="pt-20 sm:pt-24 md:pt-28 pb-16 min-h-screen font-sans select-none">
+    <section id="projects" className="pt-20 sm:pt-24 md:pt-8 pb-8 min-h-screen font-sans select-none">
       <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Main 2-Column Archive Layout */}
@@ -68,7 +69,7 @@ export default function Projects() {
           <div className="lg:col-span-3 space-y-6">
             <div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter uppercase font-sans leading-none">
-                PROJECTS
+                <GlitchText text="PROJECTS" delay={150} />
               </h1>
               <div className="text-xs font-mono text-[#ffd700] mt-2 font-bold tracking-widest uppercase">
                 SELECTED WORKS // 0{filteredProjects.length}
@@ -85,8 +86,8 @@ export default function Projects() {
                     setExpandedIndex(0);
                   }}
                   className={`text-left transition-all py-2 px-3 rounded-lg whitespace-nowrap ${activeCategory === cat
-                      ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
-                      : "text-white/60 hover:text-white hover:bg-white/5"
+                    ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
                     }`}
                 >
                   {cat}

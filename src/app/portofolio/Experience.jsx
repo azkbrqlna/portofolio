@@ -5,6 +5,7 @@ import experiences from "@/app/data/experiences.json";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Briefcase, Calendar, Award, CheckCircle2, ChevronDown, Terminal, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import GlitchText from "@/components/ui/GlitchText";
 import {
   Dialog,
   DialogContent,
@@ -31,7 +32,7 @@ export default function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="pt-20 sm:pt-24 md:pt-28 pb-16 min-h-screen font-sans select-none relative">
+    <section id="experience" className="pt-20 sm:pt-24 md:pt-8 pb-8 min-h-screen font-sans select-none relative">
       <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Main 2-Column Archive Layout (Matching Home & Projects) */}
@@ -41,7 +42,7 @@ export default function ExperienceSection() {
           <div className="lg:col-span-3 space-y-6">
             <div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter uppercase font-sans leading-none">
-                EXPERIENCE
+                <GlitchText text="EXPERIENCE" delay={150} />
               </h1>
               <div className="text-xs font-mono text-[#ffd700] mt-2 font-bold tracking-widest uppercase">
                 CAREER TIMELINE // 0{filteredExperiences.length}
@@ -58,8 +59,8 @@ export default function ExperienceSection() {
                     setExpandedIndex(0);
                   }}
                   className={`text-left transition-all py-2 px-3 rounded-lg whitespace-nowrap ${activeCategory === cat
-                      ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
-                      : "text-white/60 hover:text-white hover:bg-white/5"
+                    ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
                     }`}
                 >
                   {cat}
