@@ -74,7 +74,7 @@
     box-sizing: border-box;
   }
   body {
-    background-color: #0d0d15;
+    background-color: #111116;
     color: #f8f8f2;
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
@@ -87,11 +87,11 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d15;
+  background: #111116;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e1e2e;
+  background: #252533;
   border: 1px solid rgba(189, 147, 249, 0.4);
   border-radius: 4px;
 }
@@ -100,44 +100,33 @@
   background: #bd93f9;
 }
 
-/* Dracula Utility Classes */
-.text-dracula-purple {
-  color: #bd93f9;
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.text-dracula-pink {
-  color: #ff79c6;
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
 }
 
-.text-dracula-cyan {
-  color: #8be9fd;
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
-.text-dracula-green {
-  color: #50fa7b;
-}
-
-.text-dracula-red {
-  color: #ff5555;
-}
-
-.cyber-glow-purple {
-  box-shadow: 0 0 25px rgba(189, 147, 249, 0.35);
-}
-
-.cyber-glow-pink {
-  box-shadow: 0 0 25px rgba(255, 121, 198, 0.35);
-}
-
-.cyber-glow-red {
-  box-shadow: 0 0 25px rgba(255, 85, 85, 0.35);
-}
-
-.cyber-glow-cyan {
-  box-shadow: 0 0 25px rgba(139, 233, 253, 0.35);
+/* Vertical Text Utilities */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 /* Radial Vignette */
 .bg-radial-vignette {
-  background: radial-gradient(circle at center, transparent 30%, #0d0d15 90%);
+  background: radial-gradient(circle at center, transparent 30%, #111116 90%);
 }
