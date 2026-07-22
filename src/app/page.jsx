@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import SwordSlashLoader from "@/components/ui/SwordSlashLoader";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
+import InteractiveCmd from "@/components/ui/InteractiveCmd";
 import { ArrowRight, Sparkles, Terminal, Code, ShieldCheck, ExternalLink, Zap } from "lucide-react";
 
 export default function HomePage() {
@@ -75,40 +76,8 @@ export default function HomePage() {
                   <span className="text-[#ffd700] font-bold">アズカ・バリクラナ</span>{" "}
                   SEEKS TO COMMENT MORE THAN STATE.
                 </p>
-                {/* Command Prompt Window */}
-                <div className="w-full bg-[#0c0c12] border border-white/20 rounded-lg overflow-hidden shadow-2xl font-mono text-xs">
-                  {/* Titlebar */}
-                  <div className="bg-[#181822] px-3 py-1.5 border-b border-white/10 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-white/70 text-[11px]">
-                      <Terminal className="w-3.5 h-3.5 text-[#ffd700]" />
-                      <span>Command Prompt - azka@sys_op</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-[10px] text-white/50">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#ff5555]/80 inline-block" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#ffb86c]/80 inline-block" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#50fa7b]/80 inline-block" />
-                    </div>
-                  </div>
-
-                  {/* Body */}
-                  <div className="p-3.5 space-y-1.5 text-white/90 leading-relaxed font-mono">
-                    <div className="text-white/40 text-[10px]">
-                      Microsoft Windows [Version 10.0.22631]
-                    </div>
-                    <div className="text-[#ffd700] pt-1">
-                      C:\Users\AZKBRQLNA&gt; sysinfo --status
-                    </div>
-                    <div className="pl-2 text-white/80 space-y-0.5">
-                      <div>[+] SPECIFICATION : FULLSTACK &amp; CYBERSEC</div>
-                      <div>[+] SYS.OPERATOR  : AZKA BARIQLANA</div>
-                      <div>[+] SYS.STATUS    : ACTIVE &amp; DEPLOYED</div>
-                    </div>
-                    <div className="flex items-center gap-1 pt-1 text-[#ffd700]">
-                      <span>C:\Users\AZKBRQLNA&gt;</span>
-                      <span className="w-2 h-4 bg-[#ffd700] animate-pulse inline-block" />
-                    </div>
-                  </div>
-                </div>
+                {/* Interactive Command Prompt Window */}
+                <InteractiveCmd onTriggerSlash={handleTriggerSlash} />
               </div>
             </div>
 
