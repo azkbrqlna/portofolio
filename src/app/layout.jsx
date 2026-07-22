@@ -4,19 +4,15 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import SwordSlashLoader from "@/components/ui/SwordSlashLoader";
-import { usePathname } from "next/navigation";
 import { inter, ceraRoundPro } from "@/utils/fonts";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
   const [slashTrigger, setSlashTrigger] = useState(0);
 
   const handleTriggerSlash = () => {
     setSlashTrigger((prev) => prev + 1);
   };
-
-  const isHome = pathname === "/";
 
   return (
     <html lang="en" className="dark scroll-smooth">
@@ -28,7 +24,7 @@ export default function RootLayout({ children }) {
         <main className="flex-1">
           {children}
         </main>
-        {!isHome && <Footer />}
+        <Footer />
       </body>
     </html>
   );
