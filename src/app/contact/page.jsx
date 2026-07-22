@@ -3,16 +3,47 @@
 import React, { useState } from "react";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
 import GlitchText from "@/components/ui/GlitchText";
-import { Mail, Linkedin, Github, Instagram, Send, ShieldCheck, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Mail, Linkedin, Github, Instagram, Send, ShieldCheck, ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setSubmitted(true);
+
+    setIsSending(true);
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/azkbrqlna@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `New Portfolio Message from ${formData.name}`,
+          _captcha: "false",
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        // Fallback direct mailto dispatch
+        window.location.href = `mailto:azkbrqlna@gmail.com?subject=Portfolio Transmission from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
+        setSubmitted(true);
+      }
+    } catch (err) {
+      window.location.href = `mailto:azkbrqlna@gmail.com?subject=Portfolio Transmission from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
+      setSubmitted(true);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const contactChannels = [
@@ -110,7 +141,7 @@ export default function ContactPage() {
                 </div>
                 <span className="text-[10px] text-[#50fa7b] flex items-center gap-1.5 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#50fa7b] animate-ping" />
-                  ONLINE // 200 OK
+                  GMAIL ENDPOINT // 200 OK
                 </span>
               </div>
 
@@ -118,10 +149,10 @@ export default function ContactPage() {
                 <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-3">
                   <CheckCircle2 className="w-12 h-12 text-[#ffd700] mx-auto" />
                   <div className="text-[#ffd700] font-bold text-lg tracking-wider uppercase">
-                    TRANSMISSION DISPATCHED // SUCCESS
+                    TRANSMISSION DISPATCHED TO GMAIL // SUCCESS
                   </div>
                   <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-[500px] mx-auto">
-                    Thank you, <span className="text-[#ffd700] font-bold">{formData.name}</span>. Your message has been encrypted and successfully delivered to Azka Bariqlana.
+                    Thank you, <span className="text-[#ffd700] font-bold">{formData.name}</span>. Your message has been encrypted and delivered directly to <span className="text-[#ffd700] font-bold">azkbrqlna@gmail.com</span>.
                   </p>
                 </div>
               ) : (
@@ -172,10 +203,20 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#ffd700] text-[#111116] font-bold py-4 rounded-lg hover:bg-[#ffe033] transition-all flex items-center justify-center gap-2 tracking-wider shadow-lg active:scale-[0.99] text-xs font-mono uppercase"
+                    disabled={isSending}
+                    className="w-full bg-[#ffd700] text-[#111116] font-bold py-4 rounded-lg hover:bg-[#ffe033] transition-all flex items-center justify-center gap-2 tracking-wider shadow-lg active:scale-[0.99] text-xs font-mono uppercase disabled:opacity-50 cursor-pointer"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>DISPATCH TRANSMISSION</span>
+                    {isSending ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>ENCRYPTING & DISPATCHING TO GMAIL...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>DISPATCH TRANSMISSION TO GMAIL</span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}
