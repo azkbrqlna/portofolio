@@ -31,7 +31,7 @@ export default function HomePage() {
       {/* Cyber Matrix Canvas */}
       <CyberMatrixBackground />
 
-      <main className="relative z-10 pt-20 md:pt-24 pb-4 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto h-screen max-h-screen flex flex-col justify-between overflow-hidden select-none">
+      <main className="relative z-10 pt-28 md:pt-32 pb-4 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto h-screen max-h-screen flex flex-col justify-between overflow-hidden select-none">
 
         {/* ================= HERO SECTION (FIXED 100VH VIEWPORT MATCH) ================= */}
         <section className="relative w-full h-full flex flex-col justify-between py-1">
