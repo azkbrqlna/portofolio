@@ -231,7 +231,12 @@ export default function Projects() {
 
         </div>
 
+      {/* Bottom Right Vertical Scroll Watermark */}
+      <div className="hidden lg:flex fixed right-6 bottom-12 z-30 flex-col items-center gap-2 font-mono text-xs text-white/50 tracking-widest pointer-events-none select-none">
+        <span className="writing-mode-vertical">SCROLL [スクロール]</span>
+        <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
       </div>
+
     </section>
   );
 }
