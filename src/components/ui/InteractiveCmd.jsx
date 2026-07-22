@@ -119,14 +119,14 @@ export default function InteractiveCmd({ onTriggerSlash }) {
         {history.map((item, idx) => (
           <div
             key={idx}
-            className={`whitespace-pre-wrap ${item.type === "prompt"
+            className={`whitespace-pre-wrap overflow-x-auto text-[10px] sm:text-xs leading-tight ${item.type === "prompt"
               ? "text-[#ffd700] font-bold"
               : item.type === "accent"
-                ? "text-[#ffd700]"
+                ? "text-[#ffd700] text-[8px] sm:text-xs leading-none"
                 : item.type === "info"
                   ? "text-white/90"
                   : item.type === "muted"
-                    ? "text-white/40 text-[10px]"
+                    ? "text-white/40 text-[9px] sm:text-[10px]"
                     : item.type === "error"
                       ? "text-[#ff5555]"
                       : "text-[#50fa7b]"

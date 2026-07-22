@@ -31,7 +31,7 @@ export default function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="pt-24 md:pt-28 pb-16 min-h-screen font-sans select-none relative">
+    <section id="experience" className="pt-20 sm:pt-24 md:pt-28 pb-16 min-h-screen font-sans select-none relative">
       <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Main 2-Column Archive Layout (Matching Home & Projects) */}
@@ -49,7 +49,7 @@ export default function ExperienceSection() {
             </div>
 
             {/* Category Filter Links */}
-            <div className="flex flex-col space-y-2.5 font-mono text-xs pt-4 border-t border-white/10">
+            <div className="flex flex-row overflow-x-auto sm:flex-col gap-2 font-mono text-xs pt-4 border-t border-white/10 no-scrollbar">
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -57,11 +57,10 @@ export default function ExperienceSection() {
                     setActiveCategory(cat);
                     setExpandedIndex(0);
                   }}
-                  className={`text-left transition-all py-2 px-3 rounded-lg ${
-                    activeCategory === cat
+                  className={`text-left transition-all py-2 px-3 rounded-lg whitespace-nowrap ${activeCategory === cat
                       ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
                       : "text-white/60 hover:text-white hover:bg-white/5"
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>
@@ -73,7 +72,7 @@ export default function ExperienceSection() {
           <div className="lg:col-span-9 space-y-2">
 
             {/* Table Header Row */}
-            <div className="grid grid-cols-12 px-6 py-3 text-xs font-mono text-white/40 border-b border-white/20 uppercase tracking-wider">
+            <div className="grid grid-cols-12 px-4 sm:px-6 py-3 text-xs font-mono text-white/40 border-b border-white/20 uppercase tracking-wider">
               <div className="col-span-6 sm:col-span-6">ROLE / COMPANY</div>
               <div className="col-span-3 sm:col-span-3">FOCUS</div>
               <div className="col-span-3 sm:col-span-3 text-right">PERIOD</div>
@@ -89,12 +88,11 @@ export default function ExperienceSection() {
                     {/* Interactive List Item Row */}
                     <button
                       onClick={() => toggleExpand(idx)}
-                      className={`w-full grid grid-cols-12 items-center px-6 py-5 text-left transition-all hover:bg-white/5 ${
-                        isExpanded ? "bg-white/5 text-[#ffd700]" : "text-white"
-                      }`}
+                      className={`w-full grid grid-cols-12 items-center px-4 sm:px-6 py-4 sm:py-5 text-left transition-all hover:bg-white/5 ${isExpanded ? "bg-white/5 text-[#ffd700]" : "text-white"
+                        }`}
                     >
                       {/* Experience Number + Role & Company */}
-                      <div className="col-span-6 sm:col-span-6 flex items-center gap-4 font-bold text-base sm:text-lg">
+                      <div className="col-span-6 sm:col-span-6 flex items-center gap-2 sm:gap-4 font-bold text-sm sm:text-lg">
                         <span className="text-xs font-mono text-[#ffd700] shrink-0 font-bold">
                           0{idx + 1}
                         </span>
@@ -107,17 +105,16 @@ export default function ExperienceSection() {
                       </div>
 
                       {/* Focus Tag */}
-                      <div className="col-span-3 sm:col-span-3 text-xs sm:text-sm text-white/70">
-                        {exp.title.includes("Network") ? "Network Engineering" : "Frontend Web"}
+                      <div className="col-span-3 sm:col-span-3 text-[11px] sm:text-sm text-white/70 truncate">
+                        {exp.title.includes("Network") ? "Network Eng" : "Frontend Web"}
                       </div>
 
                       {/* Period & Expand Arrow */}
-                      <div className="col-span-3 sm:col-span-3 flex items-center justify-end gap-3 text-xs text-white/60">
+                      <div className="col-span-3 sm:col-span-3 flex items-center justify-end gap-2 sm:gap-3 text-xs text-white/60">
                         <span className="truncate">{exp.period}</span>
                         <ChevronDown
-                          className={`w-4 h-4 text-[#ffd700] transition-transform duration-300 ${
-                            isExpanded ? "rotate-180" : ""
-                          }`}
+                          className={`w-4 h-4 text-[#ffd700] transition-transform duration-300 ${isExpanded ? "rotate-180" : ""
+                            }`}
                         />
                       </div>
                     </button>
@@ -132,7 +129,7 @@ export default function ExperienceSection() {
                           transition={{ duration: 0.35, ease: "easeInOut" }}
                           className="overflow-hidden bg-[#161622]/90 border-t border-b border-[#ffd700]/30"
                         >
-                          <div className="p-8 space-y-6">
+                          <div className="p-4 sm:p-8 space-y-6">
 
                             {/* Role Header Badge */}
                             <div className="flex flex-wrap items-center justify-between gap-4">

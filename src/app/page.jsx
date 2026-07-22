@@ -27,9 +27,9 @@ export default function HomePage() {
       {/* Cyber Matrix Canvas */}
       <CyberMatrixBackground />
 
-      <main className="relative z-10 pt-28 md:pt-32 pb-4 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto h-screen max-h-screen flex flex-col justify-between overflow-hidden select-none">
+      <main className="relative z-10 pt-20 sm:pt-24 lg:pt-28 pb-6 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-x-hidden lg:overflow-hidden select-none">
 
-        {/* ================= HERO SECTION (FIXED 100VH VIEWPORT MATCH) ================= */}
+        {/* ================= HERO SECTION (RESPONSIVE MATCH) ================= */}
         <section className="relative w-full h-full flex flex-col justify-between py-1">
 
           {/* Top Title Row: AZKBRQLNA + Bracketed Japanese Text */}
