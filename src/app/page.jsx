@@ -15,12 +15,16 @@ export default function HomePage() {
 
   const japaneseMarqueeItems = [
     "アズカ・バリクラナ",
-    "サイバー",
-    "アズカ・バリクラナ",
-    "サイバー",
-    "FULLSTACK",
-    "アズカ・バリクラナ",
-    "CYBERSEC",
+    "フルスタック開発",
+    "サイバーセキュリティ",
+    "ウェブエンジニア",
+    "次世代テクノロジー",
+    "ネットワーク構築",
+    "暗号化プロトコル",
+    "ミクロティック",
+    "フロントエンド",
+    "システム設計",
+    "コードイノベーション",
   ];
 
   return (
@@ -30,10 +34,8 @@ export default function HomePage() {
 
       <main className="relative z-10 pt-28 sm:pt-32 lg:pt-36 pb-6 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-x-hidden lg:overflow-hidden select-none">
 
-        {/* ================= HERO SECTION (RESPONSIVE MATCH) ================= */}
         <section className="relative w-full h-full flex flex-col justify-between py-1">
 
-          {/* Top Title Row: AZKBRQLNA + Bracketed Japanese Text */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-2">
             <div className="flex items-baseline gap-3 flex-wrap">
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
