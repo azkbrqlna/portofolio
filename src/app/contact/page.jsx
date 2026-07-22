@@ -146,7 +146,7 @@ export default function ContactPage() {
               </div>
 
               {submitted ? (
-                <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-3">
+                <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-4">
                   <CheckCircle2 className="w-12 h-12 text-[#ffd700] mx-auto" />
                   <div className="text-[#ffd700] font-bold text-lg tracking-wider uppercase">
                     TRANSMISSION DISPATCHED TO GMAIL // SUCCESS
@@ -154,6 +154,17 @@ export default function ContactPage() {
                   <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-[500px] mx-auto">
                     Thank you, <span className="text-[#ffd700] font-bold">{formData.name}</span>. Your message has been encrypted and delivered directly to <span className="text-[#ffd700] font-bold">azkbrqlna@gmail.com</span>.
                   </p>
+                  <div className="pt-3">
+                    <button
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({ name: "", email: "", message: "" });
+                      }}
+                      className="px-6 py-2.5 bg-white/10 hover:bg-[#ffd700] hover:text-[#111116] border border-[#ffd700]/40 text-[#ffd700] font-bold text-xs rounded-lg transition-all font-mono tracking-wider cursor-pointer"
+                    >
+                      <span>TRANSMIT ANOTHER MESSAGE</span>
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
