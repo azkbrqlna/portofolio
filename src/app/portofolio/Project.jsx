@@ -58,11 +58,11 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="pt-28 pb-16 min-h-screen font-sans select-none">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="pt-20 md:pt-24 pb-16 min-h-screen font-sans select-none">
+      <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Main 2-Column Archive Layout (Compact Reference Match) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        {/* Main 2-Column Archive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
           {/* Left Sidebar: Title & Category Filters */}
           <div className="lg:col-span-3 space-y-6">
