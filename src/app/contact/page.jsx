@@ -2,9 +2,8 @@
 
 import React, { useState } from "react";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
-import CyberTerminal from "@/components/ui/CyberTerminal";
 import GlitchText from "@/components/ui/GlitchText";
-import { Mail, Linkedin, Github, Instagram, Send, Terminal as TerminalIcon, ShieldCheck, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Mail, Linkedin, Github, Instagram, Send, ShieldCheck, ArrowUpRight, CheckCircle2 } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -99,11 +98,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Right Column: Encrypted Transmission Form & Terminal */}
-          <div className="lg:col-span-9 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            {/* Encrypted Contact Form */}
-            <div className="lg:col-span-7 bg-[#161622]/90 backdrop-blur-md border border-white/15 p-6 sm:p-8 rounded-xl shadow-xl space-y-6">
+          {/* Right Column: Encrypted Transmission Form */}
+          <div className="lg:col-span-9">
+            <div className="bg-[#161622]/90 backdrop-blur-md border border-white/15 p-6 sm:p-8 md:p-10 rounded-xl shadow-xl space-y-6">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono">
                 <div className="flex items-center gap-2 text-white">
                   <ShieldCheck className="w-5 h-5 text-[#ffd700]" />
@@ -118,43 +115,45 @@ export default function ContactPage() {
               </div>
 
               {submitted ? (
-                <div className="p-6 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-3">
-                  <CheckCircle2 className="w-10 h-10 text-[#ffd700] mx-auto" />
-                  <div className="text-[#ffd700] font-bold text-base tracking-wider uppercase">
+                <div className="p-8 bg-[#ffd700]/10 border border-[#ffd700]/40 rounded-xl text-center font-mono space-y-3">
+                  <CheckCircle2 className="w-12 h-12 text-[#ffd700] mx-auto" />
+                  <div className="text-[#ffd700] font-bold text-lg tracking-wider uppercase">
                     TRANSMISSION DISPATCHED // SUCCESS
                   </div>
-                  <p className="text-xs text-white/80 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-[500px] mx-auto">
                     Thank you, <span className="text-[#ffd700] font-bold">{formData.name}</span>. Your message has been encrypted and successfully delivered to Azka Bariqlana.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
-                  <div>
-                    <label className="block text-white/70 mb-1.5 font-bold uppercase tracking-wider text-[11px]">
-                      01 // OPERATOR NAME
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Enter your full name..."
-                      className="w-full bg-[#0c0c12] border border-white/20 focus:border-[#ffd700] rounded-lg px-4 py-3 text-white focus:outline-none transition-colors"
-                    />
-                  </div>
+                <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div>
+                      <label className="block text-white/70 mb-1.5 font-bold uppercase tracking-wider text-[11px]">
+                        01 // OPERATOR NAME
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Enter your full name..."
+                        className="w-full bg-[#0c0c12] border border-white/20 focus:border-[#ffd700] rounded-lg px-4 py-3.5 text-white focus:outline-none transition-colors"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="block text-white/70 mb-1.5 font-bold uppercase tracking-wider text-[11px]">
-                      02 // EMAIL ADDRESS
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="operator@domain.com"
-                      className="w-full bg-[#0c0c12] border border-white/20 focus:border-[#ffd700] rounded-lg px-4 py-3 text-white focus:outline-none transition-colors"
-                    />
+                    <div>
+                      <label className="block text-white/70 mb-1.5 font-bold uppercase tracking-wider text-[11px]">
+                        02 // EMAIL ADDRESS
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="operator@domain.com"
+                        className="w-full bg-[#0c0c12] border border-white/20 focus:border-[#ffd700] rounded-lg px-4 py-3.5 text-white focus:outline-none transition-colors"
+                      />
+                    </div>
                   </div>
 
                   <div>
@@ -162,18 +161,18 @@ export default function ContactPage() {
                       03 // TRANSMISSION CONTENT
                     </label>
                     <textarea
-                      rows={5}
+                      rows={6}
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Write your message, project inquiry, or security feedback..."
-                      className="w-full bg-[#0c0c12] border border-white/20 focus:border-[#ffd700] rounded-lg px-4 py-3 text-white focus:outline-none transition-colors"
+                      className="w-full bg-[#0c0c12] border border-white/20 focus:border-[#ffd700] rounded-lg px-4 py-3.5 text-white focus:outline-none transition-colors"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-[#ffd700] text-[#111116] font-bold py-3.5 rounded-lg hover:bg-[#ffe033] transition-all flex items-center justify-center gap-2 tracking-wider shadow-lg active:scale-[0.99]"
+                    className="w-full bg-[#ffd700] text-[#111116] font-bold py-4 rounded-lg hover:bg-[#ffe033] transition-all flex items-center justify-center gap-2 tracking-wider shadow-lg active:scale-[0.99] text-xs font-mono uppercase"
                   >
                     <Send className="w-4 h-4" />
                     <span>DISPATCH TRANSMISSION</span>
@@ -181,16 +180,6 @@ export default function ContactPage() {
                 </form>
               )}
             </div>
-
-            {/* Interactive Cyber Terminal Widget */}
-            <div className="lg:col-span-5 flex flex-col space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono text-[#ffd700] font-bold tracking-wider">
-                <TerminalIcon className="w-4 h-4" />
-                <span>CYBER TERMINAL INTERFACE</span>
-              </div>
-              <CyberTerminal />
-            </div>
-
           </div>
 
         </div>
