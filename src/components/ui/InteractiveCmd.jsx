@@ -11,9 +11,6 @@ export default function InteractiveCmd({ onTriggerSlash }) {
   const [history, setHistory] = useState([
     { text: "Microsoft Windows [Version 10.0.22631]", type: "muted" },
     { text: "(c) Microsoft Corporation. All rights reserved.\n", type: "muted" },
-    { text: "[+] SPECIFICATION : FULLSTACK & CYBERSEC", type: "info" },
-    { text: "[+] SYS.OPERATOR  : AZKA BARIQLANA", type: "info" },
-    { text: "[+] SYS.STATUS    : ACTIVE & DEPLOYED\n", type: "info" },
     { text: "Type 'help' to list interactive commands.\n", type: "accent" },
   ]);
 
