@@ -2,17 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  :root {
+    --background: 240 24% 7%;
+    --foreground: 60 30% 96%;
+
+    --card: 240 20% 11%;
+    --card-foreground: 60 30% 96%;
+
+    --popover: 240 20% 11%;
+    --popover-foreground: 60 30% 96%;
+
+    --primary: 265 89% 78%;
+    --primary-foreground: 240 24% 7%;
+
+    --secondary: 326 100% 74%;
+    --secondary-foreground: 240 24% 7%;
+
+    --muted: 240 15% 18%;
+    --muted-foreground: 231 15% 51%;
+
+    --accent: 265 89% 78%;
+    --accent-foreground: 240 24% 7%;
+
+    --destructive: 0 100% 67%;
+    --destructive-foreground: 60 30% 96%;
+
+    --border: 265 50% 30%;
+    --input: 240 15% 18%;
+    --ring: 265 89% 78%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 24% 7%;
+    --foreground: 60 30% 96%;
+
+    --card: 240 20% 11%;
+    --card-foreground: 60 30% 96%;
+
+    --popover: 240 20% 11%;
+    --popover-foreground: 60 30% 96%;
+
+    --primary: 265 89% 78%;
+    --primary-foreground: 240 24% 7%;
+
+    --secondary: 326 100% 74%;
+    --secondary-foreground: 240 24% 7%;
+
+    --muted: 240 15% 18%;
+    --muted-foreground: 231 15% 51%;
+
+    --accent: 265 89% 78%;
+    --accent-foreground: 240 24% 7%;
+
+    --destructive: 0 100% 67%;
+    --destructive-foreground: 60 30% 96%;
+
+    --border: 265 50% 30%;
+    --input: 240 15% 18%;
+    --ring: 265 89% 78%;
+  }
 }
 
-body {
-  background-color: #0d0d15;
-  color: #f8f8f2;
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
+@layer base {
+  * {
+    @apply border-border;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background-color: #0d0d15;
+    color: #f8f8f2;
+    font-family: var(--font-inter), sans-serif;
+    overflow-x: hidden;
+  }
 }
 
 /* Custom Cyber Scrollbar */
@@ -34,24 +100,24 @@ body {
   background: #bd93f9;
 }
 
-/* Dracula Cyberpunk Utilities */
-.cyber-[#bd93f9] {
+/* Dracula Utility Classes */
+.text-dracula-purple {
   color: #bd93f9;
 }
 
-.cyber-[#ff79c6] {
+.text-dracula-pink {
   color: #ff79c6;
 }
 
-.cyber-[#8be9fd] {
+.text-dracula-cyan {
   color: #8be9fd;
 }
 
-.cyber-[#50fa7b] {
+.text-dracula-green {
   color: #50fa7b;
 }
 
-.cyber-[#ff5555] {
+.text-dracula-red {
   color: #ff5555;
 }
 
