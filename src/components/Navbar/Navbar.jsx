@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Zap, Menu, X } from "lucide-react";
+import { FileText, ArrowUpRight, Menu, X } from "lucide-react";
 
-export default function Navbar({ onTriggerSlash }) {
+export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,6 +15,8 @@ export default function Navbar({ onTriggerSlash }) {
     { href: "/experience", label: "EXPERIENCE" },
     { href: "/contact", label: "CONTACT" },
   ];
+
+  const cvLink = "https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf";
 
   return (
     <div className="fixed top-4 right-4 sm:top-6 sm:right-6 lg:right-10 z-50 font-mono text-xs select-none">
@@ -37,29 +39,31 @@ export default function Navbar({ onTriggerSlash }) {
           })}
         </nav>
 
-        {/* Katana Slash Trigger Button */}
-        {onTriggerSlash && (
-          <button
-            onClick={onTriggerSlash}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ffd700]/10 hover:bg-[#ffd700] hover:text-[#111116] border border-[#ffd700]/40 text-[#ffd700] rounded-full text-[11px] font-bold transition-all shadow-sm active:scale-95"
-            title="Katana Slash"
-          >
-            <Zap className="w-3 h-3 fill-current" />
-            <span>SLASH</span>
-          </button>
-        )}
+        {/* CV Link Button */}
+        <Link
+          href={cvLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-4 py-1.5 bg-[#ffd700]/10 hover:bg-[#ffd700] hover:text-[#111116] border border-[#ffd700]/40 text-[#ffd700] rounded-full text-[11px] font-bold transition-all shadow-sm active:scale-95 tracking-wider"
+          title="View CV / Resume"
+        >
+          <FileText className="w-3.5 h-3.5" />
+          <span>CV</span>
+          <ArrowUpRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
 
       {/* Mobile Toggle Button */}
       <div className="md:hidden flex items-center gap-2">
-        {onTriggerSlash && (
-          <button
-            onClick={onTriggerSlash}
-            className="p-2 bg-[#ffd700]/10 border border-[#ffd700]/40 text-[#ffd700] rounded-full"
-          >
-            <Zap className="w-4 h-4 fill-current" />
-          </button>
-        )}
+        <Link
+          href={cvLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3 py-2 bg-[#ffd700]/10 border border-[#ffd700]/40 text-[#ffd700] rounded-full font-bold text-xs flex items-center gap-1"
+        >
+          <span>CV</span>
+          <ArrowUpRight className="w-3 h-3" />
+        </Link>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2.5 bg-[#111116]/90 border border-white/20 text-white rounded-full backdrop-blur-md shadow-lg"
