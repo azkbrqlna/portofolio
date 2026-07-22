@@ -31,18 +31,18 @@ export default function HomePage() {
       {/* Cyber Matrix Canvas */}
       <CyberMatrixBackground />
 
-      <main className="relative z-10 pt-16 md:pt-20 pb-4 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto h-screen max-h-screen flex flex-col justify-between overflow-hidden select-none">
+      <main className="relative z-10 pt-20 md:pt-24 pb-4 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto h-screen max-h-screen flex flex-col justify-between overflow-hidden select-none">
 
         {/* ================= HERO SECTION (FIXED 100VH VIEWPORT MATCH) ================= */}
         <section className="relative w-full h-full flex flex-col justify-between py-1">
 
           {/* Top Title Row: AZKBRQLNA + Bracketed Japanese Text */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-2">
-            <div className="flex items-baseline gap-4 flex-wrap">
-              <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
                 AZKBRQLNA
               </h1>
-              <span className="text-lg sm:text-xl font-mono text-white/70 font-semibold tracking-widest">
+              <span className="text-base sm:text-lg lg:text-xl font-mono text-white/70 font-semibold tracking-widest">
                 [アズカ・バリクラナ]
               </span>
             </div>
@@ -99,7 +99,7 @@ export default function HomePage() {
 
             {/* Right Tall Vertical Image Card */}
             <div className="lg:col-span-3 flex flex-col">
-              <div className="relative w-full h-[200px] sm:h-[240px] lg:h-[270px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
+              <div className="relative w-full h-[240px] sm:h-[300px] lg:h-[330px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
                 {/* Image */}
                 <Image
                   src="/images/cyberpunk_tall.png"
