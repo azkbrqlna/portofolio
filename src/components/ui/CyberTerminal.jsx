@@ -5,7 +5,6 @@ import { Terminal as TerminalIcon, Play, RefreshCw, X, Minimize2 } from "lucide-
 
 export default function CyberTerminal({ onTriggerSlash }) {
   const [history, setHistory] = useState([
-    { text: "AZKA_OS v3.2.0 [CYBERPUNK DRACULA EDITION]", type: "system" },
     { text: "Type 'help' to view available commands.", type: "system" },
   ]);
   const [inputVal, setInputVal] = useState("");
@@ -98,15 +97,14 @@ export default function CyberTerminal({ onTriggerSlash }) {
           {history.map((item, idx) => (
             <div
               key={idx}
-              className={`whitespace-pre-wrap leading-relaxed ${
-                item.type === "system"
+              className={`whitespace-pre-wrap leading-relaxed ${item.type === "system"
                   ? "text-[#bd93f9]"
                   : item.type === "user"
-                  ? "text-[#8be9fd] font-bold"
-                  : item.type === "error"
-                  ? "text-[#ff5555]"
-                  : "text-[#50fa7b]"
-              }`}
+                    ? "text-[#8be9fd] font-bold"
+                    : item.type === "error"
+                      ? "text-[#ff5555]"
+                      : "text-[#50fa7b]"
+                }`}
             >
               {item.text}
             </div>
