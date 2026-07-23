@@ -74,7 +74,7 @@ export default function InteractiveCmd({ onTriggerSlash }) {
 
       case "slash":
         newHistory.push({
-          text: "EXECUTING KATANA NEON SLASH PROTOCOL...",
+          text: "EXECUTING KATANA SLASH...",
           type: "accent",
         });
         if (onTriggerSlash) onTriggerSlash();

@@ -90,21 +90,21 @@ export default function ContactPage() {
       value: "Azka Bariqlana",
       href: "https://www.linkedin.com/in/azkbrqlna",
       icon: Linkedin,
-      accent: "text-[#8be9fd]",
+      accent: "text-[#ffd700]",
     },
     {
       label: "GITHUB",
-      value: "@azkbrqlna",
+      value: "azkbrqlna",
       href: "https://github.com/azkbrqlna",
       icon: Github,
-      accent: "text-[#bd93f9]",
+      accent: "text-[#ffd700]",
     },
     {
       label: "INSTAGRAM",
       value: "@azkbrqlnaaa_",
       href: "https://instagram.com/azkbrqlnaaa_",
       icon: Instagram,
-      accent: "text-[#ff79c6]",
+      accent: "text-[#ffd700]",
     },
   ];
 
