@@ -36,7 +36,7 @@ const projectImages = {
   "Template Bot": "/images/Whatsapp-Bot.jpg",
   "CashFlowin": "/images/cashflowin.png",
   "BrongDetector": "/images/brong-detector.jpeg",
-  "Asha Backyard": "/images/cyberpunk_wide.png",
+  "Asha Backyard": "/images/asha-backyard.jpeg",
 };
 
 // Category mappings for projects
@@ -45,7 +45,7 @@ const projectTypes = {
   "Template Bot": { type: "Automation", year: "2025" },
   "CashFlowin": { type: "WebDev", year: "2025" },
   "BrongDetector": { type: "Mobile", year: "2025" },
-  "Asha Backyard": { type: "Mobile", year: "2025" },
+  "Asha Backyard": { type: "Mobile", year: "2026" },
 };
 
 export default function Projects() {

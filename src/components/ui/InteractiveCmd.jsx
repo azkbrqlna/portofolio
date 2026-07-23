@@ -51,7 +51,7 @@ export default function InteractiveCmd({ onTriggerSlash }) {
       case "languages":
       case "langs":
         newHistory.push({
-          text: "TECH & LANGUAGE MATRIX:\n  [Languages]: JavaScript, PHP, Python, Dart, Pascal, HTML/CSS\n  [Frontend] : Next.js, React, Angular, Inertia, Tailwind CSS, Bootstrap\n  [Backend]  : Node.js, Laravel, RESTful APIs\n  [Database] : PostgreSQL, MySQL, Firebase\n  [Tools/Ops]: Docker, Git/GitHub, Postman, MikroTik RouterOS",
+          text: "TECH & LANGUAGE MATRIX:\n  [Languages]: JavaScript, PHP, Python, Dart\n  [Frontend] : Next.js, React, Angular, Inertia, Tailwind CSS, Bootstrap\n  [Backend]  : Node.js, Laravel, RESTful APIs\n  [Database] : PostgreSQL, MySQL, Firebase\n  [Tools/Ops]: Docker, Git/GitHub, Postman",
           type: "output",
         });
         break;
