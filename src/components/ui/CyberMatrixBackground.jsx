@@ -20,7 +20,6 @@ export default function CyberMatrixBackground() {
     };
     window.addEventListener("resize", handleResize);
 
-    // Pure Japanese Matrix characters (Katakana)
     const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ";
     const fontSize = 14;
     const columns = Math.floor(width / fontSize);
@@ -29,7 +28,6 @@ export default function CyberMatrixBackground() {
     const colors = ["#bd93f9", "#ff79c6", "#8be9fd", "#ff5555", "#6272a4"];
 
     const draw = () => {
-      // Slight dark fade for trail effect
       ctx.fillStyle = "rgba(13, 13, 21, 0.15)";
       ctx.fillRect(0, 0, width, height);
 
