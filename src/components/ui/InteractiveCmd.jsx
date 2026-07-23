@@ -78,6 +78,9 @@ export default function InteractiveCmd({ onTriggerSlash }) {
           type: "accent",
         });
         if (onTriggerSlash) onTriggerSlash();
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("trigger-katana-slash"));
+        }
         break;
 
       case "cls":

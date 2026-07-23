@@ -7,15 +7,21 @@ export default function SwordSlashLoader({ onComplete, forceTrigger = 0 }) {
   const [stage, setStage] = useState("slash"); // 'slash', 'slashed', 'done'
   const [key, setKey] = useState(0);
 
+  // Listen for custom trigger event (e.g. from InteractiveCmd slash command)
   useEffect(() => {
-    // Single neon laser slash from Top-Left to Bottom-Right (+45deg)
-    setStage("slash");
-    setKey((prev) => prev + 1);
+    const handleCustomTrigger = () => {
+      setStage("slash");
+      setKey((prev) => prev + 1);
+    };
 
-    // Timeline:
-    // 0ms: Single neon laser blade cuts along top-left to bottom-right axis
-    // 300ms: Split halves slide away perpendicularly (Top-Right & Bottom-Left)
-    // 1000ms: Animation complete
+    window.addEventListener("trigger-katana-slash", handleCustomTrigger);
+    return () => {
+      window.removeEventListener("trigger-katana-slash", handleCustomTrigger);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (stage !== "slash") return;
 
     const timer1 = setTimeout(() => {
       setStage("slashed");
@@ -30,7 +36,7 @@ export default function SwordSlashLoader({ onComplete, forceTrigger = 0 }) {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [forceTrigger, onComplete]);
+  }, [stage, key, forceTrigger, onComplete]);
 
   if (stage === "done") return null;
 
@@ -70,20 +76,59 @@ export default function SwordSlashLoader({ onComplete, forceTrigger = 0 }) {
               className="absolute inset-0 bg-[#0a0a0f] border-[#ffd700]/70"
             />
 
-            {/* Single Glowing Neon Laser Blade (Aligned Top-Left to Bottom-Right: 45deg) */}
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: [0, 1, 1, 0], scaleX: [0, 1, 1, 1] }}
+            {/* Single Glowing Neon Katana Blade (Aligned exact Top-Left 0,0 to Bottom-Right 100%,100%) */}
+            <motion.svg
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0] }}
               transition={{ duration: 0.45 }}
-              className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center"
+              className="absolute inset-0 w-full h-full z-30 pointer-events-none overflow-visible"
             >
-              <div
-                className="w-[250%] h-3 bg-gradient-to-r from-transparent via-[#ffffff] to-transparent transform rotate-[45deg]"
-                style={{
-                  boxShadow: "0 0 25px #ffffff, 0 0 50px #ffd700, 0 0 100px #ff5555",
-                }}
+              <defs>
+                <linearGradient id="katanaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+                  <stop offset="20%" stopColor="#ff79c6" stopOpacity="0.9" />
+                  <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="80%" stopColor="#ffd700" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                </linearGradient>
+                <filter id="katanaGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="5" result="blur1" />
+                  <feGaussianBlur stdDeviation="14" result="blur2" />
+                  <feMerge>
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              {/* Outer Neon Glow Laser */}
+              <motion.line
+                x1="0"
+                y1="0"
+                x2="100%"
+                y2="100%"
+                stroke="url(#katanaGrad)"
+                strokeWidth="10"
+                strokeLinecap="round"
+                filter="url(#katanaGlow)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
               />
-            </motion.div>
+              {/* Core White Blade */}
+              <motion.line
+                x1="0"
+                y1="0"
+                x2="100%"
+                y2="100%"
+                stroke="#ffffff"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+              />
+            </motion.svg>
 
           </div>
         )}
