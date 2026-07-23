@@ -34,26 +34,6 @@
   {
     "icons": [
       {
-        "name": "Next.js",
-        "icon": "RiNextjsFill"
-      },
-      {
-        "name": "Firebase",
-        "icon": "RiFirebaseFill"
-      },
-      {
-        "name": "Shadcn UI",
-        "icon": "SiShadcnui"
-      }
-    ],
-    "name": "CashFlowin",
-    "description": "A aplication to manage your cashflow. try with username: admin and password: admin",
-    "href": "https://cashflowin.netlify.app/",
-    "cta": "Launch App"
-  },
-  {
-    "icons": [
-      {
         "name": "Flutter",
         "icon": "RiFlutterFill"
       }
