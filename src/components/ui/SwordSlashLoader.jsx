@@ -52,9 +52,8 @@ export default function SwordSlashLoader({ onComplete, forceTrigger = 0 }) {
   return (
     <div
       key={key}
-      className={`fixed inset-0 z-[9999] overflow-hidden select-none ${
-        stage === "slash" ? "pointer-events-auto" : "pointer-events-none"
-      }`}
+      className={`fixed inset-0 z-[9999] overflow-hidden select-none ${stage === "slash" ? "pointer-events-auto" : "pointer-events-none"
+        }`}
     >
       <AnimatePresence>
         {stage !== "done" && (
@@ -100,9 +99,9 @@ export default function SwordSlashLoader({ onComplete, forceTrigger = 0 }) {
               <defs>
                 <linearGradient id="katanaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                  <stop offset="20%" stopColor="#ff5555" stopOpacity="0.9" />
+                  <stop offset="20%" stopColor="#ffd700" stopOpacity="0.9" />
                   <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
-                  <stop offset="80%" stopColor="#ff5555" stopOpacity="0.9" />
+                  <stop offset="80%" stopColor="#ffd700" stopOpacity="0.9" />
                   <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
                 </linearGradient>
                 <filter id="katanaGlow" x="-50%" y="-50%" width="200%" height="200%">
