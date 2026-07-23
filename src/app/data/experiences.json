@@ -2,7 +2,7 @@
   {
     "title": "Network Engineer Intern",
     "company": "PT. Internet Mulia Untuk Negeri (NEXA)",
-    "period": "May 2023 to September 2023",
+    "period": "May 2023 to November 2023",
     "description": [
       "Assist with the installation of internet networks to ensure optimal performance",
       "Troubleshoot and resolve network issues efficiently",
@@ -10,7 +10,12 @@
       "Identify and analyze network problems to provide effective solutions",
       "Provide technical support and assistance to customers or users"
     ],
-    "skills": ["Networking", "Troubleshooting", "MikroTik", "Fiber Optic"],
+    "skills": [
+      "Networking",
+      "Troubleshooting",
+      "MikroTik",
+      "Fiber Optic"
+    ],
     "certificate": "https://ik.imagekit.io/Nothspec/Sertif-Nexa-Azkabariqlana.jpg?updatedAt=1758013737819"
   },
   {
@@ -23,7 +28,11 @@
       "Collaborated with backend developers to integrate RESTful APIs and ensure seamless data rendering.",
       "Utilized version control tools like Git/Github for efficient code management."
     ],
-    "skills": ["Angular", "Bootstrap", "Git/GitHub"],
+    "skills": [
+      "Angular",
+      "Bootstrap",
+      "Git/GitHub"
+    ],
     "certificate": "https://ik.imagekit.io/Nothspec/Sertif-GVP-AzkaBariqlana.jpg?updatedAt=1758013758301"
   }
 ]

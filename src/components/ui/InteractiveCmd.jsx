@@ -42,14 +42,16 @@ export default function InteractiveCmd({ onTriggerSlash }) {
 
       case "whoami":
         newHistory.push({
-          text: "OPERATOR: Azka Bariqlana\nROLE    : Fullstack Developer & Cybersecurity Trainee\nFOCUS   : Next.js, React, Node.js, MikroTik, Network Security",
+          text: "OPERATOR: Azka Bariqlana (azkbrqlna)\nROLE    : Fullstack Developer & Cybersecurity Enthusiast\nFOCUS   : Web Architecture, Secure APIs, Network Infrastructure\nINST.   : Politeknik Negeri Semarang",
           type: "output",
         });
         break;
 
       case "skills":
+      case "languages":
+      case "langs":
         newHistory.push({
-          text: "TECH MATRIX:\n  [Web]     : Next.js 15, React 19, Angular, Tailwind CSS\n  [Network] : MikroTik RouterOS, Fiber Optics, Troubleshooting\n  [Tools]   : Node.js, Firebase, Git, Flutter",
+          text: "TECH & LANGUAGE MATRIX:\n  [Languages]: JavaScript, PHP, Python, Dart, Pascal, HTML/CSS\n  [Frontend] : Next.js, React, Angular, Inertia, Tailwind CSS, Bootstrap\n  [Backend]  : Node.js, Laravel, RESTful APIs\n  [Database] : PostgreSQL, MySQL, Firebase\n  [Tools/Ops]: Docker, Git/GitHub, Postman, MikroTik RouterOS",
           type: "output",
         });
         break;
@@ -115,7 +117,7 @@ export default function InteractiveCmd({ onTriggerSlash }) {
       </div>
 
       {/* Body & Console Stream */}
-      <div className="p-3.5 max-h-64 overflow-y-auto space-y-1 text-white/90 leading-relaxed font-mono">
+      <div className="p-3 max-h-48 sm:max-h-56 lg:max-h-48 overflow-y-auto space-y-1 text-white/90 leading-relaxed font-mono">
         {history.map((item, idx) => (
           <div
             key={idx}

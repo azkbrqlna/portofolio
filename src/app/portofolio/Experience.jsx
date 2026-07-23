@@ -107,7 +107,7 @@ export default function ExperienceSection() {
 
                       {/* Focus Tag */}
                       <div className="col-span-3 sm:col-span-3 text-[11px] sm:text-sm text-white/70 truncate">
-                        {exp.title.includes("Network") ? "Network Eng" : "Frontend Web"}
+                        {exp.title.includes("Network") ? "Networking" : "Frontend Web"}
                       </div>
 
                       {/* Period & Expand Arrow */}

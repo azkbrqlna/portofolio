@@ -32,11 +32,11 @@ export default function HomePage() {
       {/* Cyber Matrix Canvas */}
       <CyberMatrixBackground />
 
-      <main className="relative z-10 pt-28 sm:pt-32 lg:pt-36 pb-6 px-4 sm:px-6 lg:px-8 max-w-[1450px] mx-auto min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-x-hidden lg:overflow-hidden select-none">
+      <div className="relative z-10 pt-20 sm:pt-24 lg:pt-20 pb-2 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto flex-1 flex flex-col justify-between overflow-x-hidden select-none">
 
-        <section className="relative w-full h-full flex flex-col justify-between py-1">
+        <section className="relative w-full h-full flex flex-col justify-between py-1 gap-2">
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-2">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-1">
             <div className="flex items-baseline gap-3 flex-wrap">
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
                 <GlitchText text="AZKBRQLNA" delay={200} />
@@ -48,7 +48,7 @@ export default function HomePage() {
           </div>
 
           {/* Moving Japanese Marquee Banner */}
-          <div className="w-full overflow-hidden border-y border-[#ffd700]/40 py-2 my-2 bg-black/40 backdrop-blur-sm">
+          <div className="w-full overflow-hidden border-y border-[#ffd700]/40 py-1.5 my-1 bg-black/40 backdrop-blur-sm">
             <div className="animate-marquee items-center gap-12 font-mono text-xs md:text-sm font-bold tracking-widest">
               {[...japaneseMarqueeItems, ...japaneseMarqueeItems, ...japaneseMarqueeItems].map((text, idx) => (
                 <div key={idx} className="flex items-center gap-8 text-[#ffd700] drop-shadow-[0_0_10px_#ffd700]">
@@ -60,15 +60,13 @@ export default function HomePage() {
           </div>
 
           {/* Main Asymmetric Grid Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center flex-1 my-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center flex-1 my-auto">
 
             {/* Left Editorial Column */}
-            <div className="lg:col-span-4 flex flex-col justify-between space-y-4 pr-0 lg:pr-2">
-              <div className="space-y-3">
+            <div className="lg:col-span-4 flex flex-col justify-between space-y-3 pr-0 lg:pr-2">
+              <div className="space-y-2.5">
                 <p className="font-mono text-xs text-white/80 leading-relaxed tracking-wider uppercase">
-                  IN AN INDUSTRY WHERE SEEMINGLY EVERYTHING HAS ALREADY BEEN SAID,{" "}
-                  <span className="text-[#ffd700] font-bold">アズカ・バリクラナ</span>{" "}
-                  SEEKS TO COMMENT MORE THAN STATE.
+                  PASSIONATE <span className="text-[#ffd700] font-bold">FULLSTACK DEVELOPER</span> WITH A DEEP CURIOSITY FOR <span className="text-[#ffd700] font-bold">CYBERSECURITY</span>. CRAFTING MODERN WEB APPLICATIONS & EXPLORING SYSTEM DEFENSES.
                 </p>
                 {/* Interactive Command Prompt Window */}
                 <InteractiveCmd onTriggerSlash={handleTriggerSlash} />
@@ -77,7 +75,7 @@ export default function HomePage() {
 
             {/* Center Horizontal Image Card */}
             <div className="lg:col-span-5 flex flex-col justify-end">
-              <div className="relative w-full h-[200px] sm:h-[240px] lg:h-[270px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
+              <div className="relative w-full h-[180px] sm:h-[220px] lg:h-[235px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
                 {/* Image */}
                 <Image
                   src="/images/cyberpunk_wide.png"
@@ -89,16 +87,13 @@ export default function HomePage() {
                 {/* Overlay Vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
 
-                {/* Right Edge Watermark */}
-                <div className="absolute right-2 bottom-4 z-20 writing-mode-vertical font-mono text-[10px] text-white/50 tracking-widest uppercase">
-                  c.FUTURE
-                </div>
+
               </div>
             </div>
 
             {/* Right Tall Vertical Image Card */}
             <div className="lg:col-span-3 flex flex-col">
-              <div className="relative w-full h-[240px] sm:h-[300px] lg:h-[330px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
+              <div className="relative w-full h-[220px] sm:h-[270px] lg:h-[285px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
                 {/* Image */}
                 <Image
                   src="/images/cyberpunk_tall.png"
@@ -110,10 +105,7 @@ export default function HomePage() {
                 {/* Overlay Vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
 
-                {/* Right Edge Watermark */}
-                <div className="absolute right-2 bottom-4 z-20 writing-mode-vertical font-mono text-[10px] text-white/50 tracking-widest uppercase">
-                  c.FUTURE
-                </div>
+
               </div>
             </div>
 
@@ -127,7 +119,7 @@ export default function HomePage() {
 
         </section>
 
-      </main>
+      </div>
     </>
   );
 }

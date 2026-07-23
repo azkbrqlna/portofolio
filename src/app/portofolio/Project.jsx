@@ -6,13 +6,14 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import projectsData from "@/app/data/projects.json";
 import { FaNodeJs } from "react-icons/fa";
+import { BiLogoPostgresql } from "react-icons/bi";
 import {
   RiFirebaseFill,
   RiNextjsFill,
   RiTailwindCssFill,
   RiFlutterFill,
 } from "react-icons/ri";
-import { SiShadcnui, SiSocketdotio } from "react-icons/si";
+import { SiShadcnui, SiSocketdotio, SiLaravel, SiPostgresql } from "react-icons/si";
 import { ChevronDown, ArrowUpRight, Terminal } from "lucide-react";
 import GlitchText from "@/components/ui/GlitchText";
 
@@ -24,27 +25,32 @@ const iconMap = {
   RiFirebaseFill,
   SiShadcnui,
   RiFlutterFill,
+  SiLaravel,
+  SiPostgresql,
+  BiLogoPostgresql,
 };
 
 // Image mappings for projects
 const projectImages = {
   "My Portfolio": "/images/porto.png",
   "Template Bot": "/images/Whatsapp-Bot.jpg",
-  "CashFlowin": "/images/cyberpunk_wide.png",
-  "BrongDetector": "/images/copy.jpg",
+  "CashFlowin": "/images/cashflowin.png",
+  "BrongDetector": "/images/brong-detector.jpeg",
+  "Asha Backyard": "/images/cyberpunk_wide.png",
 };
 
 // Category mappings for projects
 const projectTypes = {
-  "My Portfolio": { type: "WebDev", year: "2025" },
+  "My Portfolio": { type: "WebDev", year: "2026" },
   "Template Bot": { type: "Automation", year: "2025" },
-  "CashFlowin": { type: "WebDev", year: "2024" },
-  "BrongDetector": { type: "Mobile", year: "2024" },
+  "CashFlowin": { type: "WebDev", year: "2025" },
+  "BrongDetector": { type: "Mobile", year: "2025" },
+  "Asha Backyard": { type: "Mobile", year: "2025" },
 };
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("ALL");
-  const [expandedIndex, setExpandedIndex] = useState(0); // Default open first project
+  const [expandedIndex, setExpandedIndex] = useState(0);
 
   const categories = ["ALL", "WebDev", "Automation", "Mobile"];
 

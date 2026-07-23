@@ -20,13 +20,12 @@ export default function CyberMatrixBackground() {
     };
     window.addEventListener("resize", handleResize);
 
-    // Matrix characters
-    const chars = "01AZKA_CYBERSEC_FULLSTACK_KATANA_PROTOCOL_987654321";
+    // Pure Japanese Matrix characters (Katakana)
+    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ";
     const fontSize = 14;
     const columns = Math.floor(width / fontSize);
     const drops = Array(columns).fill(1);
 
-    // Color palette (Dracula theme colors)
     const colors = ["#bd93f9", "#ff79c6", "#8be9fd", "#ff5555", "#6272a4"];
 
     const draw = () => {
@@ -34,7 +33,7 @@ export default function CyberMatrixBackground() {
       ctx.fillStyle = "rgba(13, 13, 21, 0.15)";
       ctx.fillRect(0, 0, width, height);
 
-      ctx.font = `${fontSize}px monospace`;
+      ctx.font = `${fontSize}px 'Courier New', monospace, sans-serif`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
