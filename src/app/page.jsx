@@ -78,7 +78,7 @@ export default function HomePage() {
               <div className="relative w-full h-[180px] sm:h-[220px] lg:h-[235px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
                 {/* Image */}
                 <Image
-                  src="/images/cyberpunk_wide.png"
+                  src="/images/Foto1.png"
                   alt="AZKBRQLNA Cyber Portrait Wide"
                   fill
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
@@ -96,7 +96,7 @@ export default function HomePage() {
               <div className="relative w-full h-[220px] sm:h-[270px] lg:h-[285px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
                 {/* Image */}
                 <Image
-                  src="/images/cyberpunk_tall.png"
+                  src="/images/Foto2.png"
                   alt="AZKBRQLNA Cyber Portrait Tall"
                   fill
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105"

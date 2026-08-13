@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Network Engineer Intern",
+    "company": "PT. Internet Mulia Untuk Negeri (NEXA)",
+    "period": "May 2023 to November 2023",
+    "description": [
+      "Assist with the installation of internet networks to ensure optimal performance",
+      "Troubleshoot and resolve network issues efficiently",
+      "Maintain and repair network devices to ensure continuous operation",
+      "Identify and analyze network problems to provide effective solutions",
+      "Provide technical support and assistance to customers or users"
+    ],
+    "skills": [
+      "Networking",
+      "Troubleshooting",
+      "MikroTik",
+      "Fiber Optic"
+    ],
+    "certificate": "https://ik.imagekit.io/Nothspec/Sertif-Nexa-Azkabariqlana.jpg?updatedAt=1758013737819"
+  },
+  {
+    "title": "Frontend Developer Intern",
+    "company": "PT. Gracia Visi Pratama",
+    "period": "February 2025 to March 2025",
+    "description": [
+      "Developed and maintained responsive user interfaces using Angular framework.",
+      "Implemented dynamic and reusable UI components with Bootstrap for consistency and responsiveness.",
+      "Collaborated with backend developers to integrate RESTful APIs and ensure seamless data rendering.",
+      "Utilized version control tools like Git/Github for efficient code management."
+    ],
+    "skills": [
+      "Angular",
+      "Bootstrap",
+      "Git/GitHub"
+    ],
+    "certificate": "https://ik.imagekit.io/Nothspec/Sertif-GVP-AzkaBariqlana.jpg?updatedAt=1758013758301"
+  }
+]
