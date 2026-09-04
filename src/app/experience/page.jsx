@@ -6,9 +6,9 @@ import ExperienceSection from "@/app/portofolio/Experience";
 
 export default function ExperiencePage() {
   return (
-    <div className="relative pt-24 min-h-screen">
+    <div className="pt-20 sm:pt-24 md:pt-28 pb-16 min-h-screen font-sans select-none relative">
       <CyberMatrixBackground />
-      <div className="relative z-10">
+      <div className="relative z-10 max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
         <ExperienceSection />
       </div>
     </div>

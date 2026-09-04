@@ -63,8 +63,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="pt-20 sm:pt-24 md:pt-8 pb-8 min-h-screen font-sans select-none">
-      <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="w-full">
 
         {/* Main 2-Column Archive Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -244,7 +243,6 @@ export default function Projects() {
           <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
         </div>
 
-      </div>
     </section>
   );
 }

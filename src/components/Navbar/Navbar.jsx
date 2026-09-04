@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -8,6 +8,23 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 15) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // Initial check
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
     { href: "/", label: "HOME" },
@@ -19,9 +36,15 @@ export default function Navbar() {
   const cvLink = "https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf";
 
   return (
-    <div className="fixed top-4 right-4 sm:top-6 sm:right-6 lg:right-10 z-50 font-mono text-xs select-none">
-      {/* Desktop Navigation (No Background Circle, Text-Only with Left-to-Right Animated Underline) */}
-      <div className="hidden md:flex items-center gap-8">
+    <header className="fixed top-4 right-4 sm:top-6 sm:right-6 lg:right-10 z-50 font-mono text-xs select-none">
+      {/* Desktop Navigation (Text-only at top, Glassmorphic backdrop blur capsule when scrolled) */}
+      <div
+        className={`hidden md:flex items-center gap-8 px-6 py-2.5 rounded-full transition-all duration-300 ${
+          isScrolled
+            ? "bg-[#111116]/85 backdrop-blur-md border border-white/10 shadow-2xl shadow-black/50 hover:border-[#ffd700]/30"
+            : "bg-transparent border border-transparent shadow-none"
+        }`}
+      >
         <nav className="flex items-center gap-8 tracking-widest font-bold">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -88,21 +111,19 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`relative py-1 font-mono text-xs transition-colors group w-fit ${
-                  isActive ? "text-[#ffd700] font-bold" : "text-white/80 hover:text-white"
-                }`}
+                className={`relative py-1 font-mono text-xs transition-colors group w-fit ${isActive ? "text-[#ffd700] font-bold" : "text-white/80 hover:text-white"
+                  }`}
               >
                 <span>{item.label}</span>
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] bg-[#ffd700] transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                  className={`absolute bottom-0 left-0 h-[2px] bg-[#ffd700] transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
                 />
               </Link>
             );
           })}
         </div>
       )}
-    </div>
+    </header>
   );
 }

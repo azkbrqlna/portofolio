@@ -124,7 +124,7 @@ export default function ContactPage() {
                 <GlitchText text="CONTACT" delay={150} />
               </h1>
               <div className="text-xs font-mono text-[#ffd700] mt-2 font-bold tracking-widest uppercase">
-                DIRECT TRANSMISSION // 01
+                DIRECT TRANSMISSION // 03
               </div>
             </div>
 
