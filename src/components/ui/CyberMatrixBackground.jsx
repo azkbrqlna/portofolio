@@ -2,6 +2,12 @@
 
 import React, { useEffect, useRef } from "react";
 
+const CHARS =
+  "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン" +
+  "ガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ" +
+  "ｦｧｨｩｪｫｬｭｮｯｰ" +
+  "0123456789";
+
 export default function CyberMatrixBackground() {
   const canvasRef = useRef(null);
 
@@ -14,44 +20,105 @@ export default function CyberMatrixBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-    window.addEventListener("resize", handleResize);
+    const FONT_SIZE = 14;
+    let columns = Math.floor(width / FONT_SIZE);
+    let drops = [];
+    let speeds = [];
+    let columnChars = [];
 
-    const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ";
-    const fontSize = 14;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array(columns).fill(1);
+    function initColumns() {
+      columns = Math.floor(width / FONT_SIZE);
+      drops = [];
+      speeds = [];
+      columnChars = [];
 
-    const colors = ["#bd93f9", "#ff79c6", "#8be9fd", "#ff5555", "#6272a4"];
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -(height / FONT_SIZE);
+        speeds[i] = 0.3 + Math.random() * 0.5;
+        columnChars[i] = [];
 
-    const draw = () => {
-      ctx.fillStyle = "rgba(13, 13, 21, 0.15)";
+        const rowCount = Math.floor(height / FONT_SIZE) + 2;
+        for (let r = 0; r < rowCount; r++) {
+          columnChars[i][r] = CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+      }
+    }
+
+    initColumns();
+
+    let lastMutateTime = 0;
+
+    const draw = (timestamp) => {
+      // Heavy fade — makes trail short and dim
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, width, height);
 
-      ctx.font = `${fontSize}px 'Courier New', monospace, sans-serif`;
+      // Mutate chars occasionally
+      if (timestamp - lastMutateTime > 120) {
+        lastMutateTime = timestamp;
+        for (let i = 0; i < columns; i++) {
+          const r = Math.floor(Math.random() * columnChars[i].length);
+          columnChars[i][r] = CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+      }
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        const color = colors[i % colors.length];
+      ctx.font = `${FONT_SIZE}px 'Courier New', monospace`;
 
-        ctx.fillStyle = color;
-        ctx.globalAlpha = Math.random() * 0.4 + 0.1; // subtle matrix rain
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      for (let i = 0; i < columns; i++) {
+        const x = i * FONT_SIZE;
+        const dropRow = Math.floor(drops[i]);
+        const rowCount = Math.floor(height / FONT_SIZE) + 2;
+        const trailLength = 18 + Math.floor(Math.random() * 6);
 
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
-          drops[i] = 0;
+        for (
+          let r = Math.max(0, dropRow - trailLength);
+          r <= Math.min(dropRow, rowCount - 1);
+          r++
+        ) {
+          const yPos = r * FONT_SIZE;
+          const distFromHead = dropRow - r;
+          const char =
+            columnChars[i][r % columnChars[i].length] || "ア";
+
+          if (distFromHead === 0) {
+            // Leading char — slightly brighter, no color, just dim white
+            ctx.globalAlpha = 0.55;
+            ctx.fillStyle = "#e0e0e0";
+            ctx.shadowColor = "transparent";
+            ctx.shadowBlur = 0;
+          } else {
+            // Trail — monochrome dark green, very dim
+            const fade = 1 - distFromHead / trailLength;
+            ctx.globalAlpha = fade * 0.18;
+            ctx.fillStyle = "#4a7c4a";
+            ctx.shadowBlur = 0;
+          }
+
+          ctx.fillText(char, x, yPos + FONT_SIZE);
         }
 
-        drops[i]++;
+        drops[i] += speeds[i];
+
+        if (drops[i] * FONT_SIZE > height + FONT_SIZE * 15) {
+          drops[i] = -(Math.random() * 30 + 5);
+          speeds[i] = 0.3 + Math.random() * 0.5;
+        }
       }
+
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
 
       animationFrameId = requestAnimationFrame(draw);
     };
 
-    draw();
+    animationFrameId = requestAnimationFrame(draw);
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initColumns();
+    };
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -60,10 +127,16 @@ export default function CyberMatrixBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-25">
-      <canvas ref={canvasRef} className="block w-full h-full" />
-      <div className="absolute inset-0 bg-radial-vignette opacity-80" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e1e2e_1px,transparent_1px),linear-gradient(to_bottom,#1e1e2e_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <canvas ref={canvasRef} className="block w-full h-full opacity-40" />
+      {/* Vignette agar pinggir lebih gelap */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.75) 100%)",
+        }}
+      />
     </div>
   );
 }

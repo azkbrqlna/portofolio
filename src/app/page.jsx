@@ -1,122 +1,248 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
 import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
-import InteractiveCmd from "@/components/ui/InteractiveCmd";
 import GlitchText from "@/components/ui/GlitchText";
+import GlitchTitle from "@/components/ui/GlitchTitle";
+import HeroTerminal from "@/components/ui/HeroTerminal";
+import Projects from "@/app/portofolio/Project";
+import ExperienceSection from "@/app/portofolio/Experience";
+import ContactSection from "@/components/ContactSection";
+import { Terminal, Shield, Code2, ArrowRight, Github, Linkedin } from "lucide-react";
 
 export default function HomePage() {
-  const [slashTrigger, setSlashTrigger] = useState(0);
-
-  const handleTriggerSlash = () => {
-    setSlashTrigger((prev) => prev + 1);
-  };
-
-  const japaneseMarqueeItems = [
-    "アズカ・バリクラナ",
-    "フルスタック開発",
-    "サイバーセキュリティ",
-    "ウェブエンジニア",
-    "次世代テクノロジー",
-    "ネットワーク構築",
-    "暗号化プロトコル",
-    "ミクロティック",
-    "フロントエンド",
-    "システム設計",
-    "コードイノベーション",
-  ];
-
   return (
     <>
-      {/* Cyber Matrix Canvas */}
+      {/* Particle Background */}
       <CyberMatrixBackground />
 
-      <div className="relative z-10 pt-20 sm:pt-24 lg:pt-20 pb-2 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto flex-1 flex flex-col justify-between overflow-x-hidden select-none">
+      <div className="relative z-10 w-full overflow-x-hidden select-none">
 
-        <section className="relative w-full h-full flex flex-col justify-between py-1 gap-2">
+        {/* ═══════════════════════════════════════════ */}
+        {/* HERO SECTION */}
+        {/* ═══════════════════════════════════════════ */}
+        <section
+          id="home"
+          className="min-h-screen flex flex-col justify-center pt-20 sm:pt-24 lg:pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[70vh]">
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 mb-1">
-            <div className="flex items-baseline gap-3 flex-wrap">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                <GlitchText text="AZKBRQLNA" delay={200} />
-              </h1>
-              <span className="text-base sm:text-lg lg:text-xl font-mono text-white/70 font-semibold tracking-widest">
-                [アズカ・バリクラナ]
-              </span>
-            </div>
-          </div>
+            {/* ── LEFT: Identity Block ── */}
+            <div className="flex flex-col gap-7">
 
-          {/* Moving Japanese Marquee Banner */}
-          <div className="w-full overflow-hidden border-y border-[#ffd700]/40 py-1.5 my-1 bg-black/40 backdrop-blur-sm">
-            <div className="animate-marquee items-center gap-12 font-mono text-xs md:text-sm font-bold tracking-widest">
-              {[...japaneseMarqueeItems, ...japaneseMarqueeItems, ...japaneseMarqueeItems].map((text, idx) => (
-                <div key={idx} className="flex items-center gap-8 text-[#ffd700] drop-shadow-[0_0_10px_#ffd700]">
-                  <span>{text}</span>
-                  <span className="text-white/30 text-xs">◆</span>
-                </div>
-              ))}
-            </div>
-          </div>
+              {/* Role badge */}
+              <div className="flex items-center gap-2 w-fit">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#28c840] animate-pulse" />
+                <span className="font-mono text-[10px] tracking-[0.25em] text-white/45 uppercase">
+                  Fullstack Developer · Cybersecurity Enthusiast
+                </span>
+              </div>
 
-          {/* Main Asymmetric Grid Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center flex-1 my-auto">
-
-            {/* Left Editorial Column */}
-            <div className="lg:col-span-4 flex flex-col justify-between space-y-3 pr-0 lg:pr-2">
-              <div className="space-y-2.5">
-                <p className="font-mono text-xs text-white/80 leading-relaxed tracking-wider uppercase">
-                  PASSIONATE <span className="text-[#ffd700] font-bold">FULLSTACK DEVELOPER</span> WITH A DEEP CURIOSITY FOR <span className="text-[#ffd700] font-bold">CYBERSECURITY</span>. CRAFTING MODERN WEB APPLICATIONS & EXPLORING SYSTEM DEFENSES.
+              {/* Name */}
+              <div>
+                <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none font-sans">
+                  <GlitchText text="AZKBRQLNA" delay={200} />
+                </h1>
+                <p className="mt-3 font-mono text-sm text-white/50 tracking-wide">
+                  Azka Bariqlana — building the web, securing the stack.
                 </p>
-                {/* Interactive Command Prompt Window */}
-                <InteractiveCmd onTriggerSlash={handleTriggerSlash} />
               </div>
+
+              {/* Bio */}
+              <p className="font-mono text-xs sm:text-sm text-white/60 leading-relaxed tracking-wide max-w-lg">
+                Undergraduate student at{" "}
+                <span className="text-white/80 font-bold">Politeknik Negeri Semarang</span>,
+                crafting modern fullstack applications and exploring the boundaries
+                of{" "}
+                <span className="text-[#ffd700] font-bold">cybersecurity</span>.
+              </p>
+
+              {/* Highlight Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-sm px-3 py-2.5 rounded-lg hover:border-[#ffd700]/40 transition-colors">
+                  <Code2 className="w-4 h-4 text-[#ffd700] shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[9px] tracking-widest text-white/35">BUILDING</span>
+                    <span className="font-mono text-[10px] tracking-wide text-white/80">Web Apps</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-sm px-3 py-2.5 rounded-lg hover:border-[#ffd700]/40 transition-colors">
+                  <Shield className="w-4 h-4 text-[#ffd700] shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[9px] tracking-widest text-white/35">EXPLORING</span>
+                    <span className="font-mono text-[10px] tracking-wide text-white/80">Security</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-sm px-3 py-2.5 rounded-lg hover:border-[#ffd700]/40 transition-colors">
+                  <Terminal className="w-4 h-4 text-[#ffd700] shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[9px] tracking-widest text-white/35">LEARNING</span>
+                    <span className="font-mono text-[10px] tracking-wide text-white/80">Best Practices</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="#projects"
+                  className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-5 py-2.5 rounded-lg bg-[#ffd700] text-black font-bold hover:bg-[#ffe84d] transition-colors"
+                >
+                  View Projects
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="#contact"
+                  className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-5 py-2.5 rounded-lg border border-white/15 text-white/70 hover:border-[#ffd700]/50 hover:text-white transition-colors"
+                >
+                  Contact Me
+                </a>
+              </div>
+
             </div>
 
-            {/* Center Horizontal Image Card */}
-            <div className="lg:col-span-5 flex flex-col justify-end">
-              <div className="relative w-full h-[180px] sm:h-[220px] lg:h-[235px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
-                {/* Image */}
-                <Image
-                  src="/images/Foto1.png"
-                  alt="AZKBRQLNA Cyber Portrait Wide"
-                  fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                />
-
-                {/* Overlay Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
-
-
-              </div>
-            </div>
-
-            {/* Right Tall Vertical Image Card */}
-            <div className="lg:col-span-3 flex flex-col">
-              <div className="relative w-full h-[220px] sm:h-[270px] lg:h-[285px] bg-[#1a1a24] border border-white/15 rounded-sm overflow-hidden group">
-                {/* Image */}
-                <Image
-                  src="/images/Foto2.png"
-                  alt="AZKBRQLNA Cyber Portrait Tall"
-                  fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                />
-
-                {/* Overlay Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
-
-
-              </div>
+            {/* ── RIGHT: Terminal Widget ── */}
+            <div className="w-full">
+              <HeroTerminal />
             </div>
 
           </div>
 
-          {/* Bottom Right Vertical Watermark */}
-          <div className="hidden lg:flex fixed right-6 bottom-8 z-30 flex-col items-center gap-2 font-mono text-xs text-white/40 tracking-widest">
-            <span className="writing-mode-vertical">AZKBRQLNA [アズカ]</span>
-            <div className="w-px h-6 bg-gradient-to-b from-white/40 to-transparent" />
+          {/* Scroll indicator */}
+          <div className="flex items-center justify-center gap-2 text-white/25 font-mono text-[10px] tracking-widest animate-pulse mt-12">
+            <div className="w-8 h-px bg-white/15" />
+            <span>SCROLL DOWN</span>
+            <div className="w-8 h-px bg-white/15" />
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════ */}
+        {/* INTRO / SUMMARY SECTION */}
+        {/* ═══════════════════════════════════════════ */}
+        <section
+          id="about"
+          className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto"
+        >
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <GlitchTitle
+                text="ABOUT ME"
+                delay={150}
+                className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter uppercase font-sans leading-none"
+              />
+              <div className="text-xs font-mono text-[#ffd700] mt-2 font-bold tracking-widest uppercase">
+                WHO I AM
+              </div>
+            </div>
+            <div className="font-mono text-xs text-white/40 tracking-widest uppercase">
+              POLITEKNIK NEGERI SEMARANG
+            </div>
           </div>
 
+          {/* Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Left: Summary */}
+            <div className="lg:col-span-7 space-y-5">
+              <p className="font-mono text-sm sm:text-base text-white/90 leading-relaxed tracking-wide">
+                Hi, I am <span className="text-[#ffd700] font-bold">Azka Bariqlana</span>. I am an{" "}
+                <span className="text-[#ffd700] font-bold">
+                  undergraduate student
+                </span>{" "}
+                from{" "}
+                <span className="text-white font-bold border-b border-[#ffd700]/60">
+                  Politeknik Negeri Semarang
+                </span>
+                , currently pursuing my degree with a strong focus on software
+                engineering and modern web development. My academic journey has
+                shaped me into a curious, disciplined, and detail-oriented
+                developer who thrives on turning complex problems into clean,
+                functional solutions.
+              </p>
+
+              <p className="font-mono text-sm sm:text-base text-white/70 leading-relaxed tracking-wide">
+                Beyond the classroom, I&apos;ve immersed myself in building
+                fullstack applications — from crafting intuitive user interfaces
+                to designing reliable backends. Alongside development, my
+                growing passion for{" "}
+                <span className="text-[#ffd700] font-bold">cybersecurity</span>{" "}
+                drives me to understand how systems are protected, tested, and
+                hardened against real-world threats.
+              </p>
+
+              <p className="font-mono text-sm sm:text-base text-white/70 leading-relaxed tracking-wide">
+                I believe in continuous learning, writing code that lasts, and
+                collaborating with people who care about the craft. Whether
+                it&apos;s shipping a new feature, exploring a security concept,
+                or contributing to a team — I bring the same energy:{" "}
+                <span className="text-white font-bold">
+                  build, break, learn, repeat.
+                </span>
+              </p>
+            </div>
+
+            {/* Right: Info Cards */}
+            <div className="lg:col-span-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { k: "EDUCATION", v: "Politeknik Negeri Semarang" },
+                  { k: "ROLE", v: "Undergraduate Student" },
+                  { k: "SPECIALTY", v: "Fullstack Development" },
+                  { k: "INTEREST", v: "Cybersecurity" },
+                  { k: "LOCATION", v: "Semarang, Indonesia" },
+                  { k: "LANGUAGES", v: "ID / EN" },
+                ].map((item) => (
+                  <div
+                    key={item.k}
+                    className="flex flex-col border border-white/10 bg-white/[0.02] backdrop-blur-sm p-3 rounded-lg hover:border-[#ffd700]/40 transition-colors"
+                  >
+                    <span className="font-mono text-[9px] tracking-widest text-white/40 mb-1">
+                      {item.k}
+                    </span>
+                    <span className="font-mono text-xs sm:text-sm tracking-wide text-white">
+                      {item.v}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Divider */}
+        <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#ffd700]/30 to-transparent" />
+        </div>
+
+        {/* ═══════════════════════════════════════════ */}
+        {/* PROJECTS SECTION */}
+        {/* ═══════════════════════════════════════════ */}
+        <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto">
+          <Projects />
+        </section>
+
+        {/* Section Divider */}
+        <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#ffd700]/30 to-transparent" />
+        </div>
+
+        {/* ═══════════════════════════════════════════ */}
+        {/* EXPERIENCE SECTION */}
+        {/* ═══════════════════════════════════════════ */}
+        <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto">
+          <ExperienceSection />
+        </section>
+
+        {/* Section Divider */}
+        <div className="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#ffd700]/30 to-transparent" />
+        </div>
+
+        {/* ═══════════════════════════════════════════ */}
+        {/* CONTACT SECTION */}
+        {/* ═══════════════════════════════════════════ */}
+        <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-[1450px] w-full mx-auto">
+          <ContactSection />
         </section>
 
       </div>

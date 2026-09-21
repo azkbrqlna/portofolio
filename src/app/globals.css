@@ -79,6 +79,9 @@
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
   }
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Custom Cyber Scrollbar */
@@ -98,26 +101,6 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #bd93f9;
-}
-
-/* Marquee Animation */
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 22s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
 }
 
 /* Vertical Text Utilities */
@@ -192,4 +175,20 @@
 
 .animate-glitch-anim-2 {
   animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
+}
+
+/* Section scroll snap (optional smooth feel) */
+.section-fade-in {
+  animation: sectionFadeIn 0.6s ease-out both;
+}
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

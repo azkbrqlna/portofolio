@@ -9,65 +9,94 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 15) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      setIsScrolled(window.scrollY > 15);
+
+      // Only do section tracking on homepage
+      if (pathname !== "/") return;
+
+      // urutan dari bawah ke atas biar detect yang paling dekat
+      const sections = ["contact", "experience", "projects", "about", "home"];
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150) {
+            setActiveSection(id);
+            break;
+          }
+        }
       }
     };
 
-    // Initial check
     handleScroll();
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
+
+  const isHome = pathname === "/";
 
   const navItems = [
-    { href: "/", label: "HOME" },
-    { href: "/projects", label: "PROJECTS" },
-    { href: "/experience", label: "EXPERIENCE" },
-    { href: "/contact", label: "CONTACT" },
+    { id: "home", label: "HOME" },
+    { id: "about", label: "ABOUT" },
+    { id: "projects", label: "PROJECTS" },
+    { id: "experience", label: "EXPERIENCE" },
+    { id: "contact", label: "CONTACT" },
   ];
 
   const cvLink = "https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf";
 
+  const handleNavClick = (e, id) => {
+    if (isHome) {
+      e.preventDefault();
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+      setIsOpen(false);
+    }
+  };
+
+  const getHref = (id) => {
+    if (isHome) return `#${id}`;
+    return id === "home" ? "/" : `/#${id}`;
+  };
+
   return (
     <header className="fixed top-4 right-4 sm:top-6 sm:right-6 lg:right-10 z-50 font-mono text-xs select-none">
-      {/* Desktop Navigation (Text-only at top, Glassmorphic backdrop blur capsule when scrolled) */}
+      {/* Desktop Navigation */}
       <div
-        className={`hidden md:flex items-center gap-8 px-6 py-2.5 rounded-full transition-all duration-300 ${
-          isScrolled
+        className={`hidden md:flex items-center gap-8 px-6 py-2.5 rounded-full transition-all duration-300 ${isScrolled
             ? "bg-[#111116]/85 backdrop-blur-md border border-white/10 shadow-2xl shadow-black/50 hover:border-[#ffd700]/30"
             : "bg-transparent border border-transparent shadow-none"
-        }`}
+          }`}
       >
-        <nav className="flex items-center gap-8 tracking-widest font-bold">
+        <nav className="flex items-center gap-6 lg:gap-8 tracking-widest font-bold">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = isHome
+              ? activeSection === item.id
+              : pathname === (item.id === "home" ? "/" : `/${item.id}`);
             return (
               <Link
-                key={item.href}
-                href={item.href}
-                className={`relative py-1 transition-colors group ${
-                  isActive ? "text-[#ffd700]" : "text-white/80 hover:text-white"
-                }`}
+                key={item.id}
+                href={getHref(item.id)}
+                onClick={(e) => handleNavClick(e, item.id)}
+                className={`relative py-1 transition-colors group ${isActive ? "text-[#ffd700]" : "text-white/80 hover:text-white"
+                  }`}
               >
                 <span>{item.label}</span>
-                {/* Left-to-Right Expanding Animated Underline */}
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] bg-[#ffd700] transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                  className={`absolute bottom-0 left-0 h-[2px] bg-[#ffd700] transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
                 />
               </Link>
             );
           })}
 
-          {/* CV Link with Animated Underline */}
+          {/* CV Link */}
           <Link
             href={cvLink}
             target="_blank"
@@ -105,12 +134,14 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden absolute top-14 right-0 bg-[#111116]/95 border border-white/20 p-5 rounded-xl shadow-2xl flex flex-col gap-4 min-w-[180px] backdrop-blur-xl">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = isHome
+              ? activeSection === item.id
+              : pathname === (item.id === "home" ? "/" : `/${item.id}`);
             return (
               <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
+                key={item.id}
+                href={getHref(item.id)}
+                onClick={(e) => handleNavClick(e, item.id)}
                 className={`relative py-1 font-mono text-xs transition-colors group w-fit ${isActive ? "text-[#ffd700] font-bold" : "text-white/80 hover:text-white"
                   }`}
               >

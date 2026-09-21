@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 
-const CYBER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*アズカバリクラナ";
+const CYBER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*<>{}|/\\~_-+=";
 
 export default function GlitchText({ text, className = "", delay = 0 }) {
   const [displayText, setDisplayText] = useState("");
@@ -43,7 +43,7 @@ export default function GlitchText({ text, className = "", delay = 0 }) {
   }, [text, delay]);
 
   return (
-    <div className={`relative inline-block select-none ${className}`}>
+    <span className={`relative inline-block select-none ${className}`}>
       {/* Glitch Overlay Red Shift */}
       {isGlitching && (
         <span
@@ -68,6 +68,6 @@ export default function GlitchText({ text, className = "", delay = 0 }) {
 
       {/* Main Base Text */}
       <span className="relative z-10">{displayText || text}</span>
-    </div>
+    </span>
   );
 }
