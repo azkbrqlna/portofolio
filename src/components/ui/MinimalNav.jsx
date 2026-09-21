@@ -1,18 +1,22 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { X, ArrowUpRight } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skill Sets", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Achievement", href: "/achievement" },
+  {
+    label: "CV",
+    href: "https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf",
+    external: true,
+  },
 ];
 
 export default function MinimalNav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -27,6 +31,12 @@ export default function MinimalNav() {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
+
+  const isLinkActive = (href, external) => {
+    if (external) return false;
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <div ref={menuRef}>
@@ -59,19 +69,60 @@ export default function MinimalNav() {
             background: "rgba(18,18,24,0.96)",
             border: "1px solid rgba(255,255,255,0.08)",
             backdropFilter: "blur(20px)",
-            minWidth: "160px",
+            minWidth: "170px",
           }}
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block px-4 py-2 text-xs text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors font-mono tracking-wider"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isLinkActive(link.href, link.external);
+
+            const content = (
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-2">
+                  {active && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] shadow-[0_0_6px_#d4a853]" />
+                  )}
+                  <span className={active ? "font-medium" : ""}>
+                    {link.label}
+                  </span>
+                </div>
+                {link.external && (
+                  <ArrowUpRight size={12} className="text-white/30" />
+                )}
+              </div>
+            );
+
+            const className = `flex items-center justify-between px-4 py-2.5 text-xs font-mono tracking-wider transition-colors ${
+              active
+                ? "text-[#d4a853] bg-[#d4a853]/10"
+                : "text-white/60 hover:text-white hover:bg-white/[0.06]"
+            }`;
+
+            if (link.external) {
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  className={className}
+                >
+                  {content}
+                </a>
+              );
+            }
+
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={className}
+              >
+                {content}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
