@@ -35,9 +35,6 @@ export default function HomePage() {
             >
               Azka Bariqlana
             </h1>
-            <span className="font-mono text-xs text-white/30 tracking-widest uppercase">
-              a.k.a azkbrqlna
-            </span>
           </div>
 
           <hr className="dotted-divider my-6" />
