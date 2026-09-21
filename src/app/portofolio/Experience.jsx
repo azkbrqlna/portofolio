@@ -175,20 +175,32 @@ export default function ExperienceSection() {
                       <ArrowUpRight size={11} />
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-3xl p-6 bg-[#0f0f14] border border-white/15 text-white">
-                    <DialogHeader>
-                      <DialogTitle className="font-mono text-sm text-[#d4a853] flex items-center gap-2">
-                        <Award size={15} />
-                        {exp.company} — {exp.title}
+                  <DialogContent className="max-w-[92vw] sm:max-w-[540px] p-4 sm:p-5 bg-[#0f0f14] border border-white/15 text-white gap-3 rounded-2xl shadow-2xl shadow-black/90">
+                    <DialogHeader className="pr-8 text-left">
+                      <DialogTitle className="font-mono text-xs sm:text-sm text-[#d4a853] flex items-center gap-2 truncate">
+                        <Award size={14} className="shrink-0 text-[#d4a853]" />
+                        <span className="truncate">{exp.company} — {exp.title}</span>
                       </DialogTitle>
                     </DialogHeader>
-                    <div className="overflow-hidden rounded-xl border border-white/10 mt-3 bg-black/60">
+                    <div className="w-full flex items-center justify-center bg-black/60 rounded-xl border border-white/10 overflow-hidden p-1.5 sm:p-2">
                       <img
                         src={exp.certificate}
                         alt={`Certificate — ${exp.title}`}
-                        className="w-full rounded-lg object-contain max-h-[80vh]"
+                        className="w-full h-auto max-h-[50vh] sm:max-h-[360px] object-contain rounded-lg block"
                         loading="lazy"
                       />
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] font-mono text-white/40 pt-0.5">
+                      <span>{exp.period || "Verified Credential"}</span>
+                      <a
+                        href={exp.certificate}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[#d4a853] hover:text-[#d4a853]/80 hover:underline transition-colors"
+                      >
+                        <span>Open Original</span>
+                        <ExternalLink size={11} />
+                      </a>
                     </div>
                   </DialogContent>
                 </Dialog>

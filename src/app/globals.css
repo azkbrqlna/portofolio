@@ -100,14 +100,14 @@
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
   }
 }
 
 @keyframes modalOverlayOut {
   from {
     opacity: 1;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
   }
   to {
     opacity: 0;
@@ -118,10 +118,14 @@
 @keyframes modalPopupIn {
   0% {
     opacity: 0;
-    transform: translate(-50%, -46%) scale(0.88);
+    transform: translate(-50%, -50%) scale(0.78);
   }
-  60% {
-    transform: translate(-50%, -50.5%) scale(1.015);
+  65% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+  85% {
+    transform: translate(-50%, -50%) scale(0.99);
   }
   100% {
     opacity: 1;
@@ -136,22 +140,22 @@
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -46%) scale(0.92);
+    transform: translate(-50%, -50%) scale(0.85);
   }
 }
 
 .modal-overlay[data-state="open"] {
-  animation: modalOverlayIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: modalOverlayIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .modal-overlay[data-state="closed"] {
   animation: modalOverlayOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .modal-content[data-state="open"] {
-  animation: modalPopupIn 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: modalPopupIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .modal-content[data-state="closed"] {
-  animation: modalPopupOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: modalPopupOut 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ── Noise texture overlay ────────────────────── */
