@@ -1,234 +1,105 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import experiences from "@/app/data/experiences.json";
-import { Award, ChevronDown, Terminal, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import GlitchTitle from "@/components/ui/GlitchTitle";
+import { Award, ArrowUpRight } from "lucide-react";
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 
 export default function ExperienceSection() {
-    const [activeCategory, setActiveCategory] = useState("ALL");
-    const [expandedIndex, setExpandedIndex] = useState(null); // Default tertutup semua
-
-    const categories = ["ALL", "Networking", "Frontend"];
-
-    const filteredExperiences = experiences.filter((exp) => {
-        if (activeCategory === "ALL") return true;
-        if (activeCategory === "Networking") return exp.title.includes("Network");
-        if (activeCategory === "Frontend") return exp.title.includes("Frontend");
-        return true;
-    });
-
-    const toggleExpand = (idx) => {
-        setExpandedIndex(expandedIndex === idx ? null : idx);
-    };
-
-    return (
-        <section id="experience" className="w-full">
-
-            {/* Main 2-Column Archive Layout (Matching Home & Projects) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-
-                {/* Left Sidebar: Title & Category Filters */}
-                <div className="lg:col-span-3 space-y-6">
-                    <div>
-                        <GlitchTitle
-                            text="EXPERIENCE"
-                            delay={150}
-                            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter uppercase font-sans leading-none"
-                        />
-                        <div className="text-xs font-mono text-[#ffd700] mt-2 font-bold tracking-widest uppercase">
-                            CAREER TIMELINE
-                        </div>
-                    </div>
-
-                    {/* Category Filter Links */}
-                    <div className="flex flex-row overflow-x-auto sm:flex-col gap-2 font-mono text-xs pt-4 border-t border-white/10 no-scrollbar">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => {
-                                    setActiveCategory(cat);
-                                    setExpandedIndex(null);
-                                }}
-                                className={`text-left transition-all py-2 px-3 rounded-lg whitespace-nowrap ${activeCategory === cat
-                                    ? "text-[#ffd700] font-bold bg-[#ffd700]/10 border-l-2 border-[#ffd700]"
-                                    : "text-white/60 hover:text-white hover:bg-white/5"
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Right Column: Interactive Accordion Table */}
-                <div className="lg:col-span-9 space-y-2">
-
-                    {/* Table Header Row */}
-                    <div className="grid grid-cols-12 px-4 sm:px-6 py-3 text-xs font-mono text-white/40 border-b border-white/20 uppercase tracking-wider">
-                        <div className="col-span-6 sm:col-span-6">ROLE / COMPANY</div>
-                        <div className="col-span-3 sm:col-span-3">FOCUS</div>
-                        <div className="col-span-3 sm:col-span-3 text-right">PERIOD</div>
-                    </div>
-
-                    {/* Experience List Items */}
-                    <div className="divide-y divide-white/10 border-b border-white/10 font-mono">
-                        {filteredExperiences.map((exp, idx) => {
-                            const isExpanded = expandedIndex === idx;
-
-                            return (
-                                <div key={idx} className="transition-colors">
-                                    {/* Interactive List Item Row */}
-                                    <button
-                                        onClick={() => toggleExpand(idx)}
-                                        className={`w-full grid grid-cols-12 items-center px-4 sm:px-6 py-4 sm:py-5 text-left transition-all hover:bg-white/5 ${isExpanded ? "bg-white/5 text-[#ffd700]" : "text-white"
-                                            }`}
-                                    >
-                                        {/* Experience Number + Role & Company */}
-                                        <div className="col-span-6 sm:col-span-6 flex items-center gap-2 sm:gap-4 font-bold text-sm sm:text-lg">
-                                            <span className="text-xs font-mono text-[#ffd700] shrink-0 font-bold">
-                                                0{idx + 1}
-                                            </span>
-                                            <div className="flex flex-col truncate">
-                                                <span className="truncate">{exp.title}</span>
-                                                <span className="text-xs font-mono text-white/50 font-normal truncate">
-                                                    {exp.company}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Focus Tag */}
-                                        <div className="col-span-3 sm:col-span-3 text-[11px] sm:text-sm text-white/70 truncate">
-                                            {exp.title.includes("Network") ? "Networking" : "Frontend Web"}
-                                        </div>
-
-                                        {/* Period & Expand Arrow */}
-                                        <div className="col-span-3 sm:col-span-3 flex items-center justify-end gap-2 sm:gap-3 text-xs text-white/60">
-                                            <span className="truncate">{exp.period}</span>
-                                            <ChevronDown
-                                                className={`w-4 h-4 text-[#ffd700] transition-transform duration-300 ${isExpanded ? "rotate-180" : ""
-                                                    }`}
-                                            />
-                                        </div>
-                                    </button>
-
-                                    {/* Expandable Content Drawer */}
-                                    <AnimatePresence>
-                                        {isExpanded && (
-                                            <motion.div
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: "auto" }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                transition={{ duration: 0.35, ease: "easeInOut" }}
-                                                className="overflow-hidden bg-[#161622]/90 border-t border-b border-[#ffd700]/30"
-                                            >
-                                                <div className="p-4 sm:p-8 space-y-6">
-
-                                                    {/* Role Header Badge */}
-                                                    <div className="flex flex-wrap items-center justify-between gap-4">
-                                                        <div>
-                                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ffd700]/10 border border-[#ffd700]/30 text-[#ffd700] text-xs font-mono mb-2">
-                                                                <Terminal className="w-3.5 h-3.5" />
-                                                                <span>{exp.company}</span>
-                                                            </div>
-                                                            <h3 className="text-2xl font-bold text-white font-sans">
-                                                                {exp.title}
-                                                            </h3>
-                                                        </div>
-
-                                                        <div className="text-xs font-mono text-white/60 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg">
-                                                            {exp.period}
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Description Bullets */}
-                                                    <div className="space-y-3 pt-2">
-                                                        <span className="text-[11px] text-white/40 uppercase tracking-widest block font-mono">
-                                                            RESPONSIBILITIES & ACHIEVEMENTS:
-                                                        </span>
-                                                        <ul className="space-y-2.5 font-mono text-xs sm:text-sm text-white/80">
-                                                            {exp.description.map((item, i) => (
-                                                                <li key={i} className="flex items-start gap-3 leading-relaxed">
-                                                                    <span className="text-[#ffd700] shrink-0 mt-0.5">◆</span>
-                                                                    <span>{item}</span>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-
-                                                    {/* Skills Badges */}
-                                                    {exp.skills && exp.skills.length > 0 && (
-                                                        <div className="space-y-2 pt-3 border-t border-white/10">
-                                                            <span className="text-[11px] text-white/40 uppercase tracking-widest block font-mono">
-                                                                SKILLS APPLIED:
-                                                            </span>
-                                                            <div className="flex flex-wrap gap-2">
-                                                                {exp.skills.map((skill, i) => (
-                                                                    <span
-                                                                        key={i}
-                                                                        className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-[#ffd700] font-mono"
-                                                                    >
-                                                                        #{skill}
-                                                                    </span>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    {/* Certificate Modal Button */}
-                                                    {exp.certificate && (
-                                                        <div className="pt-4 border-t border-white/10">
-                                                            <Dialog>
-                                                                <DialogTrigger asChild>
-                                                                    <button className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ffd700] text-[#111116] font-bold text-xs rounded-lg hover:bg-[#ffe033] transition-all shadow-lg tracking-wider font-mono">
-                                                                        <Award className="w-4 h-4" />
-                                                                        <span>VIEW CERTIFICATE</span>
-                                                                        <ArrowUpRight className="w-4 h-4 ml-1" />
-                                                                    </button>
-                                                                </DialogTrigger>
-                                                                <DialogContent className="sm:max-w-4xl border-[#ffd700]/40 bg-[#111116] text-white">
-                                                                    <DialogHeader>
-                                                                        <DialogTitle className="text-left font-mono text-base text-[#ffd700] flex items-center gap-2">
-                                                                            <Award className="w-4 h-4" />
-                                                                            <span>CERTIFICATE // {exp.company}</span>
-                                                                        </DialogTitle>
-                                                                    </DialogHeader>
-                                                                    <div className="flex items-center justify-center mt-4 w-full h-full p-2 bg-[#0c0c12] rounded-xl border border-white/10">
-                                                                        <img
-                                                                            src={exp.certificate}
-                                                                            alt={`Certificate for ${exp.title} at ${exp.company}`}
-                                                                            className="w-full h-auto max-h-[75vh] object-contain rounded-lg shadow-2xl"
-                                                                            loading="lazy"
-                                                                        />
-                                                                    </div>
-                                                                </DialogContent>
-                                                            </Dialog>
-                                                        </div>
-                                                    )}
-
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                </div>
-
+  return (
+    <div className="space-y-8">
+      {experiences.map((exp, idx) => (
+        <div key={idx} className="group">
+          {/* Icon + Title row */}
+          <div className="flex items-start gap-4">
+            {/* Icon dot */}
+            <div
+              className="mt-1 w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: "rgba(212,168,83,0.1)", border: "1px solid rgba(212,168,83,0.25)" }}
+            >
+              <span className="font-mono text-[10px] text-[#d4a853]">
+                {String(idx + 1).padStart(2, "0")}
+              </span>
             </div>
 
+            <div className="flex-1 min-w-0">
+              {/* Title + type badge */}
+              <div className="flex flex-wrap items-baseline gap-2 mb-0.5">
+                <h3 className="text-[15px] font-semibold text-white/90">
+                  {exp.title}
+                </h3>
+              </div>
 
+              {/* Company · Period */}
+              <p className="font-mono text-[12px] text-white/35 mb-3">
+                {exp.company} · {exp.period}
+              </p>
 
-        </section>
-    );
+              {/* Description — left border style */}
+              <div className="border-l border-white/10 pl-4 space-y-1.5">
+                {exp.description.map((item, i) => (
+                  <p key={i} className="text-[14px] text-white/50 leading-relaxed">
+                    {item}
+                  </p>
+                ))}
+              </div>
+
+              {/* Skills + Certificate */}
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                {/* Skill tags */}
+                {exp.skills?.map((skill, i) => (
+                  <span
+                    key={i}
+                    className="font-mono text-[11px] text-white/35 border border-white/[0.07] px-2 py-0.5 rounded"
+                  >
+                    {skill}
+                  </span>
+                ))}
+
+                {/* Certificate */}
+                {exp.certificate && (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#d4a853] hover:text-[#d4a853]/70 transition-colors">
+                        <Award size={12} />
+                        View Certificate
+                        <ArrowUpRight size={11} />
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent
+                      className="sm:max-w-3xl"
+                      style={{
+                        background: "#16161c",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        color: "#e8e8f0",
+                      }}
+                    >
+                      <DialogHeader>
+                        <DialogTitle className="font-mono text-sm text-[#d4a853] flex items-center gap-2">
+                          <Award size={14} />
+                          {exp.company}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <img
+                        src={exp.certificate}
+                        alt={`Certificate — ${exp.title}`}
+                        className="w-full rounded-lg"
+                        loading="lazy"
+                      />
+                    </DialogContent>
+                  </Dialog>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
