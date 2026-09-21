@@ -1,8 +1,18 @@
 [
   {
+    "id": "nexa",
     "title": "Network Engineer Intern",
     "company": "PT. Internet Mulia Untuk Negeri (NEXA)",
+    "logo": "/images/logo/nexa-logo.jpeg",
+    "category": "Telecommunications",
+    "website": "nexa.net.id",
+    "websiteUrl": "https://nexa.net.id",
+    "location": "Semarang, Indonesia",
+    "workType": "Internship",
     "period": "May 2023 to November 2023",
+    "yearDuration": "2023 (7 Months)",
+    "initial": "N",
+    "summary": "Assisted in enterprise network deployments, device maintenance, and connectivity troubleshooting.",
     "description": [
       "Assist with the installation of internet networks to ensure optimal performance",
       "Troubleshoot and resolve network issues efficiently",
@@ -16,12 +26,23 @@
       "MikroTik",
       "Fiber Optic"
     ],
+    "useTextTechStack": true,
     "certificate": "https://ik.imagekit.io/Nothspec/Sertif-Nexa-Azkabariqlana.jpg?updatedAt=1758013737819"
   },
   {
+    "id": "gvp",
     "title": "Frontend Developer Intern",
     "company": "PT. Gracia Visi Pratama",
+    "logo": "/images/logo/gvp-logo.png",
+    "category": "IT Services & Software",
+    "website": "www.gvp.co.id",
+    "websiteUrl": "https://www.gvp.co.id/",
+    "location": "Semarang, Indonesia",
+    "workType": "Internship",
     "period": "February 2025 to March 2025",
+    "yearDuration": "2025 (2 Months)",
+    "initial": "G",
+    "summary": "Developed responsive user interfaces and integrated RESTful APIs to deliver seamless web applications.",
     "description": [
       "Developed and maintained responsive user interfaces using Angular framework.",
       "Implemented dynamic and reusable UI components with Bootstrap for consistency and responsiveness.",
@@ -31,7 +52,31 @@
     "skills": [
       "Angular",
       "Bootstrap",
-      "Git/GitHub"
+      "Git",
+      "GitHub"
+    ],
+    "useTextTechStack": false,
+    "techStackIcons": [
+      {
+        "name": "Angular",
+        "icon": "SiAngular",
+        "color": "#DD0031"
+      },
+      {
+        "name": "Bootstrap",
+        "icon": "SiBootstrap",
+        "color": "#7952B3"
+      },
+      {
+        "name": "Git",
+        "icon": "SiGit",
+        "color": "#F05032"
+      },
+      {
+        "name": "GitHub",
+        "icon": "SiGithub",
+        "color": "#FFFFFF"
+      }
     ],
     "certificate": "https://ik.imagekit.io/Nothspec/Sertif-GVP-AzkaBariqlana.jpg?updatedAt=1758013758301"
   }
