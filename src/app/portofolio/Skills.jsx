@@ -29,6 +29,7 @@ import {
   SiWireshark,
   SiKalilinux,
   SiBurpsuite,
+  SiFlutter,
 } from "react-icons/si";
 import { TbBrandVscode } from "react-icons/tb";
 
@@ -40,7 +41,7 @@ const SKILL_CATEGORIES = [
       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
       { name: "Python", icon: SiPython, color: "#3776AB", href: "https://www.python.org/" },
       { name: "PHP", icon: SiPhp, color: "#777BB4", href: "https://www.php.net/" },
-      { name: "C++", icon: SiCplusplus, color: "#00599C", href: "https://isocpp.org/" },
+      { name: "Flutter", icon: SiFlutter, color: "#02569B", href: "https://flutter.dev/" },
       { name: "HTML5", icon: SiHtml5, color: "#E34F26", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
       { name: "CSS3", icon: SiCss3, color: "#1572B6", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
     ],

@@ -3,8 +3,8 @@
 import React from "react";
 import Projects from "@/app/portofolio/Project";
 import ExperienceSection from "@/app/portofolio/Experience";
-import ContactSection from "@/components/ContactSection";
-import SkillsSection from "@/components/ui/SkillsSection";
+import ContactSection from "@/app/portofolio/Contact";
+import SkillsSection from "@/app/portofolio/Skills";
 
 /* ── Reusable section heading ──────────────────────────────── */
 function SectionHeading({ title }) {
@@ -80,16 +80,6 @@ export default function HomePage() {
         <hr className="dotted-divider mb-14" />
 
         {/* ══════════════════════════════════ */}
-        {/* SKILL SETS */}
-        {/* ══════════════════════════════════ */}
-        <section id="skills" className="pb-14">
-          <SectionHeading title="Skill Sets" />
-          <SkillsSection />
-        </section>
-
-        <hr className="dotted-divider mb-14" />
-
-        {/* ══════════════════════════════════ */}
         {/* EXPERIENCE */}
         {/* ══════════════════════════════════ */}
         <section id="experience" className="pb-14">
@@ -107,13 +97,24 @@ export default function HomePage() {
           <Projects />
         </section>
 
+
+        <hr className="dotted-divider mb-14" />
+
+        {/* ══════════════════════════════════ */}
+        {/* SKILL SETS */}
+        {/* ══════════════════════════════════ */}
+        <section id="skills" className="pb-14">
+          <SectionHeading title="Skill Sets" />
+          <SkillsSection />
+        </section>
+
         <hr className="dotted-divider mb-14" />
 
         {/* ══════════════════════════════════ */}
         {/* CONTACT */}
         {/* ══════════════════════════════════ */}
         <section id="contact" className="pb-8">
-          <SectionHeading title="Contact" />
+          <SectionHeading title="Let's get in touch" />
           <ContactSection />
         </section>
 

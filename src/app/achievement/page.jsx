@@ -72,26 +72,21 @@ export default function AchievementPage() {
                       <ArrowUpRight size={12} />
                     </button>
                   </DialogTrigger>
-                  <DialogContent
-                    className="sm:max-w-3xl"
-                    style={{
-                      background: "#16161c",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      color: "#e8e8f0",
-                    }}
-                  >
+                  <DialogContent className="sm:max-w-3xl p-6">
                     <DialogHeader>
                       <DialogTitle className="font-mono text-sm text-[#d4a853] flex items-center gap-2">
                         <Award size={14} />
                         {item.company} — {item.title}
                       </DialogTitle>
                     </DialogHeader>
-                    <img
-                      src={item.certificate}
-                      alt={`Certificate — ${item.title}`}
-                      className="w-full rounded-lg"
-                      loading="lazy"
-                    />
+                    <div className="overflow-hidden rounded-xl border border-white/10 mt-2 bg-black/40">
+                      <img
+                        src={item.certificate}
+                        alt={`Certificate — ${item.title}`}
+                        className="w-full rounded-lg object-contain max-h-[80vh]"
+                        loading="lazy"
+                      />
+                    </div>
                   </DialogContent>
                 </Dialog>
               </div>

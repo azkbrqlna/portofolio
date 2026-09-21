@@ -92,6 +92,68 @@
   to   { opacity: 1; }
 }
 
+/* ── Modal Pop-up Keyframe Animations ─────────── */
+@keyframes modalOverlayIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes modalOverlayOut {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+}
+
+@keyframes modalPopupIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.88);
+  }
+  60% {
+    transform: translate(-50%, -50.5%) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes modalPopupOut {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.92);
+  }
+}
+
+.modal-overlay[data-state="open"] {
+  animation: modalOverlayIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.modal-overlay[data-state="closed"] {
+  animation: modalOverlayOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-content[data-state="open"] {
+  animation: modalPopupIn 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.modal-content[data-state="closed"] {
+  animation: modalPopupOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* ── Noise texture overlay ────────────────────── */
 .noise::before {
   content: '';
