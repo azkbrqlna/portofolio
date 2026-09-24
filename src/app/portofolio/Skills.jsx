@@ -84,14 +84,7 @@ const SKILL_CATEGORIES = [
       { name: "Figma", icon: SiFigma, color: "#F24E1E", href: "https://www.figma.com/" },
     ],
   },
-  {
-    title: "Cyber Security",
-    items: [
-      { name: "Kali Linux", icon: SiKalilinux, color: "#557C94", href: "https://www.kali.org/" },
-      { name: "Wireshark", icon: SiWireshark, color: "#1679A7", href: "https://www.wireshark.org/" },
-      { name: "Burp Suite", icon: SiBurpsuite, color: "#FF6633", href: "https://portswigger.net/burp" },
-    ],
-  },
+
 ];
 
 function SkillItem({ item }) {

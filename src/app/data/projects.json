@@ -12,8 +12,7 @@
     ],
     "name": "Template Bot",
     "description": "Template for building a WhatsApp bot using Whiskey Socket Baileys with NodeJS.",
-    "href": "https://github.com/azkbrqlna/Template-Bot",
-    "cta": "Learn More"
+    "href": "https://github.com/azkbrqlna/Template-Bot"
   },
   {
     "icons": [
@@ -24,8 +23,7 @@
     ],
     "name": "BrongDetector",
     "description": "A final semester project mobile application built with Flutter that detects and measures motorcycle exhaust sound levels in real-time using smartphone microphone sensors.",
-    "href": "https://github.com/azkbrqlna/BrongDetector.git",
-    "cta": "Learn More"
+    "href": "https://github.com/azkbrqlna/BrongDetector.git"
   },
   {
     "icons": [
@@ -44,7 +42,6 @@
     ],
     "name": "Asha Backyard",
     "description": "A Project-Based Learning (PBL) application developed from a real-world case study of Asha Backyard Cafe in Semarang, featuring a Flutter mobile app integrated with a Laravel backend API and PostgreSQL database.",
-    "href": "https://github.com/azkbrqlna/Asha-Backyard.git",
-    "cta": "Learn More"
+    "href": ""
   }
 ]
