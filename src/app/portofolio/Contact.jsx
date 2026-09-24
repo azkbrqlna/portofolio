@@ -21,8 +21,8 @@ const LINKS = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    value: "linkedin.com/in/azka-bariqlana",
-    href: "https://linkedin.com/in/azka-bariqlana",
+    value: "linkedin.com/in/azkbrqlna",
+    href: "https://linkedin.com/in/azkbrqlna",
     canCopy: false,
   },
   {
