@@ -5,6 +5,7 @@ import Projects from "@/app/portofolio/Project";
 import ExperienceSection from "@/app/portofolio/Experience";
 import ContactSection from "@/app/portofolio/Contact";
 import SkillsSection from "@/app/portofolio/Skills";
+import GithubContributions from "@/app/portofolio/GithubContributions";
 
 /* ── Reusable section heading ──────────────────────────────── */
 function SectionHeading({ title }) {
@@ -27,7 +28,7 @@ export default function HomePage() {
         {/* ══════════════════════════════════ */}
         {/* HERO */}
         {/* ══════════════════════════════════ */}
-        <section id="home" className="pt-12 pb-14">
+        <section id="home" className="pt-12 pb-8">
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
             <h1
               className="text-3xl sm:text-4xl font-serif font-semibold text-[#e8e8f0] tracking-tight leading-tight"
@@ -37,7 +38,6 @@ export default function HomePage() {
             </h1>
           </div>
 
-          <hr className="dotted-divider my-6" />
 
           {/* Bio */}
           <p className="text-[15px] text-white/65 leading-relaxed">
@@ -49,6 +49,13 @@ export default function HomePage() {
             <span className="text-white/80">Politeknik Negeri Semarang</span>.
             Always curious and excited to keep growing.
           </p>
+        </section>
+
+        {/* ══════════════════════════════════ */}
+        {/* GITHUB CONTRIBUTIONS */}
+        {/* ══════════════════════════════════ */}
+        <section id="contributions" className="pb-14">
+          <GithubContributions />
         </section>
 
         <hr className="dotted-divider mb-14" />
@@ -101,7 +108,7 @@ export default function HomePage() {
         {/* SKILL SETS */}
         {/* ══════════════════════════════════ */}
         <section id="skills" className="pb-14">
-          <SectionHeading title="Skill Sets" />
+          <SectionHeading title="My Stacks" />
           <SkillsSection />
         </section>
 

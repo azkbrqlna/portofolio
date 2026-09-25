@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Achievement", href: "/achievement" },
+  { label: "Achievements", href: "/achievements" },
   {
     label: "CV",
     href: "https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf",
@@ -44,16 +44,14 @@ export default function MinimalNav() {
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
         <button
           onClick={() => setOpen((v) => !v)}
-          className="text-white/40 hover:text-white transition-colors p-1 -m-1"
+          className={`transition-colors p-1 -m-1 ${
+            open ? "text-white" : "text-white/40 hover:text-white"
+          }`}
           aria-label="Toggle navigation menu"
         >
-          {open ? (
-            <X size={16} />
-          ) : (
-            <span className="font-mono text-base tracking-widest leading-none select-none">
-              ···
-            </span>
-          )}
+          <span className="font-mono text-base tracking-widest leading-none select-none">
+            ···
+          </span>
         </button>
 
         <span className="font-mono text-[11px] tracking-[0.25em] text-white/20 uppercase select-none">
