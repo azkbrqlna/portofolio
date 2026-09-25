@@ -4,9 +4,9 @@ import React from "react";
 import { Github, Linkedin, Instagram } from "lucide-react";
 
 const SOCIALS = [
-  { icon: Linkedin,  href: "https://linkedin.com/in/azka-bariqlana", label: "LinkedIn" },
-  { icon: Github,    href: "https://github.com/azkbrqlna",            label: "GitHub" },
-  { icon: Instagram, href: "https://instagram.com/azkbrqlna",        label: "Instagram" },
+  { icon: Linkedin, href: "https://linkedin.com/in/azkbrqlna", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/azkbrqlna", label: "GitHub" },
+  { icon: Instagram, href: "https://instagram.com/azkbrqlna", label: "Instagram" },
 ];
 
 export default function SocialSidebar() {
