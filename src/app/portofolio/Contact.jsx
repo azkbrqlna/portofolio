@@ -48,7 +48,7 @@ export default function ContactSection() {
   return (
     <div className="space-y-4">
       <p className="text-[15px] text-white/55 leading-relaxed">
-        Feel free to reach out — whether it's a project collaboration, an opportunity,
+        Feel free to reach out, whether it's a project collaboration, an opportunity,
         or just to say hello.
       </p>
 
