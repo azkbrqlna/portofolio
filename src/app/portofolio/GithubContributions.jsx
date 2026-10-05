@@ -163,9 +163,8 @@ export default function GithubContributions() {
                         const tooltipText =
                           day.count === 0
                             ? `No contributions on ${formatDate(day.date)}`
-                            : `${day.count} contribution${
-                                day.count === 1 ? "" : "s"
-                              } on ${formatDate(day.date)}`;
+                            : `${day.count} contribution${day.count === 1 ? "" : "s"
+                            } on ${formatDate(day.date)}`;
 
                         return (
                           <div

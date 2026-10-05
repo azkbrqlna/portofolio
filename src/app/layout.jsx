@@ -11,6 +11,9 @@ export const metadata = {
   title: "Azka Bariqlana | Full-Stack Developer",
   description:
     "Portfolio of Azka Bariqlana (azkbrqlna) — Full-Stack Developer & Security Enthusiast based in Semarang, Indonesia.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {

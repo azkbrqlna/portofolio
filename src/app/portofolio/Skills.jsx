@@ -6,7 +6,7 @@ import {
   SiJavascript,
   SiPython,
   SiPhp,
-  SiCplusplus,
+  SiFlutter,
   SiHtml5,
   SiCss3,
   SiNextdotjs,
@@ -25,11 +25,6 @@ import {
   SiGit,
   SiGithub,
   SiPostman,
-  SiFigma,
-  SiWireshark,
-  SiKalilinux,
-  SiBurpsuite,
-  SiFlutter,
 } from "react-icons/si";
 import { TbBrandVscode } from "react-icons/tb";
 
@@ -81,7 +76,6 @@ const SKILL_CATEGORIES = [
     items: [
       { name: "VS Code", icon: TbBrandVscode, color: "#007ACC", href: "https://code.visualstudio.com/" },
       { name: "Postman", icon: SiPostman, color: "#FF6C37", href: "https://www.postman.com/" },
-      { name: "Figma", icon: SiFigma, color: "#F24E1E", href: "https://www.figma.com/" },
     ],
   },
 

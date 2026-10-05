@@ -44,9 +44,8 @@ export default function MinimalNav() {
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
         <button
           onClick={() => setOpen((v) => !v)}
-          className={`transition-colors p-1 -m-1 ${
-            open ? "text-white" : "text-white/40 hover:text-white"
-          }`}
+          className={`transition-colors p-1 -m-1 ${open ? "text-white" : "text-white/40 hover:text-white"
+            }`}
           aria-label="Toggle navigation menu"
         >
           <span className="font-mono text-base tracking-widest leading-none select-none">
@@ -89,11 +88,10 @@ export default function MinimalNav() {
               </div>
             );
 
-            const className = `flex items-center justify-between px-4 py-2.5 text-xs font-mono tracking-wider transition-colors ${
-              active
+            const className = `flex items-center justify-between px-4 py-2.5 text-xs font-mono tracking-wider transition-colors ${active
                 ? "text-[#d4a853] bg-[#d4a853]/10"
                 : "text-white/60 hover:text-white hover:bg-white/[0.06]"
-            }`;
+              }`;
 
             if (link.external) {
               return (

@@ -18,8 +18,6 @@ const config = {
     extend: {
       fontFamily: {
         inter: ["var(--font-inter)"],
-        cera: ["var(--font-cera)"],
-        sfpro: ["var(--font-sfpro)"],
       },
       fontSize: {
         sm: "0.8rem",
