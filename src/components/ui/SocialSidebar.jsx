@@ -19,13 +19,13 @@ export default function SocialSidebar() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          className="text-white/40 hover:text-[#d4a853] transition-colors duration-200"
+          className="text-white hover:text-[#d4a853] transition-all duration-200 hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
         >
-          <Icon size={16} strokeWidth={1.5} />
+          <Icon size={18} strokeWidth={2} />
         </a>
       ))}
-      {/* Vertical line */}
-      <div className="w-px h-24 bg-white/10 mt-2" />
+      {/* Vertical line - bright crisp white */}
+      <div className="w-px h-24 bg-gradient-to-b from-white/90 via-white/50 to-transparent shadow-[0_0_8px_rgba(255,255,255,0.4)] mt-2" />
     </div>
   );
 }

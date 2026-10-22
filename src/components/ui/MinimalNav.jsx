@@ -41,19 +41,18 @@ export default function MinimalNav() {
   return (
     <div ref={menuRef}>
       {/* Top bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 pointer-events-none">
         <button
           onClick={() => setOpen((v) => !v)}
-          className={`transition-colors p-1 -m-1 ${open ? "text-white" : "text-white/40 hover:text-white"
-            }`}
+          className="pointer-events-auto transition-opacity duration-200 p-1 -m-1 text-white hover:opacity-75 focus:outline-none"
           aria-label="Toggle navigation menu"
         >
-          <span className="font-mono text-base tracking-widest leading-none select-none">
+          <span className="font-mono text-xl tracking-widest leading-none select-none font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">
             ···
           </span>
         </button>
 
-        <span className="font-mono text-[11px] tracking-[0.25em] text-white/20 uppercase select-none">
+        <span className="pointer-events-auto font-mono text-xs tracking-[0.28em] text-white uppercase select-none font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">
           azkbrqlna
         </span>
       </header>
@@ -61,10 +60,10 @@ export default function MinimalNav() {
       {/* Dropdown menu */}
       {open && (
         <div
-          className="fixed top-12 left-6 z-50 rounded-xl overflow-hidden shadow-2xl py-1.5 animate-in fade-in zoom-in-95 duration-150"
+          className="fixed top-14 left-6 z-50 rounded-xl overflow-hidden shadow-2xl py-1.5 animate-in fade-in zoom-in-95 duration-150 pointer-events-auto"
           style={{
             background: "rgba(18,18,24,0.96)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            border: "1px solid rgba(255,255,255,0.15)",
             backdropFilter: "blur(20px)",
             minWidth: "170px",
           }}

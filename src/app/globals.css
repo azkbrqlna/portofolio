@@ -114,29 +114,6 @@
   animation: fadeUp 0.5s ease both;
 }
 
-/* ── Loading screen cursor blink ─────────────── */
-@keyframes blink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-}
-
-/* ── Page fade-in after loading ──────────────── */
-@keyframes fadeInContent {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
 
 /* ── Modal Pop-up Keyframe Animations ─────────── */
 @keyframes modalOverlayIn {
