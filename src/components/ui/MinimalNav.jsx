@@ -18,7 +18,18 @@ const NAV_LINKS = [
 export default function MinimalNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -26,10 +37,22 @@ export default function MinimalNav() {
         setOpen(false);
       }
     };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [open]);
 
   const isLinkActive = (href, external) => {
@@ -41,7 +64,18 @@ export default function MinimalNav() {
   return (
     <div ref={menuRef}>
       {/* Top bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 pointer-events-none">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 transition-all duration-300 ${
+          scrolled
+            ? "py-3 bg-[#0c0d12]/80 backdrop-blur-md border-b border-white/[0.08] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] pointer-events-auto"
+            : "py-4 bg-transparent border-b border-transparent shadow-none pointer-events-none"
+        }`}
+        style={
+          scrolled
+            ? { WebkitBackdropFilter: "blur(12px)" }
+            : undefined
+        }
+      >
         <button
           onClick={() => setOpen((v) => !v)}
           className="pointer-events-auto transition-opacity duration-200 p-1 -m-1 text-white hover:opacity-75 focus:outline-none"
@@ -56,14 +90,16 @@ export default function MinimalNav() {
           azkbrqlna
         </span>
       </header>
-
       {/* Dropdown menu */}
       {open && (
         <div
-          className="fixed top-14 left-6 z-50 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.08)] p-1.5 animate-in fade-in zoom-in-95 duration-150 pointer-events-auto"
+          className={`fixed left-6 z-50 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.08)] p-1.5 animate-in fade-in zoom-in-95 duration-150 pointer-events-auto transition-all ${
+            scrolled ? "top-[48px]" : "top-14"
+          }`}
           style={{
             background: "rgba(15, 16, 21, 0.95)",
             backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
             minWidth: "185px",
           }}
         >
