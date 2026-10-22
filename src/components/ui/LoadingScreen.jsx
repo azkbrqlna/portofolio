@@ -68,13 +68,13 @@ export default function LoadingScreen({ onComplete }) {
           }}
         />
 
-        {/* Architectural panel groove lines */}
-        <div className="absolute top-1/3 left-0 right-0 h-px bg-white/[0.04]" />
-        <div className="absolute top-2/3 left-0 right-0 h-px bg-white/[0.04]" />
 
         {/* Giant Watermark Echo in background to eliminate emptiness */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.035] pointer-events-none">
-          <span className="font-mono font-black text-[14vw] tracking-widest text-white whitespace-nowrap">
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.06] pointer-events-none px-6">
+          <span
+            className="font-serif font-bold text-[clamp(2rem,12vw,9rem)] tracking-[0.12em] text-[#e8e8f0] uppercase whitespace-nowrap leading-none select-none text-center"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
             AZKBRQLNA
           </span>
         </div>
@@ -99,13 +99,12 @@ export default function LoadingScreen({ onComplete }) {
           }}
         />
 
-        {/* Architectural panel groove lines */}
-        <div className="absolute top-1/3 left-0 right-0 h-px bg-white/[0.04]" />
-        <div className="absolute top-2/3 left-0 right-0 h-px bg-white/[0.04]" />
-
         {/* Giant Watermark Echo in background */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.035] pointer-events-none">
-          <span className="font-mono font-black text-[14vw] tracking-widest text-white whitespace-nowrap">
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.06] pointer-events-none px-6">
+          <span
+            className="font-serif font-bold text-[clamp(2rem,12vw,9rem)] tracking-[0.12em] text-[#e8e8f0] uppercase whitespace-nowrap leading-none select-none text-center"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
             DEVELOPER
           </span>
         </div>
@@ -176,10 +175,10 @@ export default function LoadingScreen({ onComplete }) {
         <div className="flex items-end justify-end font-mono">
           <div className="text-right">
             <div className="flex items-baseline justify-end">
-              <span className="text-5xl sm:text-7xl font-light text-white tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]">
+              <span className="text-5xl sm:text-7xl font-light text-[#e8e8f0] tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]">
                 {progress < 10 ? `0${progress}` : progress}
               </span>
-              <span className="text-xs sm:text-sm text-white/60 font-mono ml-1 font-normal">
+              <span className="text-xs sm:text-sm text-[#d4a853] font-mono ml-1.5 font-medium">
                 %
               </span>
             </div>
