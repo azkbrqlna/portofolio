@@ -2,6 +2,7 @@
 
 import React from "react";
 import experiences from "@/app/data/experiences.json";
+import { formatExperienceDuration } from "@/utils/duration";
 import { Award, ArrowUpRight, MapPin, ExternalLink } from "lucide-react";
 import {
   SiAngular,
@@ -96,7 +97,7 @@ export default function ExperienceSection() {
             {/* Right: Year & Duration */}
             <div className="shrink-0 text-left sm:text-right pl-[50px] sm:pl-0">
               <span className="text-sm sm:text-[15px] font-semibold text-white tracking-tight font-sans">
-                {exp.yearDuration || exp.period}
+                {formatExperienceDuration(exp.period) || exp.yearDuration || exp.period}
               </span>
             </div>
           </div>
