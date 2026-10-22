@@ -41,19 +41,18 @@ export default function MinimalNav() {
   return (
     <div ref={menuRef}>
       {/* Top bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 pointer-events-none">
         <button
           onClick={() => setOpen((v) => !v)}
-          className={`transition-colors p-1 -m-1 ${open ? "text-white" : "text-white/40 hover:text-white"
-            }`}
+          className="pointer-events-auto transition-opacity duration-200 p-1 -m-1 text-white hover:opacity-75 focus:outline-none"
           aria-label="Toggle navigation menu"
         >
-          <span className="font-mono text-base tracking-widest leading-none select-none">
+          <span className="font-mono text-xl tracking-widest leading-none select-none font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">
             ···
           </span>
         </button>
 
-        <span className="font-mono text-[11px] tracking-[0.25em] text-white/20 uppercase select-none">
+        <span className="pointer-events-auto font-mono text-xs tracking-[0.28em] text-white uppercase select-none font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">
           azkbrqlna
         </span>
       </header>
@@ -61,12 +60,11 @@ export default function MinimalNav() {
       {/* Dropdown menu */}
       {open && (
         <div
-          className="fixed top-12 left-6 z-50 rounded-xl overflow-hidden shadow-2xl py-1.5 animate-in fade-in zoom-in-95 duration-150"
+          className="fixed top-14 left-6 z-50 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.08)] p-1.5 animate-in fade-in zoom-in-95 duration-150 pointer-events-auto"
           style={{
-            background: "rgba(18,18,24,0.96)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            backdropFilter: "blur(20px)",
-            minWidth: "170px",
+            background: "rgba(15, 16, 21, 0.95)",
+            backdropFilter: "blur(24px)",
+            minWidth: "185px",
           }}
         >
           {NAV_LINKS.map((link) => {
@@ -74,24 +72,23 @@ export default function MinimalNav() {
 
             const content = (
               <div className="flex items-center justify-between w-full">
-                <div className="flex items-center gap-2">
-                  {active && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] shadow-[0_0_6px_#d4a853]" />
-                  )}
-                  <span className={active ? "font-medium" : ""}>
-                    {link.label}
-                  </span>
-                </div>
+                <span className={active ? "font-semibold text-white" : "font-normal"}>
+                  {link.label}
+                </span>
                 {link.external && (
-                  <ArrowUpRight size={12} className="text-white/30" />
+                  <ArrowUpRight
+                    size={13}
+                    className="text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200"
+                  />
                 )}
               </div>
             );
 
-            const className = `flex items-center justify-between px-4 py-2.5 text-xs font-mono tracking-wider transition-colors ${active
-                ? "text-[#d4a853] bg-[#d4a853]/10"
-                : "text-white/60 hover:text-white hover:bg-white/[0.06]"
-              }`;
+            const className = `group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono tracking-wider transition-all duration-200 ${
+              active
+                ? "text-white bg-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                : "text-white/60 hover:text-white hover:bg-white/[0.04]"
+            }`;
 
             if (link.external) {
               return (

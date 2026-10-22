@@ -2,7 +2,6 @@ import React from "react";
 import MinimalNav from "@/components/ui/MinimalNav";
 import SocialSidebar from "@/components/ui/SocialSidebar";
 import EmailSidebar from "@/components/ui/EmailSidebar";
-import CyberMatrixBackground from "@/components/ui/CyberMatrixBackground";
 import ClientLayout from "@/components/ui/ClientLayout";
 import { inter } from "@/utils/fonts";
 import "./globals.css";
@@ -23,7 +22,6 @@ export default function RootLayout({ children }) {
         className={`${inter} bg-[#0c0d12] text-[#e8e8f0] min-h-screen antialiased selection:bg-[#d4a853] selection:text-[#0c0d12]`}
       >
         <ClientLayout>
-          <CyberMatrixBackground />
           <MinimalNav />
           <SocialSidebar />
           <EmailSidebar />
