@@ -67,14 +67,9 @@ export default function MinimalNav() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 transition-all duration-300 ${
           scrolled
-            ? "py-3 bg-[#0c0d12]/80 backdrop-blur-md border-b border-white/[0.08] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] pointer-events-auto"
+            ? "py-3 bg-[#0c0d12]/80 backdrop-blur-md border-b border-white/[0.08] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] pointer-events-auto md:py-4 md:bg-transparent md:border-b-0 md:border-transparent md:shadow-none md:backdrop-blur-none md:pointer-events-none"
             : "py-4 bg-transparent border-b border-transparent shadow-none pointer-events-none"
         }`}
-        style={
-          scrolled
-            ? { WebkitBackdropFilter: "blur(12px)" }
-            : undefined
-        }
       >
         <button
           onClick={() => setOpen((v) => !v)}
@@ -94,7 +89,7 @@ export default function MinimalNav() {
       {open && (
         <div
           className={`fixed left-6 z-50 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.08)] p-1.5 animate-in fade-in zoom-in-95 duration-150 pointer-events-auto transition-all ${
-            scrolled ? "top-[48px]" : "top-14"
+            scrolled ? "top-[48px] md:top-14" : "top-14"
           }`}
           style={{
             background: "rgba(15, 16, 21, 0.95)",
