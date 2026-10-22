@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden select-none bg-black">
+    <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden select-none">
       {/* ── TOP GATE DOOR (Opens Upward) ── */}
       <div
         className="absolute top-0 left-0 w-full h-1/2 bg-[#0c0d12] border-b border-white/20 will-change-transform shadow-[0_20px_40px_rgba(0,0,0,0.95)] overflow-hidden"
