@@ -71,11 +71,11 @@
 
 /* ── Editorial serif headings ─────────────────── */
 .font-serif {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: var(--font-mono), 'JetBrains Mono', 'Courier New', monospace;
 }
 
 /* ── Accent link style ────────────────────────── */

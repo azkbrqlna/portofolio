@@ -17,7 +17,9 @@ const config = {
     },
     extend: {
       fontFamily: {
-        inter: ["var(--font-inter)"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-mono)", "JetBrains Mono", "Courier New", "monospace"],
+        serif: ["var(--font-playfair)", "Playfair Display", "Georgia", "serif"],
       },
       fontSize: {
         sm: "0.8rem",

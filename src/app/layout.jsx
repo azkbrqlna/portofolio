@@ -3,7 +3,7 @@ import MinimalNav from "@/components/ui/MinimalNav";
 import SocialSidebar from "@/components/ui/SocialSidebar";
 import EmailSidebar from "@/components/ui/EmailSidebar";
 import ClientLayout from "@/components/ui/ClientLayout";
-import { inter } from "@/utils/fonts";
+import { inter, jetbrainsMono, playfairDisplay } from "@/utils/fonts";
 import "./globals.css";
 
 export const metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter} bg-[#0c0d12] text-[#e8e8f0] min-h-screen antialiased selection:bg-[#d4a853] selection:text-[#0c0d12]`}
+        className={`${inter} ${jetbrainsMono} ${playfairDisplay} bg-[#0c0d12] text-[#e8e8f0] min-h-screen antialiased selection:bg-[#d4a853] selection:text-[#0c0d12]`}
       >
         <ClientLayout>
           <MinimalNav />
