@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import {
   WRITES_PLATFORMS,
-  NATAS_ITEMS,
+  getPlatformById,
 } from "@/app/data/writesData";
 import {
   ArrowLeft,
@@ -115,20 +115,20 @@ function ImageLightbox({ src, alt }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group relative my-6 rounded-lg overflow-hidden bg-black/40 cursor-zoom-in max-w-2xl">
+        <span className="group relative block my-6 rounded-lg overflow-hidden bg-black/40 cursor-zoom-in max-w-2xl">
           <img
             src={src}
             alt={alt || "Walkthrough illustration"}
             className="w-full max-h-[440px] object-contain transition-transform duration-200 group-hover:scale-[1.01]"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-mono text-white">
               <Maximize2 size={11} />
               <span>Expand Preview</span>
             </span>
-          </div>
-        </div>
+          </span>
+        </span>
       </DialogTrigger>
       <DialogContent className="max-w-4xl p-2 bg-[#0c0d12]/95 border-white/10">
         <DialogHeader className="p-2 border-b border-white/10">
@@ -155,29 +155,49 @@ function WritesContent() {
   const platformParam = searchParams.get("platform");
   const levelParam = searchParams.get("level");
 
-  // State: whether user is viewing OverTheWire
-  const isOverTheWire = platformParam === "overthewire";
+  const activePlatform = useMemo(() => {
+    if (!platformParam) return null;
+    return getPlatformById(platformParam);
+  }, [platformParam]);
 
-  // Active level ID (default to first level: natas-0)
-  const [activeLevelId, setActiveLevelId] = useState(
-    levelParam || NATAS_ITEMS[0]?.id || "natas-0"
-  );
+  const isPlatformView = !!activePlatform;
+
+  const allPlatformItems = useMemo(() => {
+    if (!activePlatform) return [];
+    return activePlatform.folders.flatMap((f) => f.items);
+  }, [activePlatform]);
+
+  const [activeLevelId, setActiveLevelId] = useState(levelParam || "");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOtwOpen, setIsOtwOpen] = useState(true);
-  const [isNatasOpen, setIsNatasOpen] = useState(true);
+  const [isPlatformFolderOpen, setIsPlatformFolderOpen] = useState(true);
+  const [openFolderIds, setOpenFolderIds] = useState({
+    natas: true,
+    "sql-injection": true,
+    "cross-site-scripting": true,
+    ssrf: true,
+  });
 
+  const toggleFolder = (folderId) => {
+    setOpenFolderIds((prev) => ({
+      ...prev,
+      [folderId]: !prev[folderId],
+    }));
+  };
 
   useEffect(() => {
-    if (levelParam && NATAS_ITEMS.some((i) => i.id === levelParam)) {
+    if (levelParam && allPlatformItems.some((i) => i.id === levelParam)) {
       setActiveLevelId(levelParam);
+    } else if (allPlatformItems.length > 0 && !allPlatformItems.some((i) => i.id === activeLevelId)) {
+      setActiveLevelId(allPlatformItems[0].id);
     }
-  }, [levelParam]);
+  }, [levelParam, allPlatformItems]);
 
   const activeItem = useMemo(() => {
+    if (!allPlatformItems.length) return null;
     return (
-      NATAS_ITEMS.find((i) => i.id === activeLevelId) || NATAS_ITEMS[0]
+      allPlatformItems.find((i) => i.id === activeLevelId) || allPlatformItems[0]
     );
-  }, [activeLevelId]);
+  }, [allPlatformItems, activeLevelId]);
 
   // Clean markdown content: strip duplicate leading h1 "# Title" and duplicate URL/User/Pass that are already in the top credentials bar
   const cleanedContent = useMemo(() => {
@@ -185,34 +205,36 @@ function WritesContent() {
     let c = activeItem.content;
     // 1. Remove leading # Title
     c = c.replace(/^#\s+[^\r\n]+(?:\r?\n)+/, "");
-    // 2. Remove duplicate URL line (bold or plain) right under Challenge
-    c = c.replace(/\*\*URL:\s*[^\*\r\n]+\*\*(?:\r?\n)*/gi, "");
-    c = c.replace(/^URL:\s*https?:\/\/[^\s\r\n]+(?:\r?\n)*/gim, "");
-    // 3. Remove duplicate Username and Password lines if already in top bar
-    c = c.replace(/\*\*Username:\*\*\s*`?[^`\r\n*]+`?(?:\r?\n)*/gi, "");
-    c = c.replace(/\*\*Password:\*\*\s*`?[^`\r\n*]+`?(?:\r?\n)*/gi, "");
+    // 2. Remove duplicate URL and starting credentials directly under ### Challenge only
+    c = c.replace(
+      /(###\s*Challenge\s*(?:\r?\n)+)(?:\s*(?:\*\*)?URL:\s*https?:\/\/[^\s*\r\n]+(?:\*\*)?(?:\r?\n)*)?(?:\s*\*\*Username:\*\*\s*`?[^`\r\n*]+`?(?:\r?\n)*)?(?:\s*\*\*Password:\*\*\s*`?[^`\r\n*]+`?(?:\r?\n)*)?/i,
+      "$1"
+    );
     return c.trim();
   }, [activeItem?.content]);
 
-  const currentIndex = NATAS_ITEMS.findIndex((i) => i.id === activeItem?.id);
-  const prevItem = currentIndex > 0 ? NATAS_ITEMS[currentIndex - 1] : null;
+  const currentIndex = allPlatformItems.findIndex((i) => i.id === activeItem?.id);
+  const prevItem = currentIndex > 0 ? allPlatformItems[currentIndex - 1] : null;
   const nextItem =
-    currentIndex < NATAS_ITEMS.length - 1 ? NATAS_ITEMS[currentIndex + 1] : null;
+    currentIndex < allPlatformItems.length - 1 ? allPlatformItems[currentIndex + 1] : null;
 
   // Navigation handlers
   const goToRoot = () => {
     router.push("/writes", { scroll: true });
   };
 
-  const goToOverTheWire = () => {
-    router.push(`/writes?platform=overthewire&level=${activeLevelId}`, {
+  const goToPlatform = (platId) => {
+    const plat = getPlatformById(platId);
+    const firstItem = plat?.folders.flatMap((f) => f.items)[0];
+    const initialId = firstItem?.id || "";
+    router.push(`/writes?platform=${platId}&level=${initialId}`, {
       scroll: true,
     });
   };
 
   const goToLevel = (id) => {
     setActiveLevelId(id);
-    router.replace(`/writes?platform=overthewire&level=${id}`, {
+    router.replace(`/writes?platform=${platformParam}&level=${id}`, {
       scroll: false,
     });
     setMobileMenuOpen(false);
@@ -253,11 +275,19 @@ function WritesContent() {
           {children}
         </h4>
       ),
-      p: ({ children }) => (
-        <p className="text-[15px] text-white/70 leading-relaxed my-3 font-sans">
-          {children}
-        </p>
-      ),
+      p: ({ node, children }) => {
+        const hasBlockChild = node?.children?.some(
+          (child) => child.tagName === "img" || child.tagName === "div"
+        );
+        if (hasBlockChild) {
+          return <div className="my-3">{children}</div>;
+        }
+        return (
+          <p className="text-[15px] text-white/70 leading-relaxed my-3 font-sans">
+            {children}
+          </p>
+        );
+      },
       ul: ({ children }) => (
         <ul className="list-disc list-outside pl-5 my-3.5 space-y-1.5 text-[15px] text-white/70 leading-relaxed marker:text-[#d4a853]">
           {children}
@@ -313,7 +343,7 @@ function WritesContent() {
       {/* ══════════════════════════════════════════════════════════ */}
       {/* VIEW A: OVERTHEWIRE FOLDER (LEFT) + MARKDOWN CONTENT (CENTER) */}
       {/* ══════════════════════════════════════════════════════════ */}
-      {isOverTheWire ? (
+      {isPlatformView ? (
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-28">
           {/* Mobile Top Level Selector (< lg) */}
           <div className="block lg:hidden mb-6">
@@ -340,20 +370,21 @@ function WritesContent() {
             {mobileMenuOpen && (
               <div className="mt-2 p-3 rounded-lg bg-[#0e1015] border border-white/[0.08] max-h-72 overflow-y-auto space-y-1 font-mono text-xs">
                 <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/[0.06] text-[11px] text-white/40">
-                  <span>OVERTHEWIRE // NATAS</span>
+                  <span>{activePlatform?.name.toUpperCase()} // FOLDERS</span>
                   <button type="button" onClick={() => setMobileMenuOpen(false)}>
                     <X size={12} />
                   </button>
                 </div>
-                {NATAS_ITEMS.map((item) => (
+                {allPlatformItems.map((item) => (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => goToLevel(item.id)}
-                    className={`w-full text-left py-1 px-2 rounded ${item.id === activeLevelId
+                    className={`w-full text-left py-1 px-2 rounded ${
+                      item.id === activeLevelId
                         ? "text-[#d4a853] font-semibold bg-white/[0.04]"
                         : "text-white/60 hover:text-white"
-                      }`}
+                    }`}
                   >
                     {item.name}
                   </button>
@@ -381,83 +412,76 @@ function WritesContent() {
 
               {/* Folder Navigation Tree */}
               <div className="space-y-3 font-mono text-xs select-none">
-                {/* Root Folder: OverTheWire */}
+                {/* Platform Root Folder */}
                 <div className="space-y-1">
                   <button
                     type="button"
-                    onClick={() => setIsOtwOpen((v) => !v)}
+                    onClick={() => setIsPlatformFolderOpen((v) => !v)}
                     className="w-full flex items-center justify-between text-xs font-mono font-semibold text-white py-1 hover:text-[#d4a853] transition-colors text-left"
                   >
                     <span className="flex items-center gap-2">
                       <span className="w-3 text-center text-[#d4a853] font-bold">
-                        {isOtwOpen ? "-" : "+"}
+                        {isPlatformFolderOpen ? "-" : "+"}
                       </span>
-                      <span>OverTheWire</span>
+                      <span>{activePlatform?.name}</span>
                     </span>
                   </button>
 
-                  {/* Subfolders if OverTheWire is open */}
-                  {isOtwOpen && (
+                  {/* Subfolders */}
+                  {isPlatformFolderOpen && (
                     <div className="pl-3 space-y-1 pt-1">
-                      {/* Subfolder: natas */}
-                      <button
-                        type="button"
-                        onClick={() => setIsNatasOpen((v) => !v)}
-                        className="w-full flex items-center justify-between text-[11px] font-mono text-white/60 hover:text-white py-0.5 transition-colors text-left"
-                      >
-                        <span className="flex items-center gap-2">
-                          <span className="w-3 text-center text-[#d4a853] font-bold">
-                            {isNatasOpen ? "-" : "+"}
-                          </span>
-                          <span>natas</span>
-                        </span>
-                        <span className="text-[10px] text-white/30">19</span>
-                      </button>
+                      {activePlatform?.folders.map((folder) => {
+                        const isOpen = openFolderIds[folder.id] ?? true;
+                        const hasItems = folder.items.length > 0;
+                        return (
+                          <div key={folder.id} className="space-y-0.5">
+                            <button
+                              type="button"
+                              onClick={() => toggleFolder(folder.id)}
+                              className="w-full flex items-center justify-between text-[11px] font-mono text-white/60 hover:text-white py-0.5 transition-colors text-left"
+                            >
+                              <span className="flex items-center gap-2">
+                                <span className="w-3 text-center text-[#d4a853] font-bold">
+                                  {hasItems ? (isOpen ? "-" : "+") : "+"}
+                                </span>
+                                <span>{folder.name}</span>
+                              </span>
+                              {hasItems ? (
+                                 <span className="text-[10px] text-white/30">
+                                  {folder.items.length}
+                                </span>
+                              ) : (
+                                <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30 uppercase">
+                                  {folder.status || "PLANNED"}
+                                </span>
+                              )}
+                            </button>
 
-                      {/* Level items in natas (toggleable via isNatasOpen) */}
-                      {isNatasOpen && (
-                        <div className="pl-3 space-y-0.5 border-l border-white/[0.06] mt-0.5">
-                          {NATAS_ITEMS.map((item) => {
-                            const isActive = activeLevelId === item.id;
-                            return (
-                              <button
-                                key={item.id}
-                                type="button"
-                                onClick={() => goToLevel(item.id)}
-                                className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${
-                                  isActive
-                                    ? "text-[#d4a853] font-semibold bg-white/[0.04]"
-                                    : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                                }`}
-                              >
-                                <span className="truncate">{item.name}</span>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
-
-                      {/* Subfolder: bandit */}
-                      <div className="flex items-center justify-between text-[11px] font-mono text-white/40 pt-2.5 pb-0.5 select-none">
-                        <span className="flex items-center gap-2">
-                          <span className="w-3 text-center text-white/30">+</span>
-                          <span>bandit</span>
-                        </span>
-                        <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30">
-                          WIP
-                        </span>
-                      </div>
-
-                      {/* Subfolder: leviathan */}
-                      <div className="flex items-center justify-between text-[11px] font-mono text-white/40 pt-1 pb-0.5 select-none">
-                        <span className="flex items-center gap-2">
-                          <span className="w-3 text-center text-white/30">+</span>
-                          <span>leviathan</span>
-                        </span>
-                        <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30">
-                          PLANNED
-                        </span>
-                      </div>
+                            {/* Level items in folder */}
+                            {isOpen && hasItems && (
+                              <div className="pl-3 space-y-0.5 border-l border-white/[0.06] mt-0.5">
+                                {folder.items.map((item) => {
+                                  const isActive = activeLevelId === item.id;
+                                  return (
+                                    <button
+                                      key={item.id}
+                                      type="button"
+                                      onClick={() => goToLevel(item.id)}
+                                      className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${
+                                        isActive
+                                          ? "text-[#d4a853] font-semibold bg-white/[0.04]"
+                                          : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                                      }`}
+                                    >
+                                      <span className="truncate">{item.name}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -473,7 +497,7 @@ function WritesContent() {
                 {/* Title & Metadata */}
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 font-mono text-xs text-white/45">
-                    <span>OverTheWire</span>
+                    <span>{activePlatform?.name}</span>
                     <span className="text-white/20">·</span>
                     <span className="text-[#d4a853]">{activeItem?.tag}</span>
                   </div>
@@ -618,7 +642,7 @@ function WritesContent() {
               {WRITES_PLATFORMS.map((platform) => (
                 <article
                   key={platform.id}
-                  onClick={goToOverTheWire}
+                  onClick={() => goToPlatform(platform.id)}
                   className="group cursor-pointer space-y-1.5 py-3 border-b border-white/[0.06] last:border-b-0"
                 >
                   {/* Top Row: Name on Left, Tag & Level Count on Right */}
@@ -628,7 +652,7 @@ function WritesContent() {
                     </h3>
                     <div className="flex items-center gap-2 shrink-0">
                       <span className="font-mono text-xs text-[#d4a853]">
-                        {platform.count} levels
+                        {platform.count} {platform.id === "portswigger" ? "labs" : "levels"}
                       </span>
                       <span className="font-mono text-xs text-white/40">
                         {platform.tag}

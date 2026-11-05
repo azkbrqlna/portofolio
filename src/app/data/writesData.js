@@ -49,7 +49,7 @@ export const WRITES_PLATFORMS = [
     badge: "19 Walkthroughs",
     count: 19,
     description:
-      "Server-side web security (Natas), Linux command-line wargames (Bandit), and binary exploitation challenges across 19+ documented levels.",
+      "Server-side web security wargames (Natas) covering HTML source analysis, cookie tampering, LFI, SQL Injection, and command execution across 19 documented levels.",
     folders: [
       {
         id: "natas",
@@ -60,57 +60,6 @@ export const WRITES_PLATFORMS = [
         description:
           "Server-side web security wargame exploring HTML source comments, cookie tampering, LFI, SQL Injection, and blind command execution.",
         items: NATAS_ITEMS,
-      },
-      {
-        id: "bandit",
-        name: "bandit",
-        title: "Bandit (Linux Basics)",
-        tag: "WIP",
-        status: "In Progress",
-        description:
-          "Linux command line fundamentals, SSH connection on port 2220, dashed filenames, hidden directories, and file permissions.",
-        items: [
-          {
-            id: "bandit-0",
-            slug: "bandit0-to-bandit1",
-            name: "bandit0 → bandit1",
-            title: "Bandit Level 0 → Level 1",
-            tag: "Bandit",
-            description:
-              "SSH connection commands on port 2220 using default bandit0 credentials and reading readme flag.",
-            challengeUrl: "https://overthewire.org/wargames/bandit/bandit0.html",
-            username: "bandit0",
-            password: "bandit0",
-            content: `# Bandit Level 0 → Level 1
-
-### Challenge Information
-- **Host:** \`bandit.labs.overthewire.org\`
-- **Port:** \`2220\`
-- **User:** \`bandit0\`
-- **Pass:** \`bandit0\`
-
-### Walkthrough
-1. Connect via SSH:
-\`\`\`bash
-ssh bandit0@bandit.labs.overthewire.org -p 2220
-\`\`\`
-2. Read the credentials in the home directory:
-\`\`\`bash
-cat readme
-\`\`\`
-`,
-          },
-        ],
-      },
-      {
-        id: "leviathan",
-        name: "leviathan",
-        title: "Leviathan (Privilege Escalation)",
-        tag: "Planned",
-        status: "Planned",
-        description:
-          "Binary inspection, dynamic analysis with ltrace/strace, and Linux logic flaws.",
-        items: [],
       },
     ],
   },
@@ -133,7 +82,6 @@ export function getWalkthroughItem(platformId, folderId, itemId) {
     }
   }
 
-  // fallback across all items in platform
   for (const folder of platform.folders) {
     const item = folder.items.find(
       (i) => i.id === itemId || i.slug === itemId
