@@ -354,7 +354,7 @@ function WritesContent() {
                 className="inline-flex items-center gap-1.5 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors"
               >
                 <ArrowLeft size={12} />
-                <span>back</span>
+                <span>Back</span>
               </button>
 
               <button
@@ -380,11 +380,10 @@ function WritesContent() {
                     key={item.id}
                     type="button"
                     onClick={() => goToLevel(item.id)}
-                    className={`w-full text-left py-1 px-2 rounded ${
-                      item.id === activeLevelId
+                    className={`w-full text-left py-1 px-2 rounded ${item.id === activeLevelId
                         ? "text-[#d4a853] font-semibold bg-white/[0.04]"
                         : "text-white/60 hover:text-white"
-                    }`}
+                      }`}
                   >
                     {item.name}
                   </button>
@@ -447,7 +446,7 @@ function WritesContent() {
                                 <span>{folder.name}</span>
                               </span>
                               {hasItems ? (
-                                 <span className="text-[10px] text-white/30">
+                                <span className="text-[10px] text-white/30">
                                   {folder.items.length}
                                 </span>
                               ) : (
@@ -467,11 +466,10 @@ function WritesContent() {
                                       key={item.id}
                                       type="button"
                                       onClick={() => goToLevel(item.id)}
-                                      className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${
-                                        isActive
+                                      className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${isActive
                                           ? "text-[#d4a853] font-semibold bg-white/[0.04]"
                                           : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                                      }`}
+                                        }`}
                                     >
                                       <span className="truncate">{item.name}</span>
                                     </button>
