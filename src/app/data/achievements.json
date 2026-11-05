@@ -1,0 +1,21 @@
+[
+  {
+    "id": "techcomfest-2026",
+    "title": "Techcomfest Web Application Competition 2026",
+    "award": "Best Presentation",
+    "category": "Web Application",
+    "theme": "SYNC REALITY: Shaping the Future of Digital Experience",
+    "organizer": "UKM PCC · Politeknik Negeri Semarang",
+    "date": "January 20, 2026",
+    "description": "Awarded Best Presentation in the national Techcomfest 2026 Web Application Competition for designing and presenting an innovative web solution.",
+    "photo": {
+      "src": "/images/achievement/techompfest-2026.jpeg",
+      "alt": "Techcomfest 2026 Award Ceremony"
+    },
+    "certificate": {
+      "src": "/images/achievement/sertif-techompfest-2026.png",
+      "alt": "Certificate of Best Presentation - Techcomfest 2026"
+    },
+    "tags": ["Web Application", "Best Presentation", "Techcomfest 2026"]
+  }
+]
