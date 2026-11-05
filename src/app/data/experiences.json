@@ -1,34 +1,5 @@
 [
   {
-    "id": "nexa",
-    "title": "Network Engineer Intern",
-    "company": "PT. Internet Mulia Untuk Negeri (NEXA)",
-    "logo": "/images/logo/nexa-logo.jpeg",
-    "category": "Telecommunications",
-    "website": "nexa.net.id",
-    "websiteUrl": "https://nexa.net.id",
-    "location": "Semarang, Indonesia",
-    "workType": "Internship",
-    "period": "May 2, 2023 to November 2, 2023",
-    "initial": "N",
-    "summary": "Assisted in enterprise network deployments, device maintenance, and connectivity troubleshooting.",
-    "description": [
-      "Assist with the installation of internet networks to ensure optimal performance",
-      "Troubleshoot and resolve network issues efficiently",
-      "Maintain and repair network devices to ensure continuous operation",
-      "Identify and analyze network problems to provide effective solutions",
-      "Provide technical support and assistance to customers or users"
-    ],
-    "skills": [
-      "Networking",
-      "Troubleshooting",
-      "MikroTik",
-      "Fiber Optic"
-    ],
-    "useTextTechStack": true,
-    "certificate": "https://ik.imagekit.io/Nothspec/Sertif-Nexa-Azkabariqlana.jpg?updatedAt=1758013737819"
-  },
-  {
     "id": "gvp",
     "title": "Frontend Developer Intern",
     "company": "PT. Gracia Visi Pratama",
@@ -77,5 +48,34 @@
       }
     ],
     "certificate": "https://ik.imagekit.io/Nothspec/Sertif-GVP-AzkaBariqlana.jpg?updatedAt=1758013758301"
+  },
+  {
+    "id": "nexa",
+    "title": "Network Engineer Intern",
+    "company": "PT. Internet Mulia Untuk Negeri (NEXA)",
+    "logo": "/images/logo/nexa-logo.jpeg",
+    "category": "Telecommunications",
+    "website": "nexa.net.id",
+    "websiteUrl": "https://nexa.net.id",
+    "location": "Semarang, Indonesia",
+    "workType": "Internship",
+    "period": "May 2, 2023 to November 2, 2023",
+    "initial": "N",
+    "summary": "Assisted in enterprise network deployments, device maintenance, and connectivity troubleshooting.",
+    "description": [
+      "Assist with the installation of internet networks to ensure optimal performance",
+      "Troubleshoot and resolve network issues efficiently",
+      "Maintain and repair network devices to ensure continuous operation",
+      "Identify and analyze network problems to provide effective solutions",
+      "Provide technical support and assistance to customers or users"
+    ],
+    "skills": [
+      "Networking",
+      "Troubleshooting",
+      "MikroTik",
+      "Fiber Optic"
+    ],
+    "useTextTechStack": true,
+    "certificate": "https://ik.imagekit.io/Nothspec/Sertif-Nexa-Azkabariqlana.jpg?updatedAt=1758013737819"
   }
 ]

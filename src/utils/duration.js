@@ -121,3 +121,56 @@ export function formatExperienceDuration(periodStr) {
 
   return `${yearLabel} (${durationText})`;
 }
+
+function parseSortDate(str, isEnd = false) {
+  if (!str) return 0;
+  const s = str.trim().toLowerCase();
+  if (s === "present" || s === "now" || s === "current" || s === "sekarang") {
+    return Number.MAX_SAFE_INTEGER;
+  }
+  const yearMatch = s.match(/\b(19\d{2}|20\d{2})\b/);
+  if (!yearMatch) return 0;
+  const year = parseInt(yearMatch[1], 10);
+
+  const monthMatch = s.match(
+    /(january|february|march|april|may|june|july|august|september|october|november|december|januari|februari|maret|mei|juni|juli|agustus|oktober|desember|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)/i
+  );
+  const month = monthMatch ? MONTHS_MAP[monthMatch[1].toLowerCase()] : (isEnd ? 12 : 1);
+
+  const dayMatches = Array.from(s.matchAll(/\b([1-9]|[12]\d|3[01])(?:st|nd|rd|th)?\b/g));
+  let day = isEnd ? 28 : 1;
+  for (const m of dayMatches) {
+    const val = parseInt(m[1], 10);
+    if (val !== year && val >= 1 && val <= 31) {
+      day = val;
+      break;
+    }
+  }
+
+  return new Date(year, month - 1, day).getTime();
+}
+
+/**
+ * Sorts experiences descending by date so that the newest experience is on top.
+ */
+export function sortExperiencesByDate(list) {
+  if (!Array.isArray(list)) return [];
+  return [...list].sort((a, b) => {
+    const getParts = (exp, isEnd) => {
+      if (!exp?.period || typeof exp.period !== "string") return 0;
+      const parts = exp.period.split(/\s+(?:to|-|–|hingga|sampai)\s+/i);
+      const str = isEnd ? (parts[1] || parts[0]) : parts[0];
+      return parseSortDate(str, isEnd);
+    };
+
+    const aEnd = getParts(a, true);
+    const bEnd = getParts(b, true);
+    if (bEnd !== aEnd) {
+      return bEnd - aEnd;
+    }
+
+    const aStart = getParts(a, false);
+    const bStart = getParts(b, false);
+    return bStart - aStart;
+  });
+}
