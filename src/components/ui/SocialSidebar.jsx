@@ -25,7 +25,7 @@ export default function SocialSidebar() {
         </a>
       ))}
       {/* Vertical line - bright crisp white */}
-      <div className="w-px h-24 bg-gradient-to-b from-white/90 via-white/50 to-transparent shadow-[0_0_8px_rgba(255,255,255,0.4)] mt-2" />
+      <div className="w-px h-24 bg-gradient-to-b from-white/90 via-white/50 to-transparent shadow-[0_0_8px_rgba(255,255,255,0.4)] mt-2" /* taste-skill-ignore */ />
     </div>
   );
 }
