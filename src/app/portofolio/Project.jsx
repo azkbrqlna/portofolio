@@ -11,13 +11,16 @@ import {
   RiNextjsFill,
   RiTailwindCssFill,
   RiFlutterFill,
+  RiReactjsFill,
 } from "react-icons/ri";
-import { SiShadcnui, SiSocketdotio, SiLaravel, SiPostgresql } from "react-icons/si";
+import { SiShadcnui, SiSocketdotio, SiLaravel, SiPostgresql, SiVite } from "react-icons/si";
 
 const iconMap = {
   FaNodeJs,
   RiNextjsFill,
   RiTailwindCssFill,
+  RiReactjsFill,
+  SiVite,
   SiSocketdotio,
   RiFirebaseFill,
   SiShadcnui,
@@ -28,9 +31,10 @@ const iconMap = {
 };
 
 const projectMeta = {
-  "Template Bot":  { type: "Automation", year: "2025", image: "/images/Whatsapp-Bot.jpg" },
-  "BrongDetector": { type: "Mobile",     year: "2025", image: "/images/brong-detector.jpeg" },
+  "Papdulu":       { type: "WebDev",     year: "2026", image: "/images/papdulu.png" },
   "Asha Backyard": { type: "Mobile",     year: "2026", image: "/images/asha-backyard.jpeg" },
+  "BrongDetector": { type: "Mobile",     year: "2025", image: "/images/brong-detector.jpeg" },
+  "Template Bot":  { type: "Automation", year: "2025", image: "/images/Whatsapp-Bot.jpg" },
 };
 
 export default function Projects() {

@@ -2,28 +2,22 @@
   {
     "icons": [
       {
-        "name": "Node.js",
-        "icon": "FaNodeJs"
+        "name": "React",
+        "icon": "RiReactjsFill"
       },
       {
-        "name": "Whiskey socket",
-        "icon": "SiSocketdotio"
-      }
-    ],
-    "name": "Template Bot",
-    "description": "Template for building a WhatsApp bot using Whiskey Socket Baileys with NodeJS.",
-    "href": "https://github.com/azkbrqlna/Template-Bot"
-  },
-  {
-    "icons": [
+        "name": "Tailwind CSS",
+        "icon": "RiTailwindCssFill"
+      },
       {
-        "name": "Flutter",
-        "icon": "RiFlutterFill"
+        "name": "Vite",
+        "icon": "SiVite"
       }
     ],
-    "name": "BrongDetector",
-    "description": "A final semester project mobile application built with Flutter that detects and measures motorcycle exhaust sound levels in real-time using smartphone microphone sensors.",
-    "href": "https://github.com/azkbrqlna/BrongDetector.git"
+    "name": "Papdulu",
+    "year": "2026",
+    "description": "An instant web-based photobooth and twibbon application that allows users to place custom frames, customize photo strips, and export high-resolution results directly from the browser.",
+    "href": "https://papdulu.vercel.app/"
   },
   {
     "icons": [
@@ -41,7 +35,36 @@
       }
     ],
     "name": "Asha Backyard",
+    "year": "2026",
     "description": "A Project-Based Learning (PBL) application developed from a real-world case study of Asha Backyard Cafe in Semarang, featuring a Flutter mobile app integrated with a Laravel backend API and PostgreSQL database.",
     "href": ""
+  },
+  {
+    "icons": [
+      {
+        "name": "Flutter",
+        "icon": "RiFlutterFill"
+      }
+    ],
+    "name": "BrongDetector",
+    "year": "2025",
+    "description": "A final semester project mobile application built with Flutter that detects and measures motorcycle exhaust sound levels in real-time using smartphone microphone sensors.",
+    "href": "https://github.com/azkbrqlna/BrongDetector.git"
+  },
+  {
+    "icons": [
+      {
+        "name": "Node.js",
+        "icon": "FaNodeJs"
+      },
+      {
+        "name": "Whiskey socket",
+        "icon": "SiSocketdotio"
+      }
+    ],
+    "name": "Template Bot",
+    "year": "2025",
+    "description": "Template for building a WhatsApp bot using Whiskey Socket Baileys with NodeJS.",
+    "href": "https://github.com/azkbrqlna/Template-Bot"
   }
 ]

@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const archiveData = {
   projects: [
+    { id: "p0", name: "Papdulu.web", type: "APP", desc: "Instant web-based photobooth and twibbon application with frame customization.", stack: ["React", "Tailwind CSS", "Vite"], date: "2026-02" },
+    { id: "p5", name: "IoT_Patient_Assistance.bin", type: "FIRMWARE", desc: "ESP32 and C++ firmware integrated with a real-time Flutter dashboard.", stack: ["ESP32", "C++", "Flutter"], date: "2024-05" },
+    { id: "p4", name: "BrongDetector.apk", type: "MOBILE", desc: "Mobile application for motorcycle exhaust noise level measurement.", stack: ["Flutter", "Audio Processing"], date: "2024-03" },
+    { id: "p3", name: "NutriQ_AI.sys", type: "PLATFORM", desc: "Nutrition tracking platform utilizing AI API integrations.", stack: ["Next.js", "AI APIs"], date: "2024-01" },
     { id: "p1", name: "ArthaMind.exe", type: "APP", desc: "Web-based financial management platform for UMKM (Dockerized).", stack: ["React", "Laravel", "Docker"], date: "2023-11" },
     { id: "p2", name: "Asha_Backyard.apk", type: "MOBILE", desc: "Coffee shop digital ordering mobile application.", stack: ["Flutter", "Firebase"], date: "2023-08" },
-    { id: "p3", name: "NutriQ_AI.sys", type: "PLATFORM", desc: "Nutrition tracking platform utilizing AI API integrations.", stack: ["Next.js", "AI APIs"], date: "2024-01" },
-    { id: "p4", name: "BrongDetector.apk", type: "MOBILE", desc: "Mobile application for motorcycle exhaust noise level measurement.", stack: ["Flutter", "Audio Processing"], date: "2024-03" },
-    { id: "p5", name: "IoT_Patient_Assistance.bin", type: "FIRMWARE", desc: "ESP32 and C++ firmware integrated with a real-time Flutter dashboard.", stack: ["ESP32", "C++", "Flutter"], date: "2024-05" },
     { id: "p6", name: "PiwBites_Store.web", type: "E-COM", desc: "E-commerce product platform.", stack: ["React", "Node.js"], date: "2023-04" },
   ],
   cyber_write_ups: [
