@@ -346,8 +346,8 @@ function WritesContent() {
       {isPlatformView ? (
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-28">
           {/* Mobile Top Level Selector (< lg) */}
-          <div className="block lg:hidden mb-6">
-            <div className="flex items-center justify-between py-2 border-b border-white/[0.08]">
+          <div className="block lg:hidden mb-6 sticky top-16 z-30 bg-[#060709]/90 backdrop-blur-md py-2.5 border-b border-white/[0.08] -mx-6 px-6">
+            <div className="flex items-center justify-between">
               <button
                 type="button"
                 onClick={goToRoot}
@@ -395,22 +395,24 @@ function WritesContent() {
           {/* Desktop Two-Column Layout */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
             {/* ── YELLOW BOX (LEFT): Borderless Folder Tree ── */}
-            <aside className="hidden lg:block w-64 xl:w-72 shrink-0 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100dvh-12rem)] lg:overflow-y-auto pr-2">
-              {/* Back to Writes button */}
-              <button
-                type="button"
-                onClick={goToRoot}
-                className="group inline-flex items-center gap-2 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors mb-6 select-none"
-              >
-                <ArrowLeft
-                  size={13}
-                  className="transition-transform duration-200 group-hover:-translate-x-1"
-                />
-                <span>Back</span>
-              </button>
+            <aside className="hidden lg:flex lg:flex-col w-64 xl:w-72 shrink-0 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100dvh-8rem)]">
+              {/* Back to Writes button - Fixed at top */}
+              <div className="shrink-0 pb-5">
+                <button
+                  type="button"
+                  onClick={goToRoot}
+                  className="group inline-flex items-center gap-2 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors select-none"
+                >
+                  <ArrowLeft
+                    size={13}
+                    className="transition-transform duration-200 group-hover:-translate-x-1"
+                  />
+                  <span>Back</span>
+                </button>
+              </div>
 
-              {/* Folder Navigation Tree */}
-              <div className="space-y-3 font-mono text-xs select-none">
+              {/* Folder Navigation Tree - Scrollable content */}
+              <div className="flex-1 overflow-y-auto pr-2 space-y-3 font-mono text-xs select-none">
                 {/* Platform Root Folder */}
                 <div className="space-y-1">
                   <button
