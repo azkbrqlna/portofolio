@@ -1,9 +1,111 @@
 import fs from "fs";
+import path from "path";
+import os from "os";
+import { execSync } from "child_process";
 
 const OUTPUT_PATH = "src/app/data/walkthroughs.json";
 
-async function syncWalkthroughs() {
-  console.log("Fetching repository tree from GitHub...");
+function parseMarkdownWalkthrough(relPath, text) {
+  const normalizedPath = relPath.replace(/\\/g, "/");
+  const parts = normalizedPath.split("/");
+  const category = parts[0];
+  const categoryLower = category.toLowerCase();
+
+  const fromMatch = normalizedPath.match(/(\d+)\s*(?:-|to)/i);
+  const levelFrom = fromMatch ? parseInt(fromMatch[1], 10) : 0;
+  const toMatch = normalizedPath.match(/to[\s-]+[a-zA-Z]*(\d+)/i);
+  const levelTo = toMatch ? parseInt(toMatch[1], 10) : levelFrom + 1;
+
+  const titleMatch = text.match(/^#\s+(.+)$/m);
+  const title = titleMatch ? titleMatch[1].trim() : `${category} Level ${levelFrom} → Level ${levelTo}`;
+
+  let challengeUrl = "";
+  const urlMatch = text.match(/\*\*URL:\s*([^\*\n\r]+)\*\*/i) || text.match(/URL:\s*(https?:\/\/[^\s\*\)\<]+)/i);
+  if (urlMatch) {
+    challengeUrl = urlMatch[1].trim();
+  } else if (categoryLower === "natas") {
+    challengeUrl = `http://natas${levelFrom}.natas.labs.overthewire.org/`;
+  } else if (categoryLower === "bandit") {
+    challengeUrl = `https://overthewire.org/wargames/bandit/bandit${levelFrom}.html`;
+  }
+
+  const userMatch = text.match(/\*\*Username:\*\*\s*`?([^`\*\n\r]+)`?/i) || text.match(/username:\s*`?([^`\*\n\r]+)`?/i);
+  const username = userMatch ? userMatch[1].trim() : `${categoryLower}${levelFrom}`;
+
+  const passMatch = text.match(/\*\*Password:\*\*\s*`?([^`\*\n\r]+)`?/i) || text.match(/password:\s*`?([^`\*\n\r]+)`?/i);
+  let password = passMatch ? passMatch[1].trim() : null;
+  if (!password && levelFrom === 0) {
+    password = `${categoryLower}0`;
+  }
+
+  // Rewrite relative image paths
+  const normalizedMarkdown = text.replace(
+    /!\[(.*?)\]\(images\/([^\)]+)\)/g,
+    `![$1](https://raw.githubusercontent.com/azkbrqlna/OverTheWire-Walkthrough/main/${category}/images/$2)`
+  );
+
+  const encodedPath = parts.map(encodeURIComponent).join("/");
+
+  return {
+    id: `${categoryLower}-${levelFrom}`,
+    slug: `${categoryLower}${levelFrom}-to-${categoryLower}${levelTo}`,
+    title,
+    series: "OverTheWire",
+    category,
+    levelFrom,
+    levelTo,
+    challengeUrl,
+    username,
+    password,
+    sourceFile: normalizedPath,
+    githubUrl: `https://github.com/azkbrqlna/OverTheWire-Walkthrough/blob/main/${encodedPath}`,
+    content: normalizedMarkdown,
+  };
+}
+
+async function syncViaArchive() {
+  console.log("Fetching repository archive via curl/tar fallback...");
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "otw-sync-"));
+  try {
+    const isWindows = process.platform === "win32";
+    const curlCmd = isWindows ? "curl.exe" : "curl";
+    execSync(`${curlCmd} -sL https://github.com/azkbrqlna/OverTheWire-Walkthrough/archive/refs/heads/main.tar.gz | tar -xz -C "${tmpDir}"`);
+
+    const extractedDirs = fs.readdirSync(tmpDir);
+    const rootDir = path.join(tmpDir, extractedDirs[0]);
+
+    function getMdFiles(dir) {
+      let results = [];
+      const list = fs.readdirSync(dir);
+      for (const item of list) {
+        const full = path.join(dir, item);
+        const stat = fs.statSync(full);
+        if (stat.isDirectory()) {
+          results = results.concat(getMdFiles(full));
+        } else if (item.endsWith(".md") && item.toLowerCase() !== "readme.md") {
+          results.push(path.relative(rootDir, full));
+        }
+      }
+      return results;
+    }
+
+    const mdFiles = getMdFiles(rootDir);
+    const parsed = [];
+    for (const rel of mdFiles) {
+      const full = path.join(rootDir, rel);
+      const text = fs.readFileSync(full, "utf-8");
+      parsed.push(parseMarkdownWalkthrough(rel, text));
+    }
+    return parsed;
+  } finally {
+    try {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    } catch {}
+  }
+}
+
+async function syncViaGitHubApi() {
+  console.log("Fetching repository tree from GitHub API...");
   const headers = {
     "User-Agent": "Portfolio-Sync-Agent",
     ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
@@ -19,15 +121,8 @@ async function syncWalkthroughs() {
 
   const treeData = await rawTreeRes.json();
   const mdFiles = (treeData.tree || []).filter(
-    (f) => f.path.startsWith("Natas/") && f.path.endsWith(".md")
+    (f) => f.path.endsWith(".md") && !f.path.toLowerCase().endsWith("readme.md") && f.path.includes("/")
   );
-
-  function extractLevelNumber(path) {
-    const match = path.match(/natas(\d+)-to/i);
-    return match ? parseInt(match[1], 10) : 0;
-  }
-
-  mdFiles.sort((a, b) => extractLevelNumber(a.path) - extractLevelNumber(b.path));
 
   const parsedWalkthroughs = [];
 
@@ -40,48 +135,31 @@ async function syncWalkthroughs() {
       continue;
     }
     const text = await res.text();
-
-    const levelFrom = extractLevelNumber(file.path);
-    const toMatch = file.path.match(/to[\s-]+natas(\d+)/i);
-    const levelTo = toMatch ? parseInt(toMatch[1], 10) : levelFrom + 1;
-
-    const titleMatch = text.match(/^#\s+(.+)$/m);
-    const title = titleMatch ? titleMatch[1].trim() : `Natas Level ${levelFrom} → Level ${levelTo}`;
-
-    const urlMatch = text.match(/\*\*URL:\s*([^\*\n\r]+)\*\*/i) || text.match(/URL:\s*(https?:\/\/[^\s\*\)\<]+)/i);
-    const challengeUrl = urlMatch ? urlMatch[1].trim() : `http://natas${levelFrom}.natas.labs.overthewire.org/`;
-
-    const userMatch = text.match(/\*\*Username:\*\*\s*`?([^`\*\n\r]+)`?/i);
-    const username = userMatch ? userMatch[1].trim() : `natas${levelFrom}`;
-
-    const passMatch = text.match(/\*\*Password:\*\*\s*`?([^`\*\n\r]+)`?/i);
-    const password = passMatch ? passMatch[1].trim() : null;
-
-    // Rewrite relative image paths
-    const normalizedMarkdown = text.replace(
-      /!\[(.*?)\]\(images\/([^\)]+)\)/g,
-      "![$1](https://raw.githubusercontent.com/azkbrqlna/OverTheWire-Walkthrough/main/Natas/images/$2)"
-    );
-
-    parsedWalkthroughs.push({
-      id: `natas-${levelFrom}`,
-      slug: `natas-${levelFrom}-to-natas-${levelTo}`,
-      title,
-      series: "OverTheWire",
-      category: "Natas",
-      levelFrom,
-      levelTo,
-      challengeUrl,
-      username,
-      password,
-      sourceFile: file.path,
-      githubUrl: `https://github.com/azkbrqlna/OverTheWire-Walkthrough/blob/main/${encodedPath}`,
-      content: normalizedMarkdown,
-    });
+    parsedWalkthroughs.push(parseMarkdownWalkthrough(file.path, text));
   }
 
+  return parsedWalkthroughs;
+}
+
+async function syncWalkthroughs() {
+  let parsedWalkthroughs = [];
+
+  try {
+    parsedWalkthroughs = await syncViaGitHubApi();
+  } catch (apiErr) {
+    console.warn(`GitHub API notice (${apiErr.message}). Using repository archive fallback...`);
+    parsedWalkthroughs = await syncViaArchive();
+  }
+
+  parsedWalkthroughs.sort((a, b) => {
+    if (a.category !== b.category) {
+      return a.category.localeCompare(b.category);
+    }
+    return a.levelFrom - b.levelFrom;
+  });
+
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(parsedWalkthroughs, null, 2), "utf-8");
-  console.log(`Synced ${parsedWalkthroughs.length} walkthroughs into ${OUTPUT_PATH} successfully!`);
+  console.log(`Synced ${parsedWalkthroughs.length} walkthroughs across categories into ${OUTPUT_PATH} successfully!`);
 }
 
 syncWalkthroughs().catch((err) => {
