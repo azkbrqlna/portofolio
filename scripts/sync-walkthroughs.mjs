@@ -1,11 +1,16 @@
 import fs from "fs";
 
+const OUTPUT_PATH = "src/app/data/walkthroughs.json";
+
 async function syncWalkthroughs() {
   console.log("Fetching repository tree from GitHub...");
+  const headers = {
+    "User-Agent": "Portfolio-Sync-Agent",
+    ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+  };
+
   const rawTreeRes = await fetch("https://api.github.com/repos/azkbrqlna/OverTheWire-Walkthrough/git/trees/main?recursive=1", {
-    headers: {
-      "User-Agent": "Portfolio-Sync-Agent"
-    }
+    headers,
   });
 
   if (!rawTreeRes.ok) {
@@ -29,7 +34,7 @@ async function syncWalkthroughs() {
   for (const file of mdFiles) {
     const encodedPath = file.path.split("/").map(encodeURIComponent).join("/");
     const rawUrl = `https://raw.githubusercontent.com/azkbrqlna/OverTheWire-Walkthrough/main/${encodedPath}`;
-    const res = await fetch(rawUrl);
+    const res = await fetch(rawUrl, { headers });
     if (!res.ok) {
       console.warn(`Failed to fetch ${rawUrl}: ${res.status}`);
       continue;
@@ -75,11 +80,16 @@ async function syncWalkthroughs() {
     });
   }
 
-  fs.writeFileSync("src/app/data/walkthroughs.json", JSON.stringify(parsedWalkthroughs, null, 2), "utf-8");
-  console.log(`Synced ${parsedWalkthroughs.length} walkthroughs into src/app/data/walkthroughs.json successfully!`);
+  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(parsedWalkthroughs, null, 2), "utf-8");
+  console.log(`Synced ${parsedWalkthroughs.length} walkthroughs into ${OUTPUT_PATH} successfully!`);
 }
 
 syncWalkthroughs().catch((err) => {
-  console.error("Sync failed:", err);
+  console.warn("Sync warning:", err.message);
+  if (fs.existsSync(OUTPUT_PATH)) {
+    console.warn("Using existing cached walkthroughs.json to continue build.");
+    process.exit(0);
+  }
+  console.error("Sync failed and no cached file found.");
   process.exit(1);
 });

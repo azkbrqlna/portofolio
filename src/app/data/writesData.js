@@ -46,17 +46,17 @@ export const WRITES_PLATFORMS = [
     id: "overthewire",
     name: "OverTheWire",
     tag: "Wargames",
-    badge: "19 Walkthroughs",
-    count: 19,
+    badge: `${NATAS_ITEMS.length} Walkthroughs`,
+    count: NATAS_ITEMS.length,
     description:
-      "Server-side web security wargames (Natas) covering HTML source analysis, cookie tampering, LFI, SQL Injection, and command execution across 19 documented levels.",
+      `Server-side web security wargames (Natas) covering HTML source analysis, cookie tampering, LFI, SQL Injection, and command execution across ${NATAS_ITEMS.length} documented levels.`,
     folders: [
       {
         id: "natas",
         name: "natas",
         title: "Natas (Web Security)",
-        tag: "19 Levels",
-        status: "Completed",
+        tag: `${NATAS_ITEMS.length} Levels`,
+        status: "In Progress",
         description:
           "Server-side web security wargame exploring HTML source comments, cookie tampering, LFI, SQL Injection, and blind command execution.",
         items: NATAS_ITEMS,
