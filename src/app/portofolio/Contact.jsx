@@ -28,8 +28,8 @@ const LINKS = [
   {
     icon: Instagram,
     label: "Instagram",
-    value: "instagram.com/azkbrqlna",
-    href: "https://instagram.com/azkbrqlna",
+    value: "instagram.com/azkbrqlnaaa_",
+    href: "https://instagram.com/azkbrqlnaaa_",
     canCopy: false,
   },
 ];

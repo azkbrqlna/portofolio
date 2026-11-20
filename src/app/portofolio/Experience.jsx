@@ -2,7 +2,7 @@
 
 import React from "react";
 import experiences from "@/app/data/experiences.json";
-import { formatExperienceDuration } from "@/utils/duration";
+import { formatExperienceDuration, sortExperiencesByDate } from "@/utils/duration";
 import { Award, ArrowUpRight, MapPin, ExternalLink } from "lucide-react";
 import {
   SiAngular,
@@ -25,10 +25,12 @@ const ICON_MAP = {
   SiGithub,
 };
 
+const sortedExperiences = sortExperiencesByDate(experiences);
+
 export default function ExperienceSection() {
   return (
     <div className="space-y-10">
-      {experiences.map((exp, idx) => (
+      {sortedExperiences.map((exp, idx) => (
         <div key={exp.id || idx} className="space-y-4">
           {/* Top Section: Avatar + Company Info (Left) & Year/Duration (Right) */}
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
@@ -227,7 +229,7 @@ export default function ExperienceSection() {
           </div>
 
           {/* Divider between items */}
-          {idx < experiences.length - 1 && (
+          {idx < sortedExperiences.length - 1 && (
             <div className="pt-6">
               <hr className="dotted-divider" />
             </div>

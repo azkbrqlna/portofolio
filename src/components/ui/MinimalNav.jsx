@@ -8,6 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Achievements", href: "/achievements" },
+  { label: "Writes", href: "/writes" },
   {
     label: "CV",
     href: "https://ik.imagekit.io/Nothspec/CV_AzkaBariqlana.pdf",
