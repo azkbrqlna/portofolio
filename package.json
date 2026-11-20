@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
     "build": "next build",
+    "prebuild": "npm run sync:walkthroughs",
     "start": "next start",
     "lint": "next lint",
     "sync:walkthroughs": "node scripts/sync-walkthroughs.mjs"
