@@ -151,27 +151,11 @@ export default function LoadingScreen({ onComplete }) {
 
       {/* ── FOREGROUND CONTENT ── */}
       <div
-        className="absolute inset-0 z-20 flex flex-col justify-between p-6 sm:p-12 pointer-events-none transition-opacity duration-300"
+        className="absolute inset-0 z-20 flex flex-col justify-end p-6 sm:p-12 pointer-events-none transition-opacity duration-300"
         style={{
           opacity: fadeOutContent ? 0 : 1,
         }}
       >
-        {/* Top Spacer for vertical balance */}
-        <div className="h-8" />
-
-        {/* Center Typography & Cyber Frequency Visualizer */}
-        <div className="relative text-center my-auto flex flex-col items-center justify-center">
-          {/* Subtle Ambient Backlight Glow behind typography */}
-          <div
-            className="absolute w-[360px] sm:w-[540px] h-[140px] rounded-full blur-[80px] pointer-events-none -z-10"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(212,168,83,0.06) 40%, transparent 70%)",
-            }}
-          />
-
-        </div>
-
         <div className="flex items-end justify-end font-mono">
           <div className="text-right">
             <div className="flex items-baseline justify-end">
