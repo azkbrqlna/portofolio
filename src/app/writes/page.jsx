@@ -313,7 +313,7 @@ function WritesContent() {
           return <div className="my-3 max-w-full">{children}</div>;
         }
         return (
-          <p className="text-[15px] sm:text-base text-white/70 leading-relaxed my-3 font-sans break-words">
+          <p className="text-[15px] sm:text-base text-white/70 leading-relaxed my-3 font-sans break-words first:mt-0">
             {children}
           </p>
         );
@@ -324,7 +324,7 @@ function WritesContent() {
         </ul>
       ),
       ol: ({ children }) => (
-        <ol className="list-decimal list-outside pl-5 my-3.5 space-y-1.5 text-[15px] sm:text-base text-white/70 leading-relaxed marker:text-[#d4a853] marker:font-mono">
+        <ol className="my-4 space-y-4 list-none pl-0 [counter-reset:step] [&>li]:relative [&>li]:pl-7 [&>li]:text-[15px] sm:[&>li]:text-base [&>li]:text-white/75 [&>li]:leading-relaxed [&>li]:[counter-increment:step] [&>li]:before:content-[counter(step)'.'] [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-0 [&>li]:before:font-mono [&>li]:before:font-bold [&>li]:before:text-[#d4a853] [&>li>p:first-child]:mt-0">
           {children}
         </ol>
       ),
