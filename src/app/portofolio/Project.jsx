@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import projectsData from "@/app/data/projects.json";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 import { FaNodeJs } from "react-icons/fa";
 import { BiLogoPostgresql } from "react-icons/bi";
 import {
@@ -39,21 +39,31 @@ const projectMeta = {
 
 export default function Projects() {
   return (
-    <div className="divide-y divide-white/[0.06]">
+    <div className="space-y-8">
       {projectsData.map((proj) => {
         const meta = projectMeta[proj.name] || { type: "WebDev", year: "2025", image: null };
-        const hasRedirect = Boolean(
+
+        const githubLink =
+          proj.github && proj.github.trim() !== "" && proj.github.trim() !== "#"
+            ? proj.github
+            : proj.href && proj.href.includes("github.com")
+            ? proj.href
+            : null;
+
+        const liveLink =
           proj.href &&
-          typeof proj.href === "string" &&
+          !proj.href.includes("github.com") &&
           proj.href.trim() !== "" &&
-          proj.href.trim() !== "#" &&
-          proj.redirect !== false
-        );
+          proj.href.trim() !== "#"
+            ? proj.href
+            : null;
+
+        const hasRedirect = Boolean(githubLink || liveLink);
 
         return (
           <div
             key={proj.name}
-            className="group py-5 p-3 sm:p-4 -mx-3 sm:-mx-4 rounded-xl hover:bg-white/[0.025] border border-transparent hover:border-white/[0.06] transition-all duration-200"
+            className="group"
           >
             <div className="flex flex-col sm:flex-row items-start gap-4">
               {/* Thumbnail Image */}
@@ -86,16 +96,63 @@ export default function Projects() {
                     </span>
                   </div>
 
+                  {/* Links: GitHub & Live Site */}
                   {hasRedirect && (
-                    <Link
-                      href={proj.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/25 group-hover:text-[#d4a853] transition-colors shrink-0 p-1"
-                      aria-label={`View ${proj.name}`}
-                    >
-                      <ArrowUpRight size={17} strokeWidth={1.5} />
-                    </Link>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {/* Both GitHub and Live Site exist (e.g. Papdulu) */}
+                      {githubLink && liveLink && (
+                        <>
+                          <Link
+                            href={githubLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white/30 hover:text-white transition-colors p-1"
+                            title="View Source Code on GitHub"
+                            aria-label={`View ${proj.name} on GitHub`}
+                          >
+                            <Github size={16} strokeWidth={1.5} />
+                          </Link>
+                          <Link
+                            href={liveLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white/30 hover:text-[#d4a853] transition-colors p-1"
+                            title="Visit Live Website"
+                            aria-label={`Visit Live ${proj.name}`}
+                          >
+                            <ArrowUpRight size={17} strokeWidth={1.5} />
+                          </Link>
+                        </>
+                      )}
+
+                      {/* Only GitHub link exists (e.g. Template Bot, BrongDetector) */}
+                      {githubLink && !liveLink && (
+                        <Link
+                          href={githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white/30 hover:text-white transition-colors p-1"
+                          title="View on GitHub"
+                          aria-label={`View ${proj.name} on GitHub`}
+                        >
+                          <Github size={16} strokeWidth={1.5} />
+                        </Link>
+                      )}
+
+                      {/* Only Live Website exists */}
+                      {!githubLink && liveLink && (
+                        <Link
+                          href={liveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white/30 hover:text-[#d4a853] transition-colors p-1"
+                          title="Visit Live Website"
+                          aria-label={`Visit Live ${proj.name}`}
+                        >
+                          <ArrowUpRight size={17} strokeWidth={1.5} />
+                        </Link>
+                      )}
+                    </div>
                   )}
                 </div>
 

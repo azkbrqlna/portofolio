@@ -90,6 +90,21 @@
     "content": "# Bandit Level 5 → Level 6\n\n### Challenge\n\nThe password for `bandit6` is in a file somewhere under `/home/bandit5/inhere` that is human-readable, 1033 bytes in size, and not executable.\n\n### Walkthrough\n\n1.  Log in to the server as `bandit5` using the password from the previous level:\n\n    ```\n    ┌──(nothspec㉿Nothspec)-[~]\n    └─$ ssh bandit5@bandit.labs.overthewire.org -p 2220\n    ```\n\n2.  Search for regular files that are exactly 1033 bytes (`c` specifies bytes in `find`):\n\n    ```\n    find . -type f -size 1033c\n    ```\n\n    ```\n    ./inhere/maybehere07/.file2\n    ```\n\n    Only one file matches, and it is already non-executable (`-rw-r-----`) and plain `ASCII text`.\n\n3.  Print the contents of `./inhere/maybehere07/.file2` with `cat`:\n\n    ```\n    cat ./inhere/maybehere07/.file2\n    ```\n\n    ```\n    pXa26xhMWaC2SvDotA4r9EgZkulOeSBW\n    ```\n\n---\n\n### Credentials Found\n\n- **username:** `bandit6`\n- **Password:** `pXa26xhMWaC2SvDotA4r9EgZkulOeSBW`\n"
   },
   {
+    "id": "bandit-6",
+    "slug": "bandit6-to-bandit7",
+    "title": "Bandit Level 6 → Level 7",
+    "series": "OverTheWire",
+    "category": "Bandit",
+    "levelFrom": 6,
+    "levelTo": 7,
+    "challengeUrl": "https://overthewire.org/wargames/bandit/bandit6.html",
+    "username": "bandit7",
+    "password": "Bmnnvf82KzQlfxgAI2d1zYbr1u9pr3E3",
+    "sourceFile": "Bandit/bandit6-to-bandit7.md",
+    "githubUrl": "https://github.com/azkbrqlna/OverTheWire-Walkthrough/blob/main/Bandit/bandit6-to-bandit7.md",
+    "content": "# Bandit Level 6 → Level 7\n\n### Challenge\n\nThe password for the next level is stored somewhere on the server and has all of the following properties:\n- Owned by user `bandit7`\n- Owned by group `bandit6`\n- 33 bytes in size\n\n### Walkthrough\n\n1.  Log in to the server as `bandit6` using the password from the previous level:\n\n    ```\n    ┌──(nothspec㉿Nothspec)-[~]\n    └─$ ssh bandit6@bandit.labs.overthewire.org -p 2220\n    ```\n\n2.  Search the entire filesystem (`/`) for a regular file matching all the criteria, redirecting error messages (such as \"Permission denied\") to `/dev/null`:\n\n    ```\n    find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null\n    ```\n\n    ```\n    /var/lib/dpkg/info/bandit7.password\n    ```\n\n3.  Print the contents of the file with `cat`:\n\n    ```\n    cat /var/lib/dpkg/info/bandit7.password\n    ```\n\n    ```\n    Bmnnvf82KzQlfxgAI2d1zYbr1u9pr3E3\n    ```\n\n---\n\n### Credentials Found\n\n- **username:** `bandit7`\n- **Password:** `Bmnnvf82KzQlfxgAI2d1zYbr1u9pr3E3`\n"
+  },
+  {
     "id": "natas-0",
     "slug": "natas0-to-natas1",
     "title": "Natas Level 0 → Level 1",
