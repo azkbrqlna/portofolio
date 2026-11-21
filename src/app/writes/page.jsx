@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, Suspense } from "react";
+import React, { useState, useMemo, useEffect, Suspense, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -12,12 +12,13 @@ import {
   ArrowLeft,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   ExternalLink,
   Copy,
   Check,
   Maximize2,
-  Menu,
   X,
+  CornerDownRight,
 } from "lucide-react";
 import {
   Dialog,
@@ -46,13 +47,13 @@ function CopyButton({ text, label = "Copy" }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono tracking-wide bg-white/[0.06] hover:bg-white/[0.12] text-white/70 hover:text-white transition-colors"
+      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono tracking-wide bg-white/[0.06] hover:bg-white/[0.12] active:scale-[0.96] text-white/70 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a853]"
       title="Copy to clipboard"
     >
       {copied ? (
         <>
           <Check size={11} className="text-emerald-400" />
-          <span className="text-emerald-400">Copied</span>
+          <span className="text-emerald-400 font-medium">Copied</span>
         </>
       ) : (
         <>
@@ -81,7 +82,7 @@ function CodeBlock({ children, className }) {
   };
 
   return (
-    <div className="my-5 rounded-lg border border-white/[0.08] bg-[#07080b] overflow-hidden">
+    <div className="my-5 rounded-lg border border-white/[0.08] bg-[#07080b] overflow-hidden max-w-full">
       <div className="flex items-center justify-between px-3.5 py-1.5 border-b border-white/[0.06] bg-white/[0.02]">
         <span className="text-[11px] font-mono uppercase tracking-wider text-white/40">
           {lang}
@@ -89,12 +90,12 @@ function CodeBlock({ children, className }) {
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center gap-1 text-[11px] font-mono text-white/40 hover:text-white transition-colors py-0.5 px-1.5 rounded hover:bg-white/[0.06]"
+          className="inline-flex items-center gap-1 text-[11px] font-mono text-white/40 hover:text-white active:scale-[0.96] transition-all py-0.5 px-1.5 rounded hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a853]"
         >
           {copied ? (
             <>
               <Check size={11} className="text-emerald-400" />
-              <span className="text-emerald-400">Copied</span>
+              <span className="text-emerald-400 font-medium">Copied</span>
             </>
           ) : (
             <>
@@ -104,7 +105,7 @@ function CodeBlock({ children, className }) {
           )}
         </button>
       </div>
-      <pre className="p-4 overflow-x-auto text-xs font-mono leading-relaxed text-emerald-400/90 selection:bg-emerald-500/20">
+      <pre className="p-3.5 sm:p-4 overflow-x-auto touch-pan-x text-xs font-mono leading-relaxed text-emerald-400/90 selection:bg-emerald-500/20">
         <code>{codeString}</code>
       </pre>
     </div>
@@ -115,7 +116,7 @@ function ImageLightbox({ src, alt }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <span className="group relative block my-6 rounded-lg overflow-hidden bg-black/40 cursor-zoom-in max-w-2xl">
+        <span className="group relative block my-6 rounded-lg overflow-hidden bg-black/40 cursor-zoom-in max-w-full sm:max-w-2xl">
           <img
             src={src}
             alt={alt || "Walkthrough illustration"}
@@ -218,6 +219,29 @@ function WritesContent() {
   const nextItem =
     currentIndex < allPlatformItems.length - 1 ? allPlatformItems[currentIndex + 1] : null;
 
+  // Smooth scroll helper that takes fixed/sticky headers into account
+  const scrollToArticle = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const el = document.getElementById("article-top");
+    if (!el) return;
+
+    if (window.innerWidth < 1024) {
+      // Offset for MinimalNav (~50px) + sticky mobile bar (~44px) + comfortable padding (~16px) = ~110px
+      const headerOffset = 110;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: "smooth",
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
   // Navigation handlers
   const goToRoot = () => {
     router.push("/writes", { scroll: true });
@@ -238,13 +262,19 @@ function WritesContent() {
       scroll: false,
     });
     setMobileMenuOpen(false);
-
-    // Scroll to article on mobile
-    if (typeof window !== "undefined" && window.innerWidth < 1024) {
-      const el = document.getElementById("article-top");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToArticle();
   };
+
+  // Close mobile drawer on escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    if (mobileMenuOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   // Markdown custom renderer components
   const markdownComponents = useMemo(
@@ -280,25 +310,25 @@ function WritesContent() {
           (child) => child.tagName === "img" || child.tagName === "div"
         );
         if (hasBlockChild) {
-          return <div className="my-3">{children}</div>;
+          return <div className="my-3 max-w-full">{children}</div>;
         }
         return (
-          <p className="text-[15px] text-white/70 leading-relaxed my-3 font-sans">
+          <p className="text-[15px] sm:text-base text-white/70 leading-relaxed my-3 font-sans break-words">
             {children}
           </p>
         );
       },
       ul: ({ children }) => (
-        <ul className="list-disc list-outside pl-5 my-3.5 space-y-1.5 text-[15px] text-white/70 leading-relaxed marker:text-[#d4a853]">
+        <ul className="list-disc list-outside pl-5 my-3.5 space-y-1.5 text-[15px] sm:text-base text-white/70 leading-relaxed marker:text-[#d4a853]">
           {children}
         </ul>
       ),
       ol: ({ children }) => (
-        <ol className="list-decimal list-outside pl-5 my-3.5 space-y-1.5 text-[15px] text-white/70 leading-relaxed marker:text-[#d4a853] marker:font-mono">
+        <ol className="list-decimal list-outside pl-5 my-3.5 space-y-1.5 text-[15px] sm:text-base text-white/70 leading-relaxed marker:text-[#d4a853] marker:font-mono">
           {children}
         </ol>
       ),
-      li: ({ children }) => <li className="pl-1">{children}</li>,
+      li: ({ children }) => <li className="pl-1 leading-relaxed">{children}</li>,
       strong: ({ children }) => (
         <strong className="font-semibold text-white">{children}</strong>
       ),
@@ -307,10 +337,10 @@ function WritesContent() {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#d4a853] hover:underline underline-offset-4 font-mono text-xs transition-colors inline-flex items-center gap-1"
+          className="text-[#d4a853] hover:underline underline-offset-4 font-mono text-xs transition-colors inline-flex items-center gap-1 break-all"
         >
           <span>{children}</span>
-          <ExternalLink size={10} className="opacity-70" />
+          <ExternalLink size={10} className="opacity-70 shrink-0" />
         </a>
       ),
       code: ({ inline, className, children, ...props }) => {
@@ -319,7 +349,7 @@ function WritesContent() {
         }
         return (
           <code
-            className="px-1.5 py-0.5 rounded text-[12.5px] font-mono text-white bg-white/[0.08] border border-white/10"
+            className="px-1.5 py-0.5 rounded text-[12px] sm:text-[12.5px] font-mono text-white bg-white/[0.08] border border-white/10 break-all sm:break-normal"
             {...props}
           >
             {children}
@@ -329,7 +359,7 @@ function WritesContent() {
       pre: ({ children }) => <>{children}</>,
       img: ({ src, alt }) => <ImageLightbox src={src} alt={alt} />,
       blockquote: ({ children }) => (
-        <blockquote className="border-l-2 border-[#d4a853] pl-4 py-1.5 my-4 bg-white/[0.02] text-white/65 text-xs font-mono rounded-r">
+        <blockquote className="border-l-2 border-[#d4a853] pl-3.5 sm:pl-4 py-1.5 my-4 bg-white/[0.02] text-white/65 text-xs sm:text-[13px] font-mono rounded-r">
           {children}
         </blockquote>
       ),
@@ -345,235 +375,309 @@ function WritesContent() {
       {/* ══════════════════════════════════════════════════════════ */}
       {isPlatformView ? (
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-28">
-          {/* Mobile Top Level Selector (< lg) */}
-          <div className="block lg:hidden mb-6 sticky top-16 z-30 bg-[#060709]/90 backdrop-blur-md py-2.5 border-b border-white/[0.08] -mx-6 px-6">
-            <div className="flex items-center justify-between">
+          {/* ── CARDLESS MOBILE STICKY NAV (< lg) ── */}
+          <div className="block lg:hidden mb-6 sticky top-12 sm:top-14 z-30 bg-[#0c0d12]/95 backdrop-blur-md border-b border-white/[0.08] -mx-4 sm:-mx-6 px-4 sm:px-6 transition-colors">
+            <div className="flex items-center justify-between py-2.5">
               <button
                 type="button"
                 onClick={goToRoot}
-                className="inline-flex items-center gap-1.5 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors"
+                className="inline-flex items-center gap-1.5 font-mono text-xs text-white/50 hover:text-[#d4a853] active:scale-[0.96] transition-all py-1"
+                aria-label="Back to all writes"
               >
-                <ArrowLeft size={12} />
+                <ArrowLeft size={13} />
                 <span>Back</span>
               </button>
 
+              {/* Anti-card breadcrumb trigger button */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen((v) => !v)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.06] text-xs font-mono text-white"
+                className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded text-xs font-mono bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-white/90 active:scale-[0.97] transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a853]"
+                aria-expanded={mobileMenuOpen}
+                aria-label="Toggle directory tree navigation"
               >
-                <span className="text-[#d4a853] font-bold">{mobileMenuOpen ? "-" : "+"}</span>
-                <span className="truncate max-w-[150px]">{activeItem?.name}</span>
+                <span className="text-[#d4a853] font-semibold">{activeItem?.tag || "Level"}</span>
+                <span className="text-white/30">/</span>
+                <span className="truncate max-w-[140px] sm:max-w-[200px] text-white font-medium">
+                  {activeItem?.name}
+                </span>
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform duration-200 shrink-0 ${
+                    mobileMenuOpen ? "rotate-180 text-[#d4a853]" : "text-white/50"
+                  }`}
+                />
               </button>
             </div>
 
+            {/* ── CARD-FREE DIRECTORY ACCORDION DRAWER ── */}
             {mobileMenuOpen && (
-              <div className="mt-2 p-3 rounded-lg bg-[#0e1015] border border-white/[0.08] max-h-72 overflow-y-auto space-y-1 font-mono text-xs">
-                <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/[0.06] text-[11px] text-white/40">
-                  <span>{activePlatform?.name.toUpperCase()} // FOLDERS</span>
-                  <button type="button" onClick={() => setMobileMenuOpen(false)}>
-                    <X size={12} />
+              <div className="border-t border-white/[0.08] pt-1 pb-4 max-h-[68vh] overflow-y-auto space-y-3 font-mono text-xs select-none">
+                <div className="sticky top-0 bg-[#0c0d12]/98 backdrop-blur-md z-10 flex items-center justify-between py-2 text-[11px] text-white/40 tracking-wider border-b border-white/[0.06] mb-2 px-1">
+                  <span>{activePlatform?.name.toUpperCase()} // DIRECTORY</span>
+                  <button
+                    type="button"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-1 text-white/50 hover:text-white transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X size={13} />
                   </button>
                 </div>
-                {allPlatformItems.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => goToLevel(item.id)}
-                    className={`w-full text-left py-1 px-2 rounded ${item.id === activeLevelId
-                        ? "text-[#d4a853] font-semibold bg-white/[0.04]"
-                        : "text-white/60 hover:text-white"
-                      }`}
-                  >
-                    {item.name}
-                  </button>
-                ))}
+
+                {/* Hierarchical folder tree on mobile — 1:1 with desktop aesthetic, ZERO cards */}
+                <div className="space-y-2">
+                  {activePlatform?.folders.map((folder) => {
+                    const isOpen = openFolderIds[folder.id] ?? true;
+                    const hasItems = folder.items.length > 0;
+                    return (
+                      <div key={folder.id} className="space-y-1">
+                        <button
+                          type="button"
+                          onClick={() => toggleFolder(folder.id)}
+                          className="w-full flex items-center justify-between text-xs font-mono text-white/70 hover:text-white py-1.5 transition-colors text-left"
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className="w-3 text-center text-[#d4a853] font-bold">
+                              {hasItems ? (isOpen ? "-" : "+") : "+"}
+                            </span>
+                            <span className="font-medium text-white">{folder.name}</span>
+                          </span>
+                          {hasItems ? (
+                            <span className="text-[10px] text-white/30 font-mono">
+                              {folder.items.length} levels
+                            </span>
+                          ) : (
+                            <span className="text-[9px] px-1 py-0.5 rounded bg-white/[0.05] text-white/30 uppercase">
+                              {folder.status || "PLANNED"}
+                            </span>
+                          )}
+                        </button>
+
+                        {/* Indented folder levels */}
+                        {isOpen && hasItems && (
+                          <div className="pl-3 space-y-0.5 border-l border-white/[0.08] ml-1.5 mt-0.5">
+                            {folder.items.map((item) => {
+                              const isActive = activeLevelId === item.id;
+                              return (
+                                <button
+                                  key={item.id}
+                                  type="button"
+                                  onClick={() => goToLevel(item.id)}
+                                  className={`w-full text-left py-2 px-2.5 rounded font-mono text-xs transition-colors flex items-center justify-between min-h-[38px] active:scale-[0.98] ${
+                                    isActive
+                                      ? "text-[#d4a853] font-semibold bg-white/[0.06]"
+                                      : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                                  }`}
+                                >
+                                  <span className="truncate">{item.name}</span>
+                                  {isActive && (
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] shrink-0" />
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
 
           {/* Desktop Two-Column Layout */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
-            {/* ── YELLOW BOX (LEFT): Borderless Folder Tree ── */}
-            <aside className="hidden lg:flex lg:flex-col w-64 xl:w-72 shrink-0 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100dvh-8rem)]">
-              {/* Back to Writes button - Fixed at top */}
-              <div className="shrink-0 pb-5">
-                <button
-                  type="button"
-                  onClick={goToRoot}
-                  className="group inline-flex items-center gap-2 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors select-none"
-                >
-                  <ArrowLeft
-                    size={13}
-                    className="transition-transform duration-200 group-hover:-translate-x-1"
-                  />
-                  <span>Back</span>
-                </button>
-              </div>
-
-              {/* Folder Navigation Tree - Scrollable content */}
-              <div className="flex-1 overflow-y-auto pr-2 space-y-3 font-mono text-xs select-none">
-                {/* Platform Root Folder */}
-                <div className="space-y-1">
+            {/* ── DESKTOP SIDEBAR: FIXED IN PLACE ── */}
+            <div className="hidden lg:block w-64 xl:w-72 shrink-0">
+              <aside className="fixed top-24 w-64 xl:w-72 flex flex-col h-[calc(100vh-8rem)] select-none">
+                {/* Back to Writes button - Fixed at top */}
+                <div className="shrink-0 pb-5">
                   <button
                     type="button"
-                    onClick={() => setIsPlatformFolderOpen((v) => !v)}
-                    className="w-full flex items-center justify-between text-xs font-mono font-semibold text-white py-1 hover:text-[#d4a853] transition-colors text-left"
+                    onClick={goToRoot}
+                    className="group inline-flex items-center gap-2 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors select-none"
                   >
-                    <span className="flex items-center gap-2">
-                      <span className="w-3 text-center text-[#d4a853] font-bold">
-                        {isPlatformFolderOpen ? "-" : "+"}
-                      </span>
-                      <span>{activePlatform?.name}</span>
-                    </span>
+                    <ArrowLeft
+                      size={13}
+                      className="transition-transform duration-200 group-hover:-translate-x-1"
+                    />
+                    <span>Back</span>
                   </button>
-
-                  {/* Subfolders */}
-                  {isPlatformFolderOpen && (
-                    <div className="pl-3 space-y-1 pt-1">
-                      {activePlatform?.folders.map((folder) => {
-                        const isOpen = openFolderIds[folder.id] ?? true;
-                        const hasItems = folder.items.length > 0;
-                        return (
-                          <div key={folder.id} className="space-y-0.5">
-                            <button
-                              type="button"
-                              onClick={() => toggleFolder(folder.id)}
-                              className="w-full flex items-center justify-between text-[11px] font-mono text-white/60 hover:text-white py-0.5 transition-colors text-left"
-                            >
-                              <span className="flex items-center gap-2">
-                                <span className="w-3 text-center text-[#d4a853] font-bold">
-                                  {hasItems ? (isOpen ? "-" : "+") : "+"}
-                                </span>
-                                <span>{folder.name}</span>
-                              </span>
-                              {hasItems ? (
-                                <span className="text-[10px] text-white/30">
-                                  {folder.items.length}
-                                </span>
-                              ) : (
-                                <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30 uppercase">
-                                  {folder.status || "PLANNED"}
-                                </span>
-                              )}
-                            </button>
-
-                            {/* Level items in folder */}
-                            {isOpen && hasItems && (
-                              <div className="pl-3 space-y-0.5 border-l border-white/[0.06] mt-0.5">
-                                {folder.items.map((item) => {
-                                  const isActive = activeLevelId === item.id;
-                                  return (
-                                    <button
-                                      key={item.id}
-                                      type="button"
-                                      onClick={() => goToLevel(item.id)}
-                                      className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${isActive
-                                          ? "text-[#d4a853] font-semibold bg-white/[0.04]"
-                                          : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                                        }`}
-                                    >
-                                      <span className="truncate">{item.name}</span>
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
                 </div>
-              </div>
-            </aside>
 
-            {/* ── GREEN AREA (CENTER): Markdown Content Reader ── */}
+                {/* Folder Navigation Tree - Scrollable content */}
+                <div className="flex-1 overflow-y-auto pr-2 space-y-3 font-mono text-xs select-none">
+                  {/* Platform Root Folder */}
+                  <div className="space-y-1">
+                    <button
+                      type="button"
+                      onClick={() => setIsPlatformFolderOpen((v) => !v)}
+                      className="w-full flex items-center justify-between text-xs font-mono font-semibold text-white py-1 hover:text-[#d4a853] transition-colors text-left"
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="w-3 text-center text-[#d4a853] font-bold">
+                          {isPlatformFolderOpen ? "-" : "+"}
+                        </span>
+                        <span>{activePlatform?.name}</span>
+                      </span>
+                    </button>
+
+                    {/* Subfolders */}
+                    {isPlatformFolderOpen && (
+                      <div className="pl-3 space-y-1 pt-1">
+                        {activePlatform?.folders.map((folder) => {
+                          const isOpen = openFolderIds[folder.id] ?? true;
+                          const hasItems = folder.items.length > 0;
+                          return (
+                            <div key={folder.id} className="space-y-0.5">
+                              <button
+                                type="button"
+                                onClick={() => toggleFolder(folder.id)}
+                                className="w-full flex items-center justify-between text-[11px] font-mono text-white/60 hover:text-white py-0.5 transition-colors text-left"
+                              >
+                                <span className="flex items-center gap-2">
+                                  <span className="w-3 text-center text-[#d4a853] font-bold">
+                                    {hasItems ? (isOpen ? "-" : "+") : "+"}
+                                  </span>
+                                  <span>{folder.name}</span>
+                                </span>
+                                {hasItems ? (
+                                  <span className="text-[10px] text-white/30">
+                                    {folder.items.length}
+                                  </span>
+                                ) : (
+                                  <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30 uppercase">
+                                    {folder.status || "PLANNED"}
+                                  </span>
+                                )}
+                              </button>
+
+                              {/* Level items in folder */}
+                              {isOpen && hasItems && (
+                                <div className="pl-3 space-y-0.5 border-l border-white/[0.06] mt-0.5">
+                                  {folder.items.map((item) => {
+                                    const isActive = activeLevelId === item.id;
+                                    return (
+                                      <button
+                                        key={item.id}
+                                        type="button"
+                                        onClick={() => goToLevel(item.id)}
+                                        className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${
+                                          isActive
+                                            ? "text-[#d4a853] font-semibold bg-white/[0.04]"
+                                            : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                                        }`}
+                                      >
+                                        <span className="truncate">{item.name}</span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </aside>
+            </div>
+
+            {/* ── CARDLESS CONTENT READER: Pure Typography & Spacing ── */}
             <main
               id="article-top"
-              className="flex-1 min-w-0 max-w-3xl mx-auto w-full"
+              className="flex-1 min-w-0 max-w-3xl mx-auto w-full scroll-mt-28 sm:scroll-mt-32 lg:scroll-mt-8"
             >
               <article className="space-y-6">
                 {/* Title & Metadata */}
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 font-mono text-xs text-white/45">
+                  <div className="flex items-center gap-2 font-mono text-xs text-white/45 flex-wrap">
                     <span>{activePlatform?.name}</span>
                     <span className="text-white/20">·</span>
                     <span className="text-[#d4a853]">{activeItem?.tag}</span>
                   </div>
 
                   <h1
-                    className="text-3xl sm:text-4xl font-serif font-semibold text-[#e8e8f0] tracking-tight leading-tight"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold text-[#e8e8f0] tracking-tight leading-tight"
                     style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                   >
                     {activeItem?.title}
                   </h1>
                 </div>
 
-                {/* Target Information - Borderless, Clean, NO `>_` */}
+                {/* Target Information - Borderless, Clean, Responsive (No horizontal blowout) */}
                 {(activeItem?.challengeUrl ||
                   activeItem?.username ||
                   activeItem?.password) && (
-                    <div className="py-3 border-y border-white/[0.08] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-                      {activeItem.challengeUrl && (
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="text-white/40">URL:</span>
-                          <a
-                            href={activeItem.challengeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sky-400 hover:underline truncate"
-                          >
-                            {activeItem.challengeUrl}
-                          </a>
+                  <div className="py-3 sm:py-3.5 border-y border-white/[0.08] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 font-mono text-xs">
+                    {/* URL row */}
+                    {activeItem.challengeUrl && (
+                      <div className="flex items-center gap-2 min-w-0 flex-1">
+                        <span className="text-white/40 shrink-0">URL:</span>
+                        <a
+                          href={activeItem.challengeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:underline truncate inline-flex items-center gap-1"
+                        >
+                          <span className="truncate">{activeItem.challengeUrl}</span>
+                          <ExternalLink size={10} className="opacity-70 shrink-0" />
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Credentials row */}
+                    <div className="flex items-center gap-4 flex-wrap shrink-0">
+                      {activeItem.username && (
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-white/40">User:</span>
+                          <span className="text-white font-medium">
+                            {activeItem.username}
+                          </span>
+                          <CopyButton text={activeItem.username} />
                         </div>
                       )}
 
-                      <div className="flex items-center gap-4">
-                        {activeItem.username && (
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-white/40">User:</span>
-                            <span className="text-white font-medium">
-                              {activeItem.username}
-                            </span>
-                            <CopyButton text={activeItem.username} />
-                          </div>
-                        )}
-
-                        {activeItem.password && (
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-white/40">Pass:</span>
-                            <span className="text-emerald-400 font-medium">
-                              {activeItem.password}
-                            </span>
-                            <CopyButton text={activeItem.password} />
-                          </div>
-                        )}
-                      </div>
+                      {activeItem.password && (
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-white/40 shrink-0">Pass:</span>
+                          <span
+                            className="text-emerald-400 font-medium truncate max-w-[130px] sm:max-w-[200px] md:max-w-none"
+                            title={activeItem.password}
+                          >
+                            {activeItem.password}
+                          </span>
+                          <CopyButton text={activeItem.password} />
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
+                )}
 
                 {/* Markdown Body */}
-                <div className="pt-2">
+                <div className="pt-2 max-w-full overflow-hidden">
                   <ReactMarkdown components={markdownComponents}>
                     {cleanedContent}
                   </ReactMarkdown>
                 </div>
 
-                {/* Bottom Level Pagination */}
-                <div className="pt-8 mt-12 border-t border-white/[0.08]">
+                {/* Bottom Level Pagination - Anti-Card, Pure Typography */}
+                <div className="pt-6 sm:pt-8 mt-10 sm:mt-12 border-t border-white/[0.08]">
                   <div className="flex items-center justify-between gap-4">
                     {prevItem ? (
                       <button
                         type="button"
                         onClick={() => goToLevel(prevItem.id)}
-                        className="group flex flex-col text-left transition-colors"
+                        className="group flex flex-col text-left transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a853] rounded p-1 -m-1"
                       >
                         <span className="text-xs font-mono text-white/40 group-hover:text-[#d4a853] transition-colors flex items-center gap-1">
                           <ChevronLeft size={13} />
                           <span>Previous</span>
                         </span>
-                        <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors truncate max-w-[240px]">
+                        <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors truncate max-w-[130px] sm:max-w-[240px]">
                           {prevItem.name}
                         </span>
                       </button>
@@ -585,13 +689,13 @@ function WritesContent() {
                       <button
                         type="button"
                         onClick={() => goToLevel(nextItem.id)}
-                        className="group flex flex-col text-right transition-colors"
+                        className="group flex flex-col text-right transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4a853] rounded p-1 -m-1"
                       >
                         <span className="text-xs font-mono text-white/40 group-hover:text-[#d4a853] transition-colors flex items-center justify-end gap-1">
                           <span>Next</span>
                           <ChevronRight size={13} />
                         </span>
-                        <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors truncate max-w-[240px]">
+                        <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors truncate max-w-[130px] sm:max-w-[240px]">
                           {nextItem.name}
                         </span>
                       </button>
@@ -606,13 +710,13 @@ function WritesContent() {
         /* ══════════════════════════════════════════════════════════ */
         /* VIEW B: ROOT WRITES PAGE (ONLY PLATFORMS WITH REAL DATA)   */
         /* ══════════════════════════════════════════════════════════ */
-        <div className="mx-auto max-w-[680px] px-6 pt-24 pb-28">
+        <div className="mx-auto max-w-[680px] px-4 sm:px-6 pt-20 sm:pt-24 pb-24 sm:pb-28">
           <div className="space-y-10">
             {/* Page Header */}
             <div className="pt-2 pb-2">
               <Link
                 href="/"
-                className="group inline-flex items-center gap-2 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors duration-200 mb-8"
+                className="group inline-flex items-center gap-2 font-mono text-xs text-white/45 hover:text-[#d4a853] transition-colors duration-200 mb-8 active:scale-[0.98]"
               >
                 <ArrowLeft
                   size={13}
@@ -628,7 +732,7 @@ function WritesContent() {
                 >
                   Writes
                 </h1>
-                <p className="text-[15px] text-white/65 leading-relaxed">
+                <p className="text-[15px] sm:text-base text-white/65 leading-relaxed font-sans">
                   Essays, security research, and step-by-step exploitation
                   walkthroughs from the machines and wargames I've rooted.
                 </p>
@@ -637,13 +741,13 @@ function WritesContent() {
 
             <hr className="dotted-divider" />
 
-            {/* List of Platforms with Real Data (Only OverTheWire) */}
+            {/* List of Platforms with Real Data (Only OverTheWire) - Anti-card */}
             <div className="space-y-4 pt-2">
               {WRITES_PLATFORMS.map((platform) => (
                 <article
                   key={platform.id}
                   onClick={() => goToPlatform(platform.id)}
-                  className="group cursor-pointer space-y-1.5 py-3 border-b border-white/[0.06] last:border-b-0"
+                  className="group cursor-pointer space-y-1.5 py-3 border-b border-white/[0.06] last:border-b-0 active:scale-[0.99] transition-all"
                 >
                   {/* Top Row: Name on Left, Tag & Level Count on Right */}
                   <div className="flex items-baseline justify-between gap-4">

@@ -43,7 +43,7 @@
   /* Scrollbar */
   ::-webkit-scrollbar {
     width: 4px;
-    height: 0px;
+    height: 4px;
   }
 
   ::-webkit-scrollbar-track {
