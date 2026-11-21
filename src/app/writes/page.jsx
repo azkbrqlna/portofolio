@@ -282,7 +282,7 @@ function WritesContent() {
       h1: ({ children }) => (
         <h1
           className="text-2xl sm:text-3xl font-serif font-bold text-[#e8e8f0] tracking-tight mt-6 mb-4"
-          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          style={{ fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif" }}
         >
           {children}
         </h1>
@@ -290,7 +290,7 @@ function WritesContent() {
       h2: ({ children }) => (
         <h2
           className="text-xl sm:text-2xl font-serif font-semibold text-[#e8e8f0] tracking-tight mt-8 mb-3 pt-4 border-t border-white/[0.08]"
-          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          style={{ fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif" }}
         >
           {children}
         </h2>
@@ -602,7 +602,7 @@ function WritesContent() {
 
                   <h1
                     className="text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold text-[#e8e8f0] tracking-tight leading-tight"
-                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                    style={{ fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif" }}
                   >
                     {activeItem?.title}
                   </h1>
@@ -728,7 +728,7 @@ function WritesContent() {
               <div className="space-y-2">
                 <h1
                   className="text-3xl sm:text-4xl font-serif font-semibold text-[#e8e8f0] tracking-tight leading-tight"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                  style={{ fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif" }}
                 >
                   Writes
                 </h1>

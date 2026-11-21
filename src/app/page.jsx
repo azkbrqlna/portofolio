@@ -12,7 +12,7 @@ function SectionHeading({ title }) {
   return (
     <h2
       className="text-2xl font-serif font-semibold text-[#e8e8f0] mb-6"
-      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+      style={{ fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif" }}
     >
       {title}
     </h2>
@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
             <h1
               className="text-3xl sm:text-4xl font-serif font-semibold text-[#e8e8f0] tracking-tight leading-tight"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              style={{ fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif" }}
             >
               Azka Bariqlana
             </h1>
