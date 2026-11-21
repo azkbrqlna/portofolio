@@ -72,9 +72,7 @@ export default function Projects() {
                   <img
                     src={meta.image}
                     alt={proj.name}
-                    className={`w-full h-full object-cover transition-transform duration-300 ${
-                      hasRedirect ? "group-hover:scale-105" : ""
-                    }`}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
                 </div>
@@ -84,11 +82,7 @@ export default function Projects() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline justify-between gap-2 mb-1">
                   <div className="flex items-baseline gap-2 flex-wrap">
-                    <h3
-                      className={`text-[15px] font-semibold text-white/90 transition-colors ${
-                        hasRedirect ? "group-hover:text-[#d4a853]" : ""
-                      }`}
-                    >
+                    <h3 className="text-[15px] font-semibold text-white/90 transition-colors group-hover:text-[#d4a853]">
                       {proj.name}
                     </h3>
                     <span className="font-mono text-[10px] text-white/25 uppercase tracking-widest">
