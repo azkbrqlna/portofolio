@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, Suspense, useCallback } from "react";
+import React, { useState, useMemo, useEffect, Suspense, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -219,28 +219,32 @@ function WritesContent() {
   const nextItem =
     currentIndex < allPlatformItems.length - 1 ? allPlatformItems[currentIndex + 1] : null;
 
-  // Smooth scroll helper that takes fixed/sticky headers into account
+  // Smooth scroll helper to bring the viewport to the top of the material
   const scrollToArticle = useCallback(() => {
     if (typeof window === "undefined") return;
-    const el = document.getElementById("article-top");
-    if (!el) return;
-
-    if (window.innerWidth < 1024) {
-      // Offset for MinimalNav (~50px) + sticky mobile bar (~44px) + comfortable padding (~16px) = ~110px
-      const headerOffset = 110;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: Math.max(0, offsetPosition),
-        behavior: "smooth",
-      });
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, []);
+
+  // Automatically scroll to the top whenever active level/material changes
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    const timer = setTimeout(() => {
+      if (typeof window !== "undefined") {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [activeLevelId]);
 
   // Navigation handlers
   const goToRoot = () => {
