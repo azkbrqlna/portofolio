@@ -5,6 +5,59 @@ import { execSync } from "child_process";
 
 const OUTPUT_PATH = "src/app/data/walkthroughs.json";
 
+function normalizeWalkthroughContent(content) {
+  if (!content) return "";
+  const wtMatch = content.match(/###\s*Walkthrough\b([\s\S]*?)(?=(?:\r?\n)\s*---|\r?\n###\s*Credentials|$)/i);
+  if (!wtMatch) return content;
+
+  const originalSection = wtMatch[1];
+  let currentStep = 1;
+  let inCodeBlock = false;
+  const lines = originalSection.split("\n");
+  const normalizedLines = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.trim().startsWith("```")) {
+      inCodeBlock = !inCodeBlock;
+      normalizedLines.push(line);
+      continue;
+    }
+    if (inCodeBlock) {
+      normalizedLines.push(line);
+      continue;
+    }
+
+    const numMatch = line.match(/^(\d+)\.\s+/);
+    if (numMatch) {
+      const stepNum = parseInt(numMatch[1], 10);
+      currentStep = stepNum + 1;
+      normalizedLines.push(line);
+      continue;
+    }
+
+    if (/^[-*]\s+/.test(line)) {
+      const prevNonEmpty = normalizedLines.slice().reverse().find((l) => l.trim().length > 0);
+      const isSubBullet =
+        prevNonEmpty &&
+        (prevNonEmpty.trim().endsWith(":") || /^\s+[-*]\s+/.test(prevNonEmpty));
+
+      if (isSubBullet) {
+        normalizedLines.push("  " + line);
+      } else {
+        normalizedLines.push(line.replace(/^[-*]\s+/, `${currentStep}.  `));
+        currentStep++;
+      }
+      continue;
+    }
+
+    normalizedLines.push(line);
+  }
+
+  return content.replace(originalSection, normalizedLines.join("\n"));
+}
+
 function parseMarkdownWalkthrough(relPath, text) {
   const normalizedPath = relPath.replace(/\\/g, "/");
   const parts = normalizedPath.split("/");
@@ -39,10 +92,11 @@ function parseMarkdownWalkthrough(relPath, text) {
   }
 
   // Rewrite relative image paths
-  const normalizedMarkdown = text.replace(
+  let normalizedMarkdown = text.replace(
     /!\[(.*?)\]\(images\/([^\)]+)\)/g,
     `![$1](https://raw.githubusercontent.com/azkbrqlna/OverTheWire-Walkthrough/main/${category}/images/$2)`
   );
+  normalizedMarkdown = normalizeWalkthroughContent(normalizedMarkdown);
 
   const encodedPath = parts.map(encodeURIComponent).join("/");
 

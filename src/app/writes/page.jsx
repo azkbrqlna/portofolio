@@ -149,6 +149,59 @@ function ImageLightbox({ src, alt }) {
   );
 }
 
+function normalizeWalkthroughContent(content) {
+  if (!content) return "";
+  const wtMatch = content.match(/###\s*Walkthrough\b([\s\S]*?)(?=(?:\r?\n)\s*---|\r?\n###\s*Credentials|$)/i);
+  if (!wtMatch) return content;
+
+  const originalSection = wtMatch[1];
+  let currentStep = 1;
+  let inCodeBlock = false;
+  const lines = originalSection.split("\n");
+  const normalizedLines = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.trim().startsWith("```")) {
+      inCodeBlock = !inCodeBlock;
+      normalizedLines.push(line);
+      continue;
+    }
+    if (inCodeBlock) {
+      normalizedLines.push(line);
+      continue;
+    }
+
+    const numMatch = line.match(/^(\d+)\.\s+/);
+    if (numMatch) {
+      const stepNum = parseInt(numMatch[1], 10);
+      currentStep = stepNum + 1;
+      normalizedLines.push(line);
+      continue;
+    }
+
+    if (/^[-*]\s+/.test(line)) {
+      const prevNonEmpty = normalizedLines.slice().reverse().find((l) => l.trim().length > 0);
+      const isSubBullet =
+        prevNonEmpty &&
+        (prevNonEmpty.trim().endsWith(":") || /^\s+[-*]\s+/.test(prevNonEmpty));
+
+      if (isSubBullet) {
+        normalizedLines.push("  " + line);
+      } else {
+        normalizedLines.push(line.replace(/^[-*]\s+/, `${currentStep}.  `));
+        currentStep++;
+      }
+      continue;
+    }
+
+    normalizedLines.push(line);
+  }
+
+  return content.replace(originalSection, normalizedLines.join("\n"));
+}
+
 function WritesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -211,6 +264,8 @@ function WritesContent() {
       /(###\s*Challenge\s*(?:\r?\n)+)(?:\s*(?:\*\*)?URL:\s*https?:\/\/[^\s*\r\n]+(?:\*\*)?(?:\r?\n)*)?(?:\s*\*\*Username:\*\*\s*`?[^`\r\n*]+`?(?:\r?\n)*)?(?:\s*\*\*Password:\*\*\s*`?[^`\r\n*]+`?(?:\r?\n)*)?/i,
       "$1"
     );
+    // 3. Normalize Walkthrough steps to numbered lists
+    c = normalizeWalkthroughContent(c);
     return c.trim();
   }, [activeItem?.content]);
 
@@ -327,12 +382,15 @@ function WritesContent() {
           {children}
         </ul>
       ),
-      ol: ({ children }) => (
-        <ol className="my-4 space-y-4 list-none pl-0 [counter-reset:step] [&>li]:relative [&>li]:pl-7 [&>li]:text-[15px] sm:[&>li]:text-base [&>li]:text-white/75 [&>li]:leading-relaxed [&>li]:[counter-increment:step] [&>li]:before:content-[counter(step)'.'] [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-0 [&>li]:before:font-mono [&>li]:before:font-bold [&>li]:before:text-[#d4a853] [&>li>p:first-child]:mt-0">
+      ol: ({ children, start }) => (
+        <ol
+          start={start}
+          className="my-4 space-y-4 list-decimal list-outside pl-8 sm:pl-9 text-[15px] sm:text-base text-white/75 leading-relaxed marker:text-[#d4a853] marker:font-mono marker:font-bold [&>li>p:first-child]:mt-0"
+        >
           {children}
         </ol>
       ),
-      li: ({ children }) => <li className="pl-1 leading-relaxed">{children}</li>,
+      li: ({ children }) => <li className="pl-1.5 leading-relaxed">{children}</li>,
       strong: ({ children }) => (
         <strong className="font-semibold text-white">{children}</strong>
       ),
@@ -662,7 +720,7 @@ function WritesContent() {
                 )}
 
                 {/* Markdown Body */}
-                <div className="pt-2 max-w-full overflow-hidden">
+                <div className="pt-2 max-w-full">
                   <ReactMarkdown components={markdownComponents}>
                     {cleanedContent}
                   </ReactMarkdown>
