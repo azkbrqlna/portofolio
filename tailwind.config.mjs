@@ -48,18 +48,6 @@ const config = {
         "4xl": "2.441rem",
         "5xl": "3.052rem",
       },
-      colors: {
-        cyber: {
-          base: "#121212",
-          surface: "#1A1A1A",
-          elevated: "#2A2A2A",
-          highest: "#333333",
-          text: "#E0E0E0",
-          accent: "#00E5FF", // Electric Blue
-          accentAlt: "#0A84FF",
-          muted: "#888888",
-        },
-      },
     },
   },
   plugins: [],
