@@ -224,18 +224,26 @@ function WritesContent() {
   const [activeLevelId, setActiveLevelId] = useState(levelParam || "");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isPlatformFolderOpen, setIsPlatformFolderOpen] = useState(true);
-  const [openFolderIds, setOpenFolderIds] = useState({
-    natas: true,
-    "sql-injection": true,
-    "cross-site-scripting": true,
-    ssrf: true,
+
+  // Default: saat awal masuk ke walkthrough, folder 'bandit' terbuka (atau sesuai level aktif dari URL)
+  const [openFolderId, setOpenFolderId] = useState(() => {
+    if (levelParam?.startsWith("natas")) return "natas";
+    if (levelParam?.startsWith("bandit")) return "bandit";
+    return "bandit";
   });
 
+  // Sinkronisasi folder yang terbuka jika pengguna berpindah materi (misal via tombol Next/Prev)
+  useEffect(() => {
+    if (activeLevelId?.startsWith("natas")) {
+      setOpenFolderId("natas");
+    } else if (activeLevelId?.startsWith("bandit")) {
+      setOpenFolderId("bandit");
+    }
+  }, [activeLevelId]);
+
+  // Single-accordion toggle: ketika natas dibuka, bandit tertutup. Ketika bandit dibuka, natas tertutup.
   const toggleFolder = (folderId) => {
-    setOpenFolderIds((prev) => ({
-      ...prev,
-      [folderId]: !prev[folderId],
-    }));
+    setOpenFolderId((prev) => (prev === folderId ? null : folderId));
   };
 
   useEffect(() => {
@@ -487,23 +495,29 @@ function WritesContent() {
                   </button>
                 </div>
 
-                {/* Hierarchical folder tree on mobile — 1:1 with desktop aesthetic, ZERO cards */}
+                {/* Hierarchical folder tree on mobile — shadcn-style animated accordion */}
                 <div className="space-y-2">
                   {activePlatform?.folders.map((folder) => {
-                    const isOpen = openFolderIds[folder.id] ?? true;
+                    const isOpen = openFolderId === folder.id;
                     const hasItems = folder.items.length > 0;
                     return (
                       <div key={folder.id} className="space-y-1">
                         <button
                           type="button"
                           onClick={() => toggleFolder(folder.id)}
-                          className="w-full flex items-center justify-between text-xs font-mono text-white/70 hover:text-white py-1.5 transition-colors text-left"
+                          className="group w-full flex items-center justify-between text-xs font-mono py-1.5 px-2 rounded hover:bg-white/[0.04] transition-colors text-left"
+                          aria-expanded={isOpen}
                         >
                           <span className="flex items-center gap-2">
-                            <span className="w-3 text-center text-[#d4a853] font-bold">
-                              {hasItems ? (isOpen ? "-" : "+") : "+"}
+                            <ChevronDown
+                              size={13}
+                              className={`transition-transform duration-250 ease-out shrink-0 ${
+                                isOpen ? "rotate-0 text-[#d4a853]" : "-rotate-90 text-white/40 group-hover:text-white"
+                              }`}
+                            />
+                            <span className={`font-medium transition-colors ${isOpen ? "text-white font-semibold" : "text-white/70 group-hover:text-white"}`}>
+                              {folder.name}
                             </span>
-                            <span className="font-medium text-white">{folder.name}</span>
                           </span>
                           {hasItems ? (
                             <span className="text-[10px] text-white/30 font-mono">
@@ -516,31 +530,39 @@ function WritesContent() {
                           )}
                         </button>
 
-                        {/* Indented folder levels */}
-                        {isOpen && hasItems && (
-                          <div className="pl-3 space-y-0.5 border-l border-white/[0.08] ml-1.5 mt-0.5">
-                            {folder.items.map((item) => {
-                              const isActive = activeLevelId === item.id;
-                              return (
-                                <button
-                                  key={item.id}
-                                  type="button"
-                                  onClick={() => goToLevel(item.id)}
-                                  className={`w-full text-left py-2 px-2.5 rounded font-mono text-xs transition-colors flex items-center justify-between min-h-[38px] active:scale-[0.98] ${
-                                    isActive
-                                      ? "text-[#d4a853] font-semibold bg-white/[0.06]"
-                                      : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                                  }`}
-                                >
-                                  <span className="truncate">{item.name}</span>
-                                  {isActive && (
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] shrink-0" />
-                                  )}
-                                </button>
-                              );
-                            })}
+                        {/* Indented folder levels with shadcn-like animated collapsible */}
+                        <div
+                          className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                            isOpen && hasItems
+                              ? "grid-rows-[1fr] opacity-100"
+                              : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                          }`}
+                        >
+                          <div className="overflow-hidden">
+                            <div className="pl-3.5 space-y-0.5 border-l border-white/[0.08] ml-2 mt-0.5 mb-1">
+                              {folder.items.map((item) => {
+                                const isActive = activeLevelId === item.id;
+                                return (
+                                  <button
+                                    key={item.id}
+                                    type="button"
+                                    onClick={() => goToLevel(item.id)}
+                                    className={`w-full text-left py-2 px-2.5 rounded font-mono text-xs transition-colors flex items-center justify-between min-h-[38px] active:scale-[0.98] ${
+                                      isActive
+                                        ? "text-[#d4a853] font-semibold bg-white/[0.06]"
+                                        : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                                    }`}
+                                  >
+                                    <span className="truncate">{item.name}</span>
+                                    {isActive && (
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] shrink-0" />
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
                           </div>
-                        )}
+                        </div>
                       </div>
                     );
                   })}
@@ -576,73 +598,107 @@ function WritesContent() {
                     <button
                       type="button"
                       onClick={() => setIsPlatformFolderOpen((v) => !v)}
-                      className="w-full flex items-center justify-between text-xs font-mono font-semibold text-white py-1 hover:text-[#d4a853] transition-colors text-left"
+                      className="group w-full flex items-center justify-between text-xs font-mono font-semibold text-white py-1 hover:text-[#d4a853] transition-colors text-left"
+                      aria-expanded={isPlatformFolderOpen}
                     >
-                      <span className="flex items-center gap-2">
-                        <span className="w-3 text-center text-[#d4a853] font-bold">
-                          {isPlatformFolderOpen ? "-" : "+"}
-                        </span>
+                      <span className="flex items-center gap-1.5">
+                        <ChevronDown
+                          size={13}
+                          className={`text-[#d4a853] transition-transform duration-250 ease-out shrink-0 ${
+                            isPlatformFolderOpen ? "rotate-0" : "-rotate-90 text-white/50"
+                          }`}
+                        />
                         <span>{activePlatform?.name}</span>
                       </span>
                     </button>
 
-                    {/* Subfolders */}
-                    {isPlatformFolderOpen && (
-                      <div className="pl-3 space-y-1 pt-1">
-                        {activePlatform?.folders.map((folder) => {
-                          const isOpen = openFolderIds[folder.id] ?? true;
-                          const hasItems = folder.items.length > 0;
-                          return (
-                            <div key={folder.id} className="space-y-0.5">
-                              <button
-                                type="button"
-                                onClick={() => toggleFolder(folder.id)}
-                                className="w-full flex items-center justify-between text-[11px] font-mono text-white/60 hover:text-white py-0.5 transition-colors text-left"
-                              >
-                                <span className="flex items-center gap-2">
-                                  <span className="w-3 text-center text-[#d4a853] font-bold">
-                                    {hasItems ? (isOpen ? "-" : "+") : "+"}
+                    {/* Subfolders with smooth collapsible animation */}
+                    <div
+                      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isPlatformFolderOpen
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="pl-2 space-y-1 pt-1">
+                          {activePlatform?.folders.map((folder) => {
+                            const isOpen = openFolderId === folder.id;
+                            const hasItems = folder.items.length > 0;
+                            return (
+                              <div key={folder.id} className="space-y-0.5">
+                                <button
+                                  type="button"
+                                  onClick={() => toggleFolder(folder.id)}
+                                  className="group w-full flex items-center justify-between text-[11px] font-mono py-1 px-1.5 rounded hover:bg-white/[0.04] transition-colors text-left"
+                                  aria-expanded={isOpen}
+                                >
+                                  <span className="flex items-center gap-1.5">
+                                    <ChevronDown
+                                      size={12}
+                                      className={`transition-transform duration-250 ease-out shrink-0 ${
+                                        isOpen
+                                          ? "rotate-0 text-[#d4a853]"
+                                          : "-rotate-90 text-white/40 group-hover:text-white"
+                                      }`}
+                                    />
+                                    <span
+                                      className={`transition-colors font-medium ${
+                                        isOpen
+                                          ? "text-white font-semibold"
+                                          : "text-white/65 group-hover:text-white"
+                                      }`}
+                                    >
+                                      {folder.name}
+                                    </span>
                                   </span>
-                                  <span>{folder.name}</span>
-                                </span>
-                                {hasItems ? (
-                                  <span className="text-[10px] text-white/30">
-                                    {folder.items.length}
-                                  </span>
-                                ) : (
-                                  <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30 uppercase">
-                                    {folder.status || "PLANNED"}
-                                  </span>
-                                )}
-                              </button>
+                                  {hasItems ? (
+                                    <span className="text-[10px] text-white/30 font-mono">
+                                      {folder.items.length}
+                                    </span>
+                                  ) : (
+                                    <span className="text-[9px] px-1 py-0.2 rounded bg-white/[0.05] text-white/30 uppercase">
+                                      {folder.status || "PLANNED"}
+                                    </span>
+                                  )}
+                                </button>
 
-                              {/* Level items in folder */}
-                              {isOpen && hasItems && (
-                                <div className="pl-3 space-y-0.5 border-l border-white/[0.06] mt-0.5">
-                                  {folder.items.map((item) => {
-                                    const isActive = activeLevelId === item.id;
-                                    return (
-                                      <button
-                                        key={item.id}
-                                        type="button"
-                                        onClick={() => goToLevel(item.id)}
-                                        className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${
-                                          isActive
-                                            ? "text-[#d4a853] font-semibold bg-white/[0.04]"
-                                            : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                                        }`}
-                                      >
-                                        <span className="truncate">{item.name}</span>
-                                      </button>
-                                    );
-                                  })}
+                                {/* Level items in folder with shadcn-like animated collapsible */}
+                                <div
+                                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                                    isOpen && hasItems
+                                      ? "grid-rows-[1fr] opacity-100"
+                                      : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                                  }`}
+                                >
+                                  <div className="overflow-hidden">
+                                    <div className="pl-3.5 space-y-0.5 border-l border-white/[0.08] ml-2 mt-0.5 mb-1">
+                                      {folder.items.map((item) => {
+                                        const isActive = activeLevelId === item.id;
+                                        return (
+                                          <button
+                                            key={item.id}
+                                            type="button"
+                                            onClick={() => goToLevel(item.id)}
+                                            className={`w-full text-left py-1 px-2 rounded font-mono text-xs transition-colors flex items-center justify-between ${
+                                              isActive
+                                                ? "text-[#d4a853] font-semibold bg-white/[0.04]"
+                                                : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                                            }`}
+                                          >
+                                            <span className="truncate">{item.name}</span>
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
                                 </div>
-                              )}
-                            </div>
-                          );
-                        })}
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
               </aside>
