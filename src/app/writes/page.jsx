@@ -285,6 +285,10 @@ function WritesContent() {
   // Smooth scroll helper to bring the viewport to the top of the material
   const scrollToArticle = useCallback(() => {
     if (typeof window === "undefined") return;
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0);
+      return;
+    }
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -300,10 +304,14 @@ function WritesContent() {
     }
     const timer = setTimeout(() => {
       if (typeof window !== "undefined") {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+        if (window.__lenis) {
+          window.__lenis.scrollTo(0);
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
       }
     }, 50);
     return () => clearTimeout(timer);
@@ -482,7 +490,10 @@ function WritesContent() {
 
             {/* ── CARD-FREE DIRECTORY ACCORDION DRAWER ── */}
             {mobileMenuOpen && (
-              <div className="border-t border-white/[0.08] pt-1 pb-4 max-h-[68vh] overflow-y-auto space-y-3 font-mono text-xs select-none">
+              <div
+                data-lenis-prevent
+                className="border-t border-white/[0.08] pt-1 pb-4 max-h-[68vh] overflow-y-auto space-y-3 font-mono text-xs select-none"
+              >
                 <div className="sticky top-0 bg-[#0c0d12]/98 backdrop-blur-md z-10 flex items-center justify-between py-2 text-[11px] text-white/40 tracking-wider border-b border-white/[0.06] mb-2 px-1">
                   <span>{activePlatform?.name.toUpperCase()} // DIRECTORY</span>
                   <button
@@ -592,7 +603,10 @@ function WritesContent() {
                 </div>
 
                 {/* Folder Navigation Tree - Scrollable content */}
-                <div className="flex-1 overflow-y-auto pr-2 space-y-3 font-mono text-xs select-none">
+                <div
+                  data-lenis-prevent
+                  className="flex-1 overflow-y-auto pr-2 space-y-3 font-mono text-xs select-none"
+                >
                   {/* Platform Root Folder */}
                   <div className="space-y-1">
                     <button

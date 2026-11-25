@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body
         className={`${inter} ${jetbrainsMono} ${playfairDisplay} bg-[#0c0d12] text-[#e8e8f0] min-h-screen antialiased selection:bg-[#d4a853] selection:text-[#0c0d12]`}
       >
